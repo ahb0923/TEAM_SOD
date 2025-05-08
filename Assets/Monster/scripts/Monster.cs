@@ -48,7 +48,7 @@ abstract class Monster: MonoBehaviour
     
     public void Move(GameObject player)
     {
-        Vector2 direction = (transform.position - player.transform.position);
+        Vector2 direction = (transform.position - player.transform.position).normalized;
         rigidbody.velocity = direction * moveSpeed * Time.deltaTime;
 
     }
