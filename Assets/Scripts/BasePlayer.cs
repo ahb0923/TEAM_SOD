@@ -6,6 +6,7 @@ using UnityEngine.Playables;
 using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine.UIElements;
+using System.Linq;
 
 public class BasePlayer : MonoBehaviour
 {
@@ -55,6 +56,7 @@ public class BasePlayer : MonoBehaviour
         player_Stat = GetComponent<StatController>();
         //weapon = GetComponent<Weapon>(); 로 불러와야 함 스프라이트만 받아와도 되는데 어떤 구조인지 몰라서 일단 주석처리
         myPosition = GetComponent<Transform>();
+        targetPosition = new List<Transform>();
         enemyArray = GameObject.FindGameObjectsWithTag("Enemy"); // 씬 내부에서 태그가 Enemy인 게임오브젝트 어레이로 저장
         for (int i = 0; i < enemyArray.Length; i++)
         {
@@ -81,28 +83,60 @@ public class BasePlayer : MonoBehaviour
 
     protected void FixedUpdate()
     {
-        Move();
+        if(current_STATE != PLAYER_STATE.WAIT)
+            Move();
+        // 유저가 보상 받는 동안 혹은 방 넘어가는 로딩 중에는 멈춰야 하니까.
     }
 
     protected void Update()
     {
-        DeterminePlayerSTATE();
-        FindClosestEmemy();
-        Rotate(lookDirection);
+        if (current_STATE != PLAYER_STATE.WAIT)
+        // 위랑 마찬가지로 대기상태 중에는 아래의 행위들을 할 필요가 없지 않나요?
+        {
+            DeterminePlayerSTATE();
+            ClearDeadEnemyOnArray();
+            FindClosestEmemy();
+            Rotate(lookDirection);
+        }
     }
     // FixedUpdate랑 Update 어느 쪽에 뭘 넣으면 좋을지 순서에 대한 문제가 있는 것 같아요.
+
+    protected void SET_PLAYER_STATE(PLAYER_STATE state)
+    {
+        current_STATE = state;
+        //외부에서 강제로 유저의 상태를 결정해야 할 때 사용. 예를 들어 웨이브 클리어 시 WAIT으로 강제전환 한다거나 다시 IDLE로 가는 등
+        //WAIT 상태로의 전환은 이 메서드를 통해 무조건 강제로 이뤄지게 하고, 그 외에는 아래의 메서드로 상황에 맞게 갱신
+    }
     protected void DeterminePlayerSTATE()
     {
         if (player_Stat.Hp <= 0) current_STATE = PLAYER_STATE.DIE; // 사망판정 후
-        // else if (캐릭터가 로비에 있으면) current_STATE = PLAYER_STATE.WAIT; // 사망판정 전후 어디에 있어야 할 지 모르겠는데...
         else if (movementDirection == Vector2.zero) current_STATE = PLAYER_STATE.MOVE; // 이동판정 후
         else if (movementDirection != Vector2.zero) current_STATE = PLAYER_STATE.IDLE; // 다 아니면 IDLE
     }
 
+    protected void ClearDeadEnemyOnArray()
+    {
+        if (targetPosition == null || targetPosition.Count == 0)
+        {
+            // 추적할 적이 없다면 종료 : 적을 다 잡았거나 애초에 적이 없는 방일 경우(로비) NullRef 방지
+            return;
+        }
+        targetPosition = targetPosition.Where(enemy => enemy != null).ToList();
+        // 죽은 적을 리스트에서 제거해야 함. 그래야 추적에서 적 죽은 곳에 계속 때리지 않음
+    }
+    
     protected void FindClosestEmemy()
     {
+        if (targetPosition == null || targetPosition.Count == 0)
+        {
+            lookDirection = Vector2.right;
+            distance_between_two = float.MaxValue;
+            return;
+        }
+        // 추적할 적이 없다면 종료 : 적을 다 잡았거나 애초에 적이 없는 방일 경우(로비) NullRef 방지. 기본 방향은 오른쪽 보게 하기.
         Transform nearest = null;
         distance_between_two = float.MaxValue;
+
         foreach (Transform enemyTransform in targetPosition)
         {
             float distance = Vector2.Distance(myPosition.position, enemyTransform.position);
@@ -112,7 +146,15 @@ public class BasePlayer : MonoBehaviour
                 nearest = enemyTransform;
             }
         }
-        lookDirection = nearest.position; // 이거 알아서 2D로 바뀌나요?
+
+        if (nearest != null)
+        {
+            lookDirection = nearest.position;
+        }
+        else
+        {
+            lookDirection = Vector2.right; //기본 방향은 오른쪽 보게 하기.
+        }
     }
     // targetPosition[] foreach문을 돌려서 유저와의 거리를 계산해서 가장 짧은 위치로의 벡터값을
     // lookDirection에 저장
@@ -124,7 +166,7 @@ public class BasePlayer : MonoBehaviour
         bool isLeft = Mathf.Abs(rotZ) > 90f;
 
         playerSprite.flipX = isLeft;
-
+        
         /* 무기 스프라이트 회전은 여기서. 무기쪽 데이터를 어떻게 받아오는지 보고 결정
         if (currentWeapon != null)
         {
