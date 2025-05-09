@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SceneManager : Singleton<SceneManager>
+public class Player_Lobby : MonoBehaviour
 {
-    private string nextSceneName;
-
-
+    // Start is called before the first frame update
     void Start()
     {
         
