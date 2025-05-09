@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class BaseWeapon : MonoBehaviour
 {
-    private WeaponData data;  // 데이터 가져오기 : 인스펙터 창에서 연결
+    public WeaponData data;  // 데이터 가져오기 : 인스펙터 창에서 연결
 
     public string weaponId => data.id;
     public float Atk => data.attackPower;
@@ -12,8 +12,11 @@ public abstract class BaseWeapon : MonoBehaviour
     public float Delay => data.attackDelay;
     public float AttackRange => data.attackRange;
 
+    public float WeaponSize => data.weaponSize; //근접무기 사이즈
+    
 
-    private Animator animator;
+
+    public Animator animator;
     private SpriteRenderer weaponRenderer; 
     public AudioClip attackSoundClip; //발사 오디오 클립
     public LayerMask target; //타겟 레이어 지정

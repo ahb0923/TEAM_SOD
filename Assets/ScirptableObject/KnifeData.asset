@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee1cb5c46ca8d154ba4dcbf0793c1b9a, type: 3}
-  m_Name: BowData
+  m_Name: KnifeData
   m_EditorClassIdentifier: 
-  id: BasicBow
-  attackPower: 0
-  attackSpeed: 10
+  id: Kinfe
+  attackPower: 10
+  attackSpeed: 4
   attackDelay: 1
-  attackRange: 10
+  attackRange: 3
   weaponSize: 1
-  projectileData: {fileID: 11400000, guid: 177831c905140684298a171c2ae2b9a7, type: 2}
-  multiShotCount: 2
-  multiShotAngle: 2
+  projectileData: {fileID: 0}
+  multiShotCount: 0
+  multiShotAngle: 0

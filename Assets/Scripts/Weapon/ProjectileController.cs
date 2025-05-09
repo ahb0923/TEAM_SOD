@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//발사체 충돌과 파괴 처리
 public class ProjectileController : MonoBehaviour
 {
     private ProjectileData data;
@@ -39,7 +39,7 @@ public class ProjectileController : MonoBehaviour
         if (data == null) return;
 
         elapsedTime += Time.deltaTime;
-        // 수명 경과 시 파괴
+        // 수명 경과 시 파괴, 수명은 화살 데이터에서
         if (elapsedTime >= data.lifetime)
         {
             DestroyProjectile(transform.position);
@@ -71,6 +71,7 @@ public class ProjectileController : MonoBehaviour
         //}
     }
 
+    //임시 코드, 맞았을 경우 이펙트 효과
     private void DestroyProjectile(Vector3 hitPosition)
     {
         // 충돌 이펙트 생성

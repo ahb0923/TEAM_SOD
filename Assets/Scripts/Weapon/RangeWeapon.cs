@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicBow : BaseWeapon
+public class RangeWeapon : BaseWeapon
 {
     [SerializeField] private WeaponData r_data;  // Range 전용 SO
     [SerializeField] private Transform projectileSpawnPoint;
@@ -29,7 +29,7 @@ public class BasicBow : BaseWeapon
         lastAttackTime = -Mathf.Infinity; //첫 공격이 즉시 가능하도록
     }
 
-    public override void AttackTest() //이후에 위치 값을 받아서 해당 방향으로 발사하도록
+    public override void AttackTest() //테스트용: 파라미터 없음
     {
         float cooldown = 1f / r_data.attackSpeed;
         if (Time.time < lastAttackTime + cooldown)
@@ -62,12 +62,17 @@ public class BasicBow : BaseWeapon
         }
     }
 
-    public override void Attack(Vector3 targetPosition) //이후에 위치 값을 받아서 해당 방향으로 발사하도록
+    public override void Attack(Vector3 targetPosition) //위치를 파라미터로 받아와서 공격
     {
         float cooldown = 1f / r_data.attackSpeed;
         if (Time.time < lastAttackTime + cooldown)
             return;
         lastAttackTime = Time.time;
+
+        // 활 회전: 타겟을 정확히 바라보도록 transform 회전
+        Vector2 toTarget = (Vector2)targetPosition - (Vector2)transform.position;
+        float bowAngle = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, bowAngle);
         base.Attack(targetPosition);
 
         int count = r_data.multiShotCount;
@@ -76,7 +81,7 @@ public class BasicBow : BaseWeapon
 
         
         Vector2 spawnPos = projectileSpawnPoint.position;
-        Vector2 toTarget = (Vector2)targetPosition - spawnPos;
+        
         float baseZ = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg;
 
         for (int i = 0; i < count; i++)

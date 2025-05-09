@@ -17,6 +17,7 @@ MonoBehaviour:
   attackSpeed: 0
   attackDelay: 0
   attackRange: 0
+  weaponSize: 0
   projectileData: {fileID: 0}
   multiShotCount: 1
   multiShotAngle: 1
