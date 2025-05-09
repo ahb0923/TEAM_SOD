@@ -16,6 +16,7 @@ public class Maptile : MonoBehaviour
     private bool hasSpawned = false;
 
     private BoxCollider2D spawnArea;
+    
 
 
 
@@ -51,7 +52,7 @@ public class Maptile : MonoBehaviour
 
             // 2) DungeonManager에 등록
             DungeonManager.Instance.RegisterMonster();
-
+            
             // 3) 몬스터 죽음 이벤트 연결
             var monster = go.GetComponent<Monster>();
             if (monster != null)

@@ -6,7 +6,13 @@ public class DungeonManager : Singleton<DungeonManager>
 {
     [Header("던전 클리어 시 띄울 UI 패널")]
     [SerializeField] private GameObject clearUIPanel;
+
+
+    [Header("플레이어 컨트롤러 (Inspector에 할당)")]
+    [SerializeField] private MonoBehaviour playerController;
     private int remainingMonsters = 0;
+
+   
 
     private void Awake()
     {
@@ -36,10 +42,20 @@ public class DungeonManager : Singleton<DungeonManager>
 
     private void ShowClearUI()
     {
-        if (clearUIPanel != null)
+        
             clearUIPanel.SetActive(true);
-        else
-            Debug.LogWarning("DungeonManager: clearUIPanel이 할당되지 않았습니다!");
+        playerController.enabled = false;
+
+    }
+
+    public void Continue()
+    {
+        // 1) UI 숨기기
+        clearUIPanel.SetActive(false);
+        // 2) 플레이어 컨트롤 복원
+        playerController.enabled = true;
+        // 3) 다음 씬(또는 로비)으로 이동
+        SceneHandleManager.Instance.LoadScene("LobbyScene");
     }
 
 }
