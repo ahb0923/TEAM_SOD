@@ -23,7 +23,7 @@ public class SceneHandleManager : Singleton<SceneHandleManager>
     {
         
     }
-
+     
     public void LoadScene(string sceneName)
     {
         // 다음 씬의 이름 값을 스트링으로 저장하고
