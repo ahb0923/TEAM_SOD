@@ -16,19 +16,20 @@ public class Monster_Range : MonoBehaviour
     private bool _is_invinsible;
     private float _in_invinsible_duration = 0;
 
-    public GameObject target;
+    private GameObject target;
 
-    public GameObject projectile;
-    private bool isMove;
+    public GameObject projectile;// 투사체
     [SerializeField] private GameObject projectileSpawnPoint;
 
     StatController meleeStat;
-    [SerializeField] private float _checkRange;
-    [SerializeField] private float _attackRange;
+    [SerializeField] private float _checkRange;  // 타겟 탐색 범위
+    [SerializeField] private float _attackRange; // 공격 사거리
     [SerializeField] private float _attackDelay; // 공격 주기
-    private float delay; // 공격 딜레이
-    private float lastAttack;
-
+    private float delay; // 공격 딜레이 계산용 변수
+    private float knockPower; // 넉백 수치
+    private Vector2 knockBack;
+    private float knockBackDuration; // 넉백 지속시간
+    private bool isDamage; // 피격
     Rigidbody2D rigid;
     Animator anim;
 
@@ -91,7 +92,7 @@ public class Monster_Range : MonoBehaviour
             Move();
         }
         else return;
-    }*/
+    } move로 통일*/  
 
     public void Attack()
     {
@@ -99,6 +100,7 @@ public class Monster_Range : MonoBehaviour
         if (distance <= _attackRange && delay >= _attackDelay)
         {
             //공격
+            CreateProjectile();
             Debug.Log("원거리 공격");
             delay = 0;
         }
@@ -113,11 +115,20 @@ public class Monster_Range : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("PlayerProjectile")) //태그 예시
         {
+            KnockBack(collision.gameObject); // 
+            StartCoroutine("DamageCheck");
             Damaged();
+            // 체력 0이하 일시 Death() 함수 호출
         }
 
     }
 
+    IEnumerator DamageCheck()
+    {
+        isDamage = true;
+        yield return new WaitForSeconds(0.5f);
+        isDamage = false;
+    }
     private void CreateProjectile() 
     {
         //탄쪽 머지 후 수정
@@ -132,6 +143,12 @@ public class Monster_Range : MonoBehaviour
 
     public void Death()
     {
+        Destroy(gameObject);
+    }
 
+    public void KnockBack(GameObject collision)
+    {
+        transform.position = new Vector2(transform.position.x - knockBack.x, transform.position.y - knockBack.y);
+        knockBack = (collision.transform.position - transform.position).normalized * knockPower;
     }
 }

@@ -30,6 +30,9 @@ public class Monster_Melee : MonoBehaviour
     [SerializeField] private float _attackDelay; // 공격 주기
     private float delay; // 공격 딜레이
     private float lastAttack;
+    private float knockPower; // 넉백 수치
+    private Vector2 knockBack;
+    private bool isDamage; // 피격
 
     Rigidbody2D rigid;
     Animator anim;
@@ -103,11 +106,20 @@ public class Monster_Melee : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("PlayerProjectile")) //태그 예시
+        if (collision.gameObject.CompareTag("PlayerProjectile") || !isDamage ) //태그 예시
         {
-            Damaged();// 플레이어에게 부딛혔을때 데미지 피격
+            KnockBack(collision.gameObject);
+            DamageCheck(); // 데미지 체크 및 데미지 계산
         }
 
+    }
+
+    IEnumerator DamageCheck()
+    {
+        isDamage = true;
+        Damaged();
+        yield return new WaitForSeconds(0.5f);
+        isDamage = false;
     }
     public void Damaged()
     {
@@ -119,4 +131,9 @@ public class Monster_Melee : MonoBehaviour
         // statController 에서 호출
     }
 
+    public void KnockBack(GameObject collision)
+    {
+        transform.position = new Vector2(transform.position.x + knockBack.x, transform.position.y + knockBack.y);
+        knockBack = (collision.transform.position - transform.position).normalized * knockPower;
+    }
 }
