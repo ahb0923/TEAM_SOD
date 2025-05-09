@@ -3,10 +3,10 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D))]
 public class Maptile : MonoBehaviour
 {
-    [Header("스폰할 몬스터 프리팹 목록")]
+    [Header("스폰할 몬스터 목록")]
     [SerializeField] private GameObject[] monsterPrefabs;
 
-    [Header("타일당 스폰할 몬스터 수")]
+    [Header("스폰할 몬스터 수")]
     [SerializeField] private int monstersPerTile = 3;
 
     private BoxCollider2D spawnArea;
@@ -18,7 +18,7 @@ public class Maptile : MonoBehaviour
 
     private void Start()
     {
-        // 인스턴스화 후 한 번만 랜덤 스폰
+        
         SpawnMonstersRandomly();
     }
 

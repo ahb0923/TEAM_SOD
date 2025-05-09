@@ -5,7 +5,7 @@ public class DungeonInitializer : MonoBehaviour
 {
     [Header("맵 타일")]
     [SerializeField] private GameObject mapTilePrefab;
-    [SerializeField] private Transform[] tilePositions;  // 4개 위치
+    [SerializeField] public Transform[] tilePositions;  
 
     private void Start()
     {

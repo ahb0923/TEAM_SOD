@@ -781,7 +781,7 @@ GameObject:
   - component: {fileID: 2786465042720703351}
   - component: {fileID: 3373523839439536726}
   - component: {fileID: 1248524105888640425}
-  - component: {fileID: 1596509427674733053}
+  - component: {fileID: 6395233031075793935}
   m_Layer: 0
   m_Name: Dungeon_Door
   m_TagString: Untagged
@@ -954,10 +954,10 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 7.5517397, y: 0.54820037}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -968,9 +968,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.2013798, y: 2.0964007}
   m_EdgeRadius: 0
---- !u!114 &1596509427674733053
+--- !u!114 &6395233031075793935
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -982,7 +982,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92a484f24e2a008479043feb1f61f8cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetScene: 0
+  playerTargets:
+  - {fileID: 5638174318477806373, guid: 336050fc61568724396c6ae389ea7212, type: 3}
+  - {fileID: 5133046636327825886, guid: 931595120e493c54b8ae9adb5b9b6a11, type: 3}
+  - {fileID: 1138250940372362495, guid: 1be6d807fe9e48b4893b585c222ef865, type: 3}
+  - {fileID: 408302709328980918, guid: 0803072c0e81d5b4f880f705e11820b1, type: 3}
 --- !u!1 &1079032585813683469
 GameObject:
   m_ObjectHideFlags: 0
@@ -2565,7 +2569,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -3996,7 +4000,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
