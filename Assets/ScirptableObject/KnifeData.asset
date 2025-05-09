@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: Kinfe
   attackPower: 10
-  attackSpeed: 4
+  attackSpeed: 1
   attackDelay: 1
   attackRange: 3
   weaponSize: 1
