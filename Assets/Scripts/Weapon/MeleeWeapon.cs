@@ -32,10 +32,23 @@ public class MeleeWeapon : BaseWeapon
     }
     private void FlipTowardsTarget()
     {
-        if (Target == null) return;
-        float dirX = Target.position.x - transform.position.x;
+        //  타겟 방향 벡터
+        Vector2 dir = (Target.position - transform.position).normalized;
+        // 원본 회전 각도(화살 방향이 0°를 바라본다고 가정)
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+        // 좌우 뒤집기 기준: 90° 초과 또는 -90° 미만
+        bool shouldFlip = angle > 90f || angle < -90f;
+
+        // 실제 적용될 회전 각도
+        float appliedAngle = shouldFlip ? angle + 180f : angle;
+        transform.localEulerAngles = new Vector3(0f, 0f, appliedAngle);
+
+        // 스케일 X 반전
         Vector3 scale = _originalScale;
-        scale.x *= Mathf.Sign(dirX);
+        scale.x = shouldFlip
+            ? -Mathf.Abs(_originalScale.x)
+            : Mathf.Abs(_originalScale.x);
         transform.localScale = scale;
     }
     private void CheckAndAttack()
