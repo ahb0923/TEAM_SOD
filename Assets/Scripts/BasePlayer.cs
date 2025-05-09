@@ -36,7 +36,7 @@ public abstract class BasePlayer : MonoBehaviour
     protected void Awake()
     {
         player_rigidbody = GetComponent<Rigidbody2D>();
-        player_Stat = new StatController();
+        //player_Stat = new StatController();
     }
 
     

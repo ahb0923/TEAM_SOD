@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class SceneManager : Singleton<SceneManager>
 {
-    // Start is called before the first frame update
+    private string nextSceneName;
+
+
     void Start()
     {
         
