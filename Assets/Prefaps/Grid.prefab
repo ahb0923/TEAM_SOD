@@ -983,7 +983,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTargets:
-  - {fileID: 5638174318477806373, guid: 336050fc61568724396c6ae389ea7212, type: 3}
   - {fileID: 5133046636327825886, guid: 931595120e493c54b8ae9adb5b9b6a11, type: 3}
   - {fileID: 1138250940372362495, guid: 1be6d807fe9e48b4893b585c222ef865, type: 3}
   - {fileID: 408302709328980918, guid: 0803072c0e81d5b4f880f705e11820b1, type: 3}

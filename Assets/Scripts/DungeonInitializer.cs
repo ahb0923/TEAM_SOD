@@ -5,7 +5,12 @@ public class DungeonInitializer : MonoBehaviour
 {
     [Header("¸Ê Å¸ÀÏ")]
     [SerializeField] private GameObject mapTilePrefab;
-    [SerializeField] public Transform[] tilePositions;  
+    [SerializeField] private Transform[] tilePositions;
+
+    
+
+
+
 
     private void Start()
     {
@@ -19,11 +24,8 @@ public class DungeonInitializer : MonoBehaviour
                 transform
             );
 
-            // 2) MapTile ½ºÅ©¸³Æ® ²¨³»¼­ ·£´ý ½ºÆù
-            Maptile tile = tileGO.GetComponent<Maptile>();
-            if (tile != null)
-                tile.SpawnMonstersRandomly();
-           
+
+         
         }
     }
 }
