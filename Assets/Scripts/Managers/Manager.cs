@@ -6,7 +6,7 @@ using UnityEngine;
 enum MANAGER_TYPE{
     GameManager,
     UIManager,
-    SceneManager,
+    SceneHandleManager,
     DungeonManager,
     AudioManager
 }
