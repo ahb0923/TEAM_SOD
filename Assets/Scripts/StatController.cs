@@ -31,7 +31,7 @@ public class StatController : MonoBehaviour
         Invinsible_Duration = _invinsible_duration;
         Is_Invinsible = _is_invinsible;
     }
-    // 생성자 정의! 몬스터나 유저 쪽에서 사용할 경우 awake 때 불러오자.
+    // 초기화를 위한 InitStat. 몬스터나 유저 쪽에서 사용할 경우 awake 때 불러오자. 추후 ScriptableObjcet를 사용하게 되면 수정해야 할 수 있음.
 
     public struct DamageResult
     {
@@ -68,15 +68,52 @@ public class StatController : MonoBehaviour
         Hp = Hp > 0 ? Hp : 0;
         // 사망판정 시에 음수 hp도 사용이 가능하긴 하지만, hp바를 몹이나 플레이어 위에 띄울 경우를 생각해서 바로 0으로 보정
     }
-    public void Healed(float heal)
+    public void HpHealApply(float heal)
     {
         Hp = Mathf.Max(Hp+heal, MaxHp); // 최대 체력 초과 방지. 로비로 돌아올 때 힐해줄 경우에도 활용 가능
     }
 
-    public void GoldChangeApply(int gold_amount)
+    public void MaxHpChangeApply(float maxhp_Change_Amount)
     {
-    
-    
+        MaxHp += maxhp_Change_Amount;
+        if (maxhp_Change_Amount > 0) Hp = Mathf.Max(Hp +  maxhp_Change_Amount, MaxHp);
+        // 최대체력이 늘어난 경우 늘어난 만큼 힐까지 해 주기
+        else if (maxhp_Change_Amount < 0) Hp = Mathf.Max(Hp, MaxHp);
+        // 최대체력이 줄어든 경우 그만큼 피를 깎지는 말되 최대체력보다 체력이 많아지지 않도록 조정
     }
-
+    
+    // 체력을 체외하고 나머진 단순연산 변화만 있을 것 같아서 각각 메서드를 추가해서 필요할 때마다 호출
+    public void GoldChangeApply(int gold_Change_Amount)
+    {
+        Gold += gold_Change_Amount;
+    }
+    public void AttackChangeApply(float attack_Change_Amount)
+    {
+        Atk += attack_Change_Amount;
+    }
+    public void DefChangeApply(float def_Change_Amount)
+    {
+        Def += def_Change_Amount;
+    }
+    public void MoveSpeedChangeApply(float movespeed_Change_Amount)
+    {
+        MoveSpeed += movespeed_Change_Amount;
+    }
+    public void Crit_ChanceChangeApply(float crit_Chance_Change_Amount)
+    {
+        Crit_Chance += crit_Chance_Change_Amount;
+    }
+    public void Crit_MultiplyChangeApply(float crit_Multiply_Change_Amount)
+    {
+        Crit_Multiply += crit_Multiply_Change_Amount;
+    }
+    public void Invincible_DurationChangeApply(float invincible_Duration_Change_Amount)
+    {
+        Invinsible_Duration += invincible_Duration_Change_Amount;
+    }
+    public void Is_Invincible_ChangeApply(bool is_Invincible_TF)
+    {
+        Is_Invinsible = is_Invincible_TF;
+    }
+    
 }

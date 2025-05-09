@@ -5,6 +5,7 @@ using static StatController;
 using UnityEngine.Playables;
 using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
+using UnityEngine.UIElements;
 
 public class BasePlayer : MonoBehaviour
 {
@@ -13,19 +14,28 @@ public class BasePlayer : MonoBehaviour
     
     // 플레이어, 무기 스프라이트 출력방향을 위한 필드 선언
     [SerializeField] protected SpriteRenderer playerSprite;
-    // [SerializeField] protected Weapon currentWeapon; 
+    // [SerializeField] protected Transform currentWeapon;
     // 무기 스프라이트는 Weapon 클래스에서 받아오고 weaponPivot 오브젝트를 회전할 때 사용
-  
+
     protected Vector2 lookDirection = Vector2.zero;
     public Vector2 LookDirection { get { return lookDirection; } }
-    // 캡슐화. 추후 Weapon 클래스에서 발사체 방향값 받아갈 때 사용
+    
+    protected Transform myPosition;
+    public Transform MyPosition { get { return myPosition; } }
+    protected float distance_between_two;
+    public float Distance_between_two { get { return distance_between_two; } }
+    // 추후 Weapon 클래스에서 발사체 방향값, 플레이어 위치값 받아갈 때 사용! 여기서 가져가심 됩니다 현오님
     protected Vector2 movementDirection = Vector2.zero;
     // public Vector2 MovemetDirection { get { return movementDirection; } }
     // 혹시 몬스터의 장판 패턴같은 게 유저의 이동방향을 고려한다면 필요할지도?
-    // 넉벡 관련해서는 플레이어는 넉벡되지 않기로 했으니 weapon 클래스에서 만들어도?
+    protected GameObject[] enemyArray;
+    protected List<Transform> targetPosition;
+   
 
-    protected Animator player_Animator;
+
     protected StatController player_Stat;
+    //protected Animator player_Animator;
+    //protected Weapon weapon;
     // 스탯변화 및 애니매이션을 넣어야 할 때 불러올 외부 인스턴스
 
     protected enum PLAYER_STATE
@@ -33,16 +43,23 @@ public class BasePlayer : MonoBehaviour
     WAIT,
     IDLE,
     MOVE,
-    DAMAGE,
+    //DAMAGE, 피격 시 무적시간은 IDLE,MOVE 등 다른 상태와 동시에 가져야 하기 때문에 emum이 아닌 Stat에서 bool값으로 처리하기로 함
     DIE
     }
 
-    protected PLAYER_STATE current_STATE = PLAYER_STATE.WAIT;
+    protected PLAYER_STATE current_STATE; // 별도 설정 없으면 WAIT 상태
     protected void Awake()
     {
         player_rigidbody = GetComponent<Rigidbody2D>();
-        player_Animator = GetComponent<Animator>();
+        //player_Animator = GetComponent<Animator>(); 애니메이션 추가 시 구현
         player_Stat = GetComponent<StatController>();
+        //weapon = GetComponent<Weapon>(); 로 불러와야 함 스프라이트만 받아와도 되는데 어떤 구조인지 몰라서 일단 주석처리
+        myPosition = GetComponent<Transform>();
+        enemyArray = GameObject.FindGameObjectsWithTag("Enemy"); // 씬 내부에서 태그가 Enemy인 게임오브젝트 어레이로 저장
+        for (int i = 0; i < enemyArray.Length; i++)
+        {
+            targetPosition[i] = enemyArray[i].transform; // 게임오브젝트의 트랜스폼 정보 저장
+        }
     }
 
     protected void Start()
@@ -52,9 +69,73 @@ public class BasePlayer : MonoBehaviour
         player_Stat.InitStat(100, 100, 5, 1, 2f, 50, 0.1f, 1.5f, 0.3f, false);
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    protected void Move() // 키보드 이동 방향 구현. fixedUpdate에 물려서 호출
     {
-        if (current_STATE == PLAYER_STATE.DAMAGE)
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        movementDirection = new Vector2(horizontal, vertical).normalized;
+        player_rigidbody.velocity = movementDirection * player_Stat.MoveSpeed;
+    }
+
+   
+
+    protected void FixedUpdate()
+    {
+        Move();
+    }
+
+    protected void Update()
+    {
+        DeterminePlayerSTATE();
+        FindClosestEmemy();
+        Rotate(lookDirection);
+    }
+    // FixedUpdate랑 Update 어느 쪽에 뭘 넣으면 좋을지 순서에 대한 문제가 있는 것 같아요.
+    protected void DeterminePlayerSTATE()
+    {
+        if (player_Stat.Hp <= 0) current_STATE = PLAYER_STATE.DIE; // 사망판정 후
+        // else if (캐릭터가 로비에 있으면) current_STATE = PLAYER_STATE.WAIT; // 사망판정 전후 어디에 있어야 할 지 모르겠는데...
+        else if (movementDirection == Vector2.zero) current_STATE = PLAYER_STATE.MOVE; // 이동판정 후
+        else if (movementDirection != Vector2.zero) current_STATE = PLAYER_STATE.IDLE; // 다 아니면 IDLE
+    }
+
+    protected void FindClosestEmemy()
+    {
+        Transform nearest = null;
+        distance_between_two = float.MaxValue;
+        foreach (Transform enemyTransform in targetPosition)
+        {
+            float distance = Vector2.Distance(myPosition.position, enemyTransform.position);
+            if (distance < distance_between_two)
+            {
+                distance_between_two = distance;
+                nearest = enemyTransform;
+            }
+        }
+        lookDirection = nearest.position; // 이거 알아서 2D로 바뀌나요?
+    }
+    // targetPosition[] foreach문을 돌려서 유저와의 거리를 계산해서 가장 짧은 위치로의 벡터값을
+    // lookDirection에 저장
+    // Physics2D.OverlapCircleAll을 이용할 수도 있음
+
+    protected void Rotate(Vector2 look_Direction)
+    {
+        float rotZ = Mathf.Atan2(look_Direction.y, look_Direction.x) * Mathf.Rad2Deg;
+        bool isLeft = Mathf.Abs(rotZ) > 90f;
+
+        playerSprite.flipX = isLeft;
+
+        /* 무기 스프라이트 회전은 여기서. 무기쪽 데이터를 어떻게 받아오는지 보고 결정
+        if (currentWeapon != null)
+        {
+            currentWeapon.rotation = Quaternion.Euler(0, 0, rotZ);
+        }
+        */
+    }
+
+    protected void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (player_Stat.Is_Invinsible)
             return; // 이미 데미지 중이면 무시
         
         GameObject attackSource = collision.gameObject;
@@ -65,19 +146,19 @@ public class BasePlayer : MonoBehaviour
                 DamageResult result = player_Stat.FinalDamageCalculator(damageinfo); // 최종뎀 계산
                 player_Stat.HpReductionApply(result); // 최종뎀 체력 적용
                 // UIManager.ShowDamageUI(result.final_Damage, result.is_Critical); 데미지를 띄우는 UI 메서드
-                // player_Animator.어쩌구 해서 애니메이션 파라미터 변경 (player_Animator.isHit = true 뭐 이런 식으로)
-                // if(투사체) attackSource.SelfDestroy(); 투사체일 경우 투사체 삭제
-                current_STATE = PLAYER_STATE.DAMAGE;
-                StartCoroutine(ApplyInvincible());
+                // if(투사체) attackSource.SelfDestroy(); 투사체일 경우 투사체 삭제.
+                StartCoroutine(ApplyInvincible()); // 무적 적용 코루틴 실행
             }
         }
     }
 
     protected IEnumerator ApplyInvincible()
     {
+        player_Stat.Is_Invincible_ChangeApply(true);
+        // player_Animator.어쩌구 해서 애니메이션 파라미터 변경 (player_Animator.isHit = true 뭐 이런 식으로)
         yield return new WaitForSeconds(player_Stat.Invinsible_Duration);
-        current_STATE = PLAYER_STATE.IDLE;
-        //player_Animator.isInvinsible = false; 이런 식으로 무적시간 끝나면 깜빡이는 에니매이션 종료한다거나
+        player_Stat.Is_Invincible_ChangeApply(false);
+        //player_Animator.isInvinsible = false; 이런 식으로 무적시간 끝나면 깜빡이는 에니매이션 종료
     }
 
 
