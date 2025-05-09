@@ -9,16 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5dec5ffa8df3bd4d89188dc8e0aff18, type: 3}
-  m_Name: MosterWeapon1Data
+  m_Script: {fileID: 11500000, guid: ee1cb5c46ca8d154ba4dcbf0793c1b9a, type: 3}
+  m_Name: BowData
   m_EditorClassIdentifier: 
   id: 
-  delay: 1
-  weaponSize: 1
-  atk: 1
-  atkspeed: 1
-  attackRange: 10
-  isOnKnockback: 0
-  knockbackPower: 0.1
-  knockbackTime: 0.5
-  collideBoxSize: {x: 1, y: 1}
+  attackPower: 0
+  attackSpeed: 0
+  attackDelay: 0
+  attackRange: 0
+  projectileData: {fileID: 0}
+  continuousShotCount: 0
+  multiShotCount: 0
+  multiShotAngle: 0

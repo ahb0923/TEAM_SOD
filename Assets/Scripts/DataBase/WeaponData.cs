@@ -13,8 +13,10 @@ public class WeaponData : ScriptableObject
 
     [Header("투사체 옵션 (근접무기는 null)")]
     public ProjectileData projectileData;
-    public float Duration; //화살 활성화 시간 -> 이를 통해 사거리 조절?
+   
     public int continuousShotCount;   // 연사 수 (1이면 단발)
     public int multiShotCount;        // 한 번에 쏘는 화살 수
     public float multiShotAngle;        // 화살 퍼짐 각도
+
+    // 타입 넣기 -> DataManager에서 다루기 위해
 }
