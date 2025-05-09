@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static StatController;
 using UnityEngine.Playables;
 using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
@@ -185,7 +184,8 @@ public class BasePlayer : MonoBehaviour
         {
             if (attackSource.TryGetComponent(out IDamageInfo damageinfo)) // 충돌한 게임오브젝트의 데미지 정보 인터페이스를 받으면
             {
-                DamageResult result = player_Stat.FinalDamageCalculator(damageinfo); // 최종뎀 계산
+                
+                StatController.DamageResult result = player_Stat.FinalDamageCalculator(damageinfo); // 최종뎀 계산
                 player_Stat.HpReductionApply(result); // 최종뎀 체력 적용
                 // UIManager.ShowDamageUI(result.final_Damage, result.is_Critical); 데미지를 띄우는 UI 메서드
                 // if(투사체) attackSource.SelfDestroy(); 투사체일 경우 투사체 삭제.
