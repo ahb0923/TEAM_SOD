@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    /* ÀÎ½ºÆåÅÍ Ã¢¿¡¼­ Á÷Á¢ ²ø¾î´Ù attach
-    [SeriallizeField]
-    private Player player;
-    */
+    //ì¸ìŠ¤í™í„° ì°½ì—ì„œ ì§ì ‘ ëŒì–´ë‹¤ attach
+    [SerializeField] private BasePlayer player;
+    
 }
