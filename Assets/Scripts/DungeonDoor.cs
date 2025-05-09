@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
-public class Door : MonoBehaviour//,IInteractable
+public class DungeonDoor : MonoBehaviour
 {
     [SerializeField] private SCENE_TYPE targetScene;  // 인스펙터에서 Enum 선택
 
