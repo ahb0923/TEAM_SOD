@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
-    [SerializeField] private SceneHandleManager _sceneManager;
+    
     [SerializeField] private UIManager _uiManager;
 
 
