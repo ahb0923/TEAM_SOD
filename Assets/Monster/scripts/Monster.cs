@@ -5,14 +5,14 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 
-abstract class Monster: MonoBehaviour
-{
+ public class Monster: MonoBehaviour
+ {
     public enum Monster_Type { Normal, Boss }
     private Monster_Type type;
     public Monster_Type Type { get { return Type; } }
 
     private float maxHp;
-    public float MaxHp { get { return maxHp; } }
+    public float MaxHp { get => maxHp; set => maxHp = Mathf.Clamp(value, 0, 100); } 
 
     private float hp;
     public float Hp { get { return hp; } }
@@ -44,16 +44,16 @@ abstract class Monster: MonoBehaviour
     private void FixedUpdate()
     {
     }
-    public abstract void Attack();
+    public virtual void Attack() { }
     
-    public void Move(GameObject player)
+    public virtual void Move(GameObject player)
     {
         Vector2 direction = (transform.position - player.transform.position).normalized;
         rigidbody.velocity = direction * moveSpeed * Time.deltaTime;
 
     }
 
-    public void CheckPlayer()
+    public virtual void CheckPlayer()
     {
         GameObject player = GameObject.FindWithTag("Player");
         float distance = Mathf.Abs(Vector2.Distance(player.transform.position, transform.position));
