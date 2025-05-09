@@ -69,6 +69,14 @@ public class Monster_Range : MonoBehaviour
         else
         {
             Vector2 direction = (target.transform.position - transform.position).normalized;
+            if(direction.x > 0)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+            if(direction.x < 0)
+            {
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
             rigid.velocity = direction * _moveSpeed * Time.deltaTime;
             anim.SetBool("IsRun", true);
         }
