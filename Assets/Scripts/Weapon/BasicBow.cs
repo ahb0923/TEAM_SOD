@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class BasicBow : BaseWeapon
 {
-    [SerializeField] private RangeWeaponData r_data;  // Range 전용 SO
+    [SerializeField] private WeaponData r_data;  // Range 전용 SO
 
-    public bool IsOnKnockback => r_data.isOnKnockback;
-    public float KnockbackPower => r_data.knockbackPower;
-    public float KnockbackTime => r_data.knockbackTime;
+    public ProjectileData projectileData => r_data.projectileData;
+    public float duration => r_data.Duration;
+
+    public int continuousShotCount => r_data.continuousShotCount;   // 연사 수 (1이면 단발)
+    public int multiShotCount => r_data.multiShotCount;        // 한 번에 쏘는 화살 수
+    public float multiShotAngle => r_data.multiShotAngle;        // 화살 퍼짐 각도
     //private ProjectileManager projectileManager;
 
     protected override void Start()
@@ -21,8 +24,8 @@ public class BasicBow : BaseWeapon
     {
         base.Attack();
 
-        float angleStep = r_data.multipleProjectilesAngle;
-        int count = r_data.numberOfProjectilesPerShot;
+        float angleStep = multiShotAngle;
+        int count = multiShotCount;
         float startAngle = -(count / 2f) * angleStep + 0.5f * angleStep;
 
         for (int i = 0; i < count; i++)

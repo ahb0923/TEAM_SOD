@@ -5,12 +5,12 @@ using UnityEngine;
 public abstract class BaseWeapon : MonoBehaviour
 {
     private WeaponData data;  // 데이터 가져오기 : 인스펙터 창에서 연결
-    [SerializeField] private string weaponId;
-    public float Delay => data.delay;
-    public float WeaponSize => data.weaponSize;
-    public float Power => data.AttackPower;
-    public float Speed => data.AttackSpeed;
-    public float AttackRange => data.AttackRange;
+
+    public string weaponId => data.id;
+    public float Atk => data.attackPower;
+    public float Speed => data.attackSpeed;
+    public float Delay => data.attackDelay;
+    public float AttackRange => data.attackRange;
 
 
     private Animator animator;
@@ -20,14 +20,7 @@ public abstract class BaseWeapon : MonoBehaviour
 
     private void Awake()
     {
-        data = DataManager.Instance.GetWeaponData(weaponId);
-        // data를 활용해 세팅
-
-        //임시 초기화 코드
-        animator = GetComponentInChildren<Animator>();
-        weaponRenderer = GetComponentInChildren<SpriteRenderer>();
-        animator.speed = 1f / Delay;
-        transform.localScale = Vector3.one * WeaponSize;
+       
     }
     protected virtual void Start()
     {
@@ -36,9 +29,9 @@ public abstract class BaseWeapon : MonoBehaviour
 
     public virtual void Attack()
     {
-        AttackAnimation();
+        AttackAnimation(); //공격 애니메이션
 
-        if (attackSoundClip) { }
+        if (attackSoundClip) { } //사운드 클립
            // SoundManager.PlayClip(attackSoundClip);
     }
 
