@@ -5,8 +5,21 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    /* 인스펙터 창에서 직접 끌어다 attach
-    [SeriallizeField]
-    private Player player;
-    */
+    [SerializeField] private SceneHandleManager _sceneManager;
+    [SerializeField] private UIManager _uiManager;
+
+
+
+
+
+
+    #region SceneHandleManager
+
+    public void LoadScene(string sceneName)
+    {
+        // 다음 씬의 이름 값을 스트링으로 저장하고
+        _sceneManager.LoadScene(sceneName);
+    }
 }
+
+
