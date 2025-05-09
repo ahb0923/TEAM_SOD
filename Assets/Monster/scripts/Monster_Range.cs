@@ -9,7 +9,7 @@ public class Monster_Range : MonoBehaviour
     private float _maxHp = 10;
     private float _atk = 10;
     private float _def = 10;
-    private float _moveSpeed = 20f;
+    private float _moveSpeed = 100f;
     private int _gold = 100;
     private float _crit_Chance = 0;
     private float _crit_Multiply = 0;
@@ -36,6 +36,7 @@ public class Monster_Range : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        target = GameObject.FindWithTag("Player");
         //meleeStat = new StatController(_hp, _maxHp, _atk, _def, _moveSpeed, _gold, _crit_Chance, _crit_Multiply, _is_invinsible, _in_invinsible_duration);
 
     }
@@ -47,29 +48,42 @@ public class Monster_Range : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        delay += Time.deltaTime;
-        CheckPlayer();
-        Attack();
+       Move();
+       Attack();
     }
 
-    public void Move(GameObject player)
+    public void Move()
     {
-        if (Mathf.Abs(Vector2.Distance(transform.position, player.transform.position)) <= _attackRange) return;
-        Vector2 direction = (player.transform.position - transform.position).normalized;
-        rigid.velocity = direction * _moveSpeed * Time.deltaTime;
-        isMove = true;
-        anim.SetBool("IsRun", true);
+        if (Mathf.Abs(Vector2.Distance(transform.position, target.transform.position)) > _checkRange)
+        {
+            anim.SetBool("IsRun", false);
+            rigid.velocity = Vector2.zero;
+            return;
+        }
+        else if (Mathf.Abs(Vector2.Distance(transform.position, target.transform.position)) <= _attackRange)
+        {
+            anim.SetBool("IsRun", false);
+            rigid.velocity = Vector2.zero;
+            return;
+        }
+        else
+        {
+            Vector2 direction = (target.transform.position - transform.position).normalized;
+            rigid.velocity = direction * _moveSpeed * Time.deltaTime;
+            anim.SetBool("IsRun", true);
+        }
     }
 
-    public void CheckPlayer()
+   /* public void CheckPlayer()
     {
         target = GameObject.FindWithTag("Player");
         float distance = Mathf.Abs(Vector2.Distance(target.transform.position, transform.position));
         if (distance <= _checkRange)
         {
-            Move(target);
+            Move();
         }
-    }
+        else return;
+    }*/
 
     public void Attack()
     {
@@ -77,12 +91,12 @@ public class Monster_Range : MonoBehaviour
         if (distance <= _attackRange && delay >= _attackDelay)
         {
             //공격
-            
+            Debug.Log("원거리 공격");
             delay = 0;
         }
-        if (distance > _attackRange)
+        else
         {
-            
+            delay += Time.deltaTime;
         }
 
     }
@@ -96,7 +110,13 @@ public class Monster_Range : MonoBehaviour
 
     }
 
-    private void CreateProjectile() { }
+    private void CreateProjectile() 
+    {
+        //탄쪽 머지 후 수정
+        GameObject bullet = Instantiate(projectile, projectileSpawnPoint.transform.position, Quaternion.identity);
+        bullet.AddComponent<Rigidbody2D>();
+        Vector2 direction = (target.transform.position - transform.position).normalized;
+    }
     public void Damaged()
     {
         //meleeStat.Damaged();

@@ -36,6 +36,7 @@ public class Monster_Melee : MonoBehaviour
 
     private void Awake()
     {
+        target = GameObject.FindWithTag("Player");
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         //meleeStat = new StatController(_hp, _maxHp, _atk, _def, _moveSpeed, _gold, _crit_Chance, _crit_Multiply, _is_invinsible, _in_invinsible_duration);
@@ -50,26 +51,29 @@ public class Monster_Melee : MonoBehaviour
     void Update()
     {
         delay += Time.deltaTime;
-       CheckPlayer();
+       Move();
        Attack();
     }
 
-    public void Move(GameObject player)
+    public void Move()
     {
-        if (Mathf.Abs(Vector2.Distance(transform.position, player.transform.position)) <= _attackRange) return;
-        Vector2 direction = (player.transform.position- transform.position ).normalized;
-        rigid.velocity = direction *_moveSpeed * Time.deltaTime;
-        isMove = true;
-        anim.SetBool("IsRun", true);
-    }
-
-    public void CheckPlayer()
-    {
-        target = GameObject.FindWithTag("Player");
-        float distance = Mathf.Abs(Vector2.Distance(target.transform.position, transform.position));
-        if (distance <= _checkRange)
+        if (Mathf.Abs(Vector2.Distance(transform.position, target.transform.position)) > _checkRange)
         {
-            Move(target);
+            anim.SetBool("IsRun", false);
+            rigid.velocity = Vector2.zero;
+            return;
+        }
+        else if (Mathf.Abs(Vector2.Distance(transform.position, target.transform.position)) <= _attackRange)
+        {
+            anim.SetBool("IsRun", false);
+            rigid.velocity = Vector2.zero;
+            return;
+        }
+        else
+        {
+            Vector2 direction = (target.transform.position - transform.position).normalized;
+            rigid.velocity = direction * _moveSpeed * Time.deltaTime;
+            anim.SetBool("IsRun", true);
         }
     }
 
@@ -93,7 +97,7 @@ public class Monster_Melee : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("PlayerProjectile")) //태그 예시
         {
-            Damaged();
+            Damaged();// 플레이어에게 부딛혔을때 데미지 피격
         }
 
     }
@@ -104,7 +108,7 @@ public class Monster_Melee : MonoBehaviour
 
     public void Death()
     {
-        
+        // statController 에서 호출
     }
 
 }
