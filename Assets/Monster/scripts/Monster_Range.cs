@@ -1,11 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.Scripting.APIUpdating;
-using static UnityEngine.GraphicsBuffer;
 
-public class Monster_Melee : MonoBehaviour
+public class Monster_Range : MonoBehaviour
 {
     // 스탯은 임시로 적용
     private float _hp = 10;
@@ -21,8 +18,9 @@ public class Monster_Melee : MonoBehaviour
 
     public GameObject target;
 
+    public GameObject projectile;
     private bool isMove;
-    [SerializeField] private GameObject meleeAttackZone;
+    [SerializeField] private GameObject projectileSpawnPoint;
 
     StatController meleeStat;
     [SerializeField] private float _checkRange;
@@ -39,26 +37,26 @@ public class Monster_Melee : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         //meleeStat = new StatController(_hp, _maxHp, _atk, _def, _moveSpeed, _gold, _crit_Chance, _crit_Multiply, _is_invinsible, _in_invinsible_duration);
-       
+
     }
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         delay += Time.deltaTime;
-       CheckPlayer();
-       Attack();
+        CheckPlayer();
+        Attack();
     }
 
     public void Move(GameObject player)
     {
         if (Mathf.Abs(Vector2.Distance(transform.position, player.transform.position)) <= _attackRange) return;
-        Vector2 direction = (player.transform.position- transform.position ).normalized;
-        rigid.velocity = direction *_moveSpeed * Time.deltaTime;
+        Vector2 direction = (player.transform.position - transform.position).normalized;
+        rigid.velocity = direction * _moveSpeed * Time.deltaTime;
         isMove = true;
         anim.SetBool("IsRun", true);
     }
@@ -76,17 +74,17 @@ public class Monster_Melee : MonoBehaviour
     public void Attack()
     {
         float distance = Mathf.Abs(Vector2.Distance(target.transform.position, transform.position));
-        if (distance <= _attackRange && delay >=_attackDelay)
+        if (distance <= _attackRange && delay >= _attackDelay)
         {
             //공격
-            meleeAttackZone.gameObject.SetActive(true);
+            
             delay = 0;
         }
-        if(distance > _attackRange)
+        if (distance > _attackRange)
         {
-            meleeAttackZone.gameObject.SetActive(false);
+            
         }
-        
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -97,6 +95,8 @@ public class Monster_Melee : MonoBehaviour
         }
 
     }
+
+    private void CreateProjectile() { }
     public void Damaged()
     {
         //meleeStat.Damaged();
@@ -104,7 +104,6 @@ public class Monster_Melee : MonoBehaviour
 
     public void Death()
     {
-        
-    }
 
+    }
 }

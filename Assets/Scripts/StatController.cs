@@ -18,7 +18,7 @@ public class StatController : MonoBehaviour
     public float invinsible_duration {  get; private set; }
     // 추후 무적시간을 위한 값. 몬스터는 false, 0 넣고 유저만 duration 조금 넣으면 될 듯?
     
-    public StatController(int _hp, float _maxHp, float _atk, float _def, float _moveSpeed, int _gold, float _crit_Chance, float _crit_Multiply, bool _is_invinsible, float _invinsible_duration)
+    public StatController(float _hp, float _maxHp, float _atk, float _def, float _moveSpeed, int _gold, float _crit_Chance, float _crit_Multiply, bool _is_invinsible, float _invinsible_duration)
     {
         hp = _hp;
         maxHp = _maxHp;
