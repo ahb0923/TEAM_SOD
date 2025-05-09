@@ -35,10 +35,11 @@ public class DamageText : MonoBehaviour
 
         showAnimation = StartCoroutine(TextMoving());
     }
-
-    void OnDisable()
+    
+    private void OnDisable()
     {
         transform.localPosition = Vector3.zero;
+        elapsed = 0f;
         damageText.color = damageColor;
         if (showAnimation != null)
         {
@@ -61,7 +62,7 @@ public class DamageText : MonoBehaviour
         {
             // 진행도 계산식입니다
             float t = elapsed / duration;
-            transform.localPosition = Vector3.Lerp(startPos, endPos, t);
+            transform.localPosition = Vector3.Lerp(startPos, endPos, t)*moveSpeed;
 
             // 위로 올라갈수록 투명해지도록 설정
             Color tempColor = damageText.color;
