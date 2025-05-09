@@ -28,7 +28,6 @@ public class Monster_Range : MonoBehaviour
     private float delay; // 공격 딜레이 계산용 변수
     private float knockPower; // 넉백 수치
     private Vector2 knockBack;
-    private float knockBackDuration; // 넉백 지속시간
     private bool isDamage; // 피격
     Rigidbody2D rigid;
     Animator anim;

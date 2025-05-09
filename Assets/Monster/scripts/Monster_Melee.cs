@@ -28,6 +28,8 @@ public class Monster_Melee : MonoBehaviour
     [SerializeField] private float _checkRange;
     [SerializeField] private float _attackRange;
     [SerializeField] private float _attackDelay; // 공격 주기
+
+    public MonsterData data;
     private float delay; // 공격 딜레이
     private float lastAttack;
     private float knockPower; // 넉백 수치

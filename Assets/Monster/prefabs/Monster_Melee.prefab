@@ -199,6 +199,7 @@ MonoBehaviour:
   _checkRange: 10
   _attackRange: 0
   _attackDelay: 0
+  data: {fileID: 11400000, guid: 5bb191518b722934b862bfc17df9ad13, type: 2}
 --- !u!1 &5243293737839266116
 GameObject:
   m_ObjectHideFlags: 0
