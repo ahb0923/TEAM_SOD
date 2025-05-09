@@ -14,7 +14,7 @@ public class WeaponData : ScriptableObject
     [Header("투사체 옵션 (근접무기는 null)")]
     public ProjectileData projectileData;
    
-    public int continuousShotCount;   // 연사 수 (1이면 단발)
+   // public int continuousShotCount;   // 연사 수 (1이면 단발)
     public int multiShotCount;        // 한 번에 쏘는 화살 수
     public float multiShotAngle;        // 화살 퍼짐 각도
 

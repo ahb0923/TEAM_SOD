@@ -18,7 +18,7 @@ public abstract class BaseWeapon : MonoBehaviour
     public AudioClip attackSoundClip; //발사 오디오 클립
     public LayerMask target; //타겟 레이어 지정
 
-    private void Awake()
+    public virtual void Awake()
     {
        
     }
@@ -27,12 +27,19 @@ public abstract class BaseWeapon : MonoBehaviour
 
     }
 
-    public virtual void Attack()
+    public virtual void AttackTest()
     {
         AttackAnimation(); //공격 애니메이션
 
         if (attackSoundClip) { } //사운드 클립
            // SoundManager.PlayClip(attackSoundClip);
+    }
+    public virtual void Attack(Vector3 v)
+    {
+        AttackAnimation(); //공격 애니메이션
+
+        if (attackSoundClip) { } //사운드 클립
+                                 // SoundManager.PlayClip(attackSoundClip);
     }
 
     public void AttackAnimation()

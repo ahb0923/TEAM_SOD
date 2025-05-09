@@ -6,25 +6,45 @@ public class ProjectileManager : MonoBehaviour
 {
     //발사체 발사 로직(발사체 생성과 생성할 발사체 프리팹 설정
 
-    //private static ProjectileManager instance;
-    //public static ProjectileManager Instance { get { return instance; } }
-    //[SerializeField] private ParticleSystem impactParticleSystem;
+   
+    public static ProjectileManager Instance { get; private set; }
+    [SerializeField] private ParticleSystem impactParticleSystem;
 
-    //private void Awake()
-    //{
-    //    instance = this;
-    //}
+   private BasicBow b;//임시
+    public Transform dummyTarget;
 
-    //public void ShootBullet(BasicBow basicBow, Vector2 startPostiion, Vector2 direction)
-    //{
-    //    GameObject origin = basicBow.projectilePrefab;
-    //    GameObject obj = Instantiate(origin, startPostiion, Quaternion.identity);
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else Destroy(gameObject);
+    }
 
-    //    ProjectileController projectileController = obj.GetComponent<ProjectileController>();
-    //    projectileController.Init(direction, basicBow, this);
-    //}
+    private void Start()
+    {
+        // Inspector에 할당하지 않았다면, 씬에 있는 BasicBow를 찾아서 할당
+        //이후 게임 씬에서 플레이어의 Weapon 오브젝트를 찾아서 할당하도록
+        if (b == null)
+            b = FindObjectOfType<BasicBow>();
+    }
+    void Update()
+    {
+  
+            b.Attack(dummyTarget.position);//테스트용
+    }
 
-    ////파티클 함수(임시)
+    public ProjectileController SpawnProjectile(ProjectileData data, Vector2 position, Vector2 direction)
+    {
+        var go = Instantiate(data.prefab, position, Quaternion.identity);
+        var ctrl = go.GetComponent<ProjectileController>();
+        ctrl.Initialize(data, direction);
+        return ctrl;
+    }
+
+    //파티클 함수(임시)
     //public void CreateImpactParticlesAtPostion(Vector3 position, BasicBow basicBow)
     //{
     //    impactParticleSystem.transform.position = position;

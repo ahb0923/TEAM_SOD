@@ -4,88 +4,79 @@ using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
 {
-    //발사체 관련 처리
-    //생성과 생명주기 후 파괴 처리
-    [SerializeField] private LayerMask levelCollisionLayer;
+    private ProjectileData data;
+    private Vector2 direction;
+    private float elapsedTime;
 
-    //private BasicBow BasicBow;
-    //private float currentDuration;
-    //private Vector2 direction;
-    //private bool isReady;
-    //private Transform pivot;
+    private Rigidbody2D rb;
+    private SpriteRenderer sr;
 
-    //private Rigidbody2D _rigidbody;
-    //private SpriteRenderer spriteRenderer;
+    /// <summary>
+    /// 발사체를 초기화합니다.
+    /// </summary>
+    /// <param name="data">ScriptableObject로 정의된 발사체 데이터</param>
+    /// <param name="direction">발사 방향 (정규화된 벡터)</param>
+    public void Initialize(ProjectileData data, Vector2 direction)
+    {
+        this.data = data;
+        this.direction = direction.normalized;
+        this.elapsedTime = 0f;
 
-    //public bool fxOnDestory = true;
+        rb = GetComponent<Rigidbody2D>();
+        sr = GetComponentInChildren<SpriteRenderer>();
 
-    //private ProjectileManager projectileManager;
+        // 발사체 색상 설정
+        if (sr != null)
+            sr.color = data.Color;
 
-    //private void Awake()
-    //{
-    //    spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-    //    _rigidbody = GetComponent<Rigidbody2D>();
-    //    pivot = transform.GetChild(0);
-    //}
-    //private void Update()
-    //{
-    //    if (!isReady)
-    //    {
-    //        return;
-    //    }
+        // 회전을 통해 방향 맞추기
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
+    }
 
-    //    currentDuration += Time.deltaTime;
+    private void Update()
+    {
+        if (data == null) return;
 
-    //    //시간에 따른 화살 오브젝트 파괴
-    //    //if (currentDuration > BasicBow.duration)
-    //    //{
-    //    //    DestroyProjectile(transform.position, false);
-    //    //}
+        elapsedTime += Time.deltaTime;
+        // 수명 경과 시 파괴
+        if (elapsedTime >= data.lifetime)
+        {
+            DestroyProjectile(transform.position);
+            return;
+        }
 
-    //    _rigidbody.velocity = direction * BasicBow.Speed;
-    //}
+        // 이동
+        rb.velocity = direction * data.moveSpeed;
+    }
 
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if (levelCollisionLayer.value == (levelCollisionLayer.value | (1 << collision.gameObject.layer)))
-    //    {
-    //        DestroyProjectile(collision.ClosestPoint(transform.position) - direction * .2f, fxOnDestory);
-    //    }
-    //    else if (BasicBow.target.value == (BasicBow.target.value | (1 << collision.gameObject.layer)))
-    //    {
-    //        //
-    //        DestroyProjectile(collision.ClosestPoint(transform.position), fxOnDestory);
-    //    }
-    //}
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        int layer = other.gameObject.layer;
 
-    //public void Init(Vector2 direction, BasicBow basicBow, ProjectileManager projectileManager)
-    //{
-    //    this.projectileManager = projectileManager;
+        //// 레벨(벽 등) 충돌 체크
+        //if (((1 << layer) & data.levelCollisionLayer.value) != 0)
+        //{
+        //    DestroyProjectile(other.ClosestPoint(transform.position));
+        //    return;
+        //}
 
-    //    BasicBow = basicBow;
+        //// 대상(플레이어/몬스터) 충돌 체크
+        //if (((1 << layer) & data.targetLayerMask.value) != 0)
+        //{
+        //    if (other.TryGetComponent<IDamageable>(out var dmg))
+        //        dmg.TakeDamage(data.attackPower);
 
-    //    this.direction = direction;
-    //    currentDuration = 0;
-    //    transform.localScale = Vector3.one * basicBow.bulletSize;
-    //    spriteRenderer.color = basicBow.projectileColor;
+        //    DestroyProjectile(other.ClosestPoint(transform.position));
+        //}
+    }
 
-    //    transform.right = this.direction;
+    private void DestroyProjectile(Vector3 hitPosition)
+    {
+        // 충돌 이펙트 생성
+        if (data.impactEffect != null)
+            Instantiate(data.impactEffect, hitPosition, Quaternion.identity);
 
-    //    if (this.direction.x < 0)
-    //        pivot.localRotation = Quaternion.Euler(180, 0, 0);
-    //    else
-    //        pivot.localRotation = Quaternion.Euler(0, 0, 0);
-
-    //    isReady = true;
-    //}
-
-    //private void DestroyProjectile(Vector3 position, bool createFx)
-    //{
-    //    if (createFx)
-    //    {
-    //        projectileManager.CreateImpactParticlesAtPostion(position, BasicBow);
-    //    }
-
-    //    Destroy(this.gameObject);
-    //}
+        Destroy(gameObject);
+    }
 }
