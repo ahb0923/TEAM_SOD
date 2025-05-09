@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -13,6 +14,8 @@ using UnityEngine.UIElements;
 
     public GameObject target;
     private float checkRange;
+
+    public event Action OnDeath;
     public float CheckRange { get { return checkRange; } set => checkRange = value; }
 
     private float attackRange;
@@ -51,6 +54,12 @@ using UnityEngine.UIElements;
 
     public virtual void Death()
     {
+        // 2) 구독자 호출
+        OnDeath?.Invoke();
+
+        // 3) 기존 Unregister (필요하다면 이 줄을 지우고 구독만 사용해도 됩니다)
+        DungeonManager.Instance.UnregisterMonster();
+
         Destroy(gameObject);
     }
 
