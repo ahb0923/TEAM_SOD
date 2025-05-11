@@ -8,4 +8,12 @@ public class GameManager : Singleton<GameManager>
     //인스펙터 창에서 직접 끌어다 attach
     [SerializeField] private BasePlayer player;
 
+    public System.Random Rand { get; private set; }
+
+    private GameManager()
+    {
+        Rand = new System.Random();
+    }
+
+
 }
