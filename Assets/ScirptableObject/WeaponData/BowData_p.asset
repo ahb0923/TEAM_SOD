@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: BasicBow
   attackPower: 2
-  attackSpeed: 10
+  attackSpeed: 2
   attackDelay: 1
   attackRange: 10
   weaponSize: 1
@@ -22,5 +22,5 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   projectileData: {fileID: 11400000, guid: 177831c905140684298a171c2ae2b9a7, type: 2}
-  multiShotCount: 2
-  multiShotAngle: 2
+  multiShotCount: 1
+  multiShotAngle: 1

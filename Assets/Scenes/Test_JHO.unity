@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 84873772}
   - component: {fileID: 84873773}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Test_Monster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 588695011}
   - component: {fileID: 588695010}
   m_Layer: 0
-  m_Name: GameObject (4)
+  m_Name: ProjectileManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 981523894}
   - component: {fileID: 981523895}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: Test_Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -364,7 +364,7 @@ GameObject:
   - component: {fileID: 1390517398}
   - component: {fileID: 1390517397}
   m_Layer: 0
-  m_Name: GameObject (2)
+  m_Name: TextManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -504,7 +504,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1616320461}
   m_Layer: 0
-  m_Name: GameObject (3)
+  m_Name: Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
