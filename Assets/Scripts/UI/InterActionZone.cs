@@ -7,7 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class InterActionZone : BaseInterAction
 {
-    
+    [SerializeField] private Animator buttonAnimator;
+    [SerializeField] private Animator buttonAnimator_blue;
+
     public override void OpenPanel()
     {
         var model = new PanelModel
@@ -19,14 +21,17 @@ public class InterActionZone : BaseInterAction
         };
 
         //  버튼 기능
-        model.ButtonActions["OkButton"] = () =>
+        model.ButtonActions["Button_Enter"] = () =>
         {
+
             SceneHandleManager.Instance.LoadScene(SCENE_TYPE.DungeonScene.ToString());
+            buttonAnimator.SetTrigger("Press");
         };
        
         model.ButtonActions["Button_Cancel"] = () =>
         {
             UIManager.Instance.ClosePanel(model);
+            buttonAnimator_blue.SetTrigger("Press_blue");
         };
 
 
