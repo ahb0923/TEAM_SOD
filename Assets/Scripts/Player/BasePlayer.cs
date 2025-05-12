@@ -39,10 +39,10 @@ public class BasePlayer : MonoBehaviour
     public float Distance_between_two { get { return distance_between_two; } }
     // 추후 Weapon 클래스에서 발사체 방향값, 플레이어 위치값 받아갈 때 사용! 여기서 가져가심 됩니다 현오님
 
-
     protected Vector2 movementDirection = Vector2.zero;
     // public Vector2 MovemetDirection { get { return movementDirection; } }
     // 혹시 몬스터의 장판 패턴같은 게 유저의 이동방향을 고려한다면 필요할지도?
+
 
     protected GameObject[] enemyArray;
     protected List<Transform> targetPosition;
@@ -81,10 +81,13 @@ public class BasePlayer : MonoBehaviour
         //nextState = PLAYER_STATE.IDLE;
     }
 
+
+
+    // 체력, 최대체력, 공격력, 방어력, 이동속도, 골드, 크리확률, 크리배율, 무적시간, 무적여부
+    // 추후 ScriptableObject로 구현하여 실수 줄이기
     protected void Start()
     {
-        // 체력, 최대체력, 공격력, 방어력, 이동속도, 골드, 크리확률, 크리배율, 무적시간, 무적여부
-        // 추후 ScriptableObject로 구현하여 실수 줄이기
+       
         player_Stat.InitStat();
     }
 
