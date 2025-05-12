@@ -14,20 +14,20 @@ public class Monster_Range : MonoBehaviour
     private float _crit_Chance = 0;
     private float _crit_Multiply = 0;
     private bool _is_invinsible;
-    private float _in_invinsible_duration = 0;
+    private float _invinsible_duration = 0;
 
     private GameObject target;
+    [SerializeField] Transform weaponPivot;
+    public BaseWeapon weaponPrefab;
+    protected BaseWeapon weapon;
 
-    public GameObject projectile;// 투사체
-    [SerializeField] private GameObject projectileSpawnPoint;
 
-    StatController meleeStat;
+    StatController monsterStat;
     [SerializeField] private float _checkRange;  // 타겟 탐색 범위
     [SerializeField] private float _attackRange; // 공격 사거리
     [SerializeField] private float _attackDelay; // 공격 주기
     private float delay; // 공격 딜레이 계산용 변수
     private float knockPower; // 넉백 수치
-    private Vector2 knockBack;
     private bool isDamage; // 피격
     Rigidbody2D rigid;
     Animator anim;
@@ -36,20 +36,22 @@ public class Monster_Range : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        target = GameObject.FindWithTag("Player");
-        //meleeStat = new StatController(_hp, _maxHp, _atk, _def, _moveSpeed, _gold, _crit_Chance, _crit_Multiply, _is_invinsible, _in_invinsible_duration);
-
+        target = GameObject.Find("Player"); // 플레이어 이름에 따라 변경가능
+        //monsterStat.InitStat(_hp, _maxHp, _atk, _def, _moveSpeed, _gold, _crit_Chance, _crit_Multiply, _invinsible_duration, _is_invinsible);
+        if (weapon != null)
+        {
+            weapon = Instantiate(weaponPrefab, weaponPivot);
+        }
     }
     void Start()
     {
-
     }
 
     // Update is called once per frame
     void Update()
     {
-       Move();
-       Attack();
+        Move();
+        Attack();
     }
 
     public void Move()
@@ -69,11 +71,11 @@ public class Monster_Range : MonoBehaviour
         else
         {
             Vector2 direction = (target.transform.position - transform.position).normalized;
-            if(direction.x > 0)
+            if (direction.x > 0)
             {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
             }
-            if(direction.x < 0)
+            if (direction.x < 0)
             {
                 transform.rotation = Quaternion.Euler(0, 180, 0);
             }
@@ -81,18 +83,6 @@ public class Monster_Range : MonoBehaviour
             anim.SetBool("IsRun", true);
         }
     }
-
-   /* public void CheckPlayer()
-    {
-        target = GameObject.FindWithTag("Player");
-        float distance = Mathf.Abs(Vector2.Distance(target.transform.position, transform.position));
-        if (distance <= _checkRange)
-        {
-            Move();
-        }
-        else return;
-    } move로 통일*/  
-
     public void Attack()
     {
         float distance = Mathf.Abs(Vector2.Distance(target.transform.position, transform.position));
@@ -110,34 +100,40 @@ public class Monster_Range : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    /*private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("PlayerProjectile")) //태그 예시
+        if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerProjectile")) //레이어 이름 예시 플레이어 총알과 충돌했을때
         {
-            KnockBack(collision.gameObject); // 
-            StartCoroutine("DamageCheck");
-            Damaged();
-            // 체력 0이하 일시 Death() 함수 호출
+            GameObject attackSource = collision.gameObject;
+            if (attackSource.TryGetComponent(out IDamageInfo damageinfo))
+            {
+                StatController.DamageResult result = monsterStat.FinalDamageCalculator(damageinfo);
+                monsterStat.HpReductionApply(result);
+                if (!isDamage)
+                {
+                    KnockBack(collision.transform.position);
+                    StartCoroutine("DamageCheck");
+                }
+                if (monsterStat.Hp <= 0)// 체력 0이하 일시 Death() 함수 호출
+                {
+                    Death();
+                }
+            }
         }
+    }*/
 
-    }
 
-    IEnumerator DamageCheck()
+    IEnumerator DamageCheck() // 몬스터 데미지 판정을 계산할경우 사용, 애니메이션 적용, 넉백중에는 넉백이 안되게 적용
     {
         isDamage = true;
+        anim.SetTrigger("IsDamage");
         yield return new WaitForSeconds(0.5f);
         isDamage = false;
     }
-    private void CreateProjectile() 
+    private void CreateProjectile()
     {
-        //탄쪽 머지 후 수정
-        GameObject bullet = Instantiate(projectile, projectileSpawnPoint.transform.position, Quaternion.identity);
-        bullet.AddComponent<Rigidbody2D>();
+        //탄쪽 머지 후 수정     
         Vector2 direction = (target.transform.position - transform.position).normalized;
-    }
-    public void Damaged()
-    {
-        //meleeStat.Damaged();
     }
 
     public void Death()
@@ -145,9 +141,9 @@ public class Monster_Range : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void KnockBack(GameObject collision)
+    public void KnockBack(Vector2 collision)
     {
-        transform.position = new Vector2(transform.position.x - knockBack.x, transform.position.y - knockBack.y);
-        knockBack = (collision.transform.position - transform.position).normalized * knockPower;
+        Vector2 dir = new Vector2(collision.x - transform.position.x, collision.y - transform.position.y).normalized;
+        rigid.AddForce(dir * knockPower, ForceMode2D.Impulse);
     }
 }
