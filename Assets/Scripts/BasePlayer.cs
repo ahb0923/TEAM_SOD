@@ -26,9 +26,18 @@ public class BasePlayer : MonoBehaviour
     protected float distance_between_two;
     public float Distance_between_two { get { return distance_between_two; } }
     // 추후 Weapon 클래스에서 발사체 방향값, 플레이어 위치값 받아갈 때 사용! 여기서 가져가심 됩니다 현오님
+<<<<<<< HEAD:Assets/Scripts/BasePlayer.cs
     protected Vector2 movementDirection = Vector2.zero;
     // public Vector2 MovemetDirection { get { return movementDirection; } }
     // 혹시 몬스터의 장판 패턴같은 게 유저의 이동방향을 고려한다면 필요할지도?
+=======
+
+    protected Vector2 movementDirection = Vector2.zero;
+    // public Vector2 MovemetDirection { get { return movementDirection; } }
+    // 혹시 몬스터의 장판 패턴같은 게 유저의 이동방향을 고려한다면 필요할지도?
+
+
+>>>>>>> hyobin_branch:Assets/Scripts/Player/BasePlayer.cs
     protected GameObject[] enemyArray;
     protected List<Transform> targetPosition;
    
@@ -64,11 +73,20 @@ public class BasePlayer : MonoBehaviour
         }
     }
 
+
+
+    // 체력, 최대체력, 공격력, 방어력, 이동속도, 골드, 크리확률, 크리배율, 무적시간, 무적여부
+    // 추후 ScriptableObject로 구현하여 실수 줄이기
     protected void Start()
     {
+<<<<<<< HEAD:Assets/Scripts/BasePlayer.cs
         // 체력, 최대체력, 공격력, 방어력, 이동속도, 골드, 크리확률, 크리배율, 무적시간, 무적여부
         // 추후 ScriptableObject로 구현하여 실수 줄이기
         player_Stat.InitStat(100, 100, 5, 1, 2f, 50, 0.1f, 1.5f, 0.3f, false);
+=======
+       
+        player_Stat.InitStat();
+>>>>>>> hyobin_branch:Assets/Scripts/Player/BasePlayer.cs
     }
 
     protected void Move() // 키보드 이동 방향 구현. fixedUpdate에 물려서 호출

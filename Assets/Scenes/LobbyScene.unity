@@ -2729,6 +2729,7 @@ GameObject:
   - component: {fileID: 845768390}
   - component: {fileID: 845768389}
   - component: {fileID: 845768388}
+  - component: {fileID: 845768391}
   m_Layer: 0
   m_Name: Test_Player
   m_TagString: Untagged
@@ -2749,6 +2750,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSprite: {fileID: 1776822256}
+  currState: 0
 --- !u!4 &845768387
 Transform:
   m_ObjectHideFlags: 0
@@ -2849,6 +2851,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f75adcfa13009c4583922f597a42005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: d7d4f852e328abf459bb973ed7939866, type: 2}
+--- !u!114 &845768391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845768385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: be981bb5a45cf61418f3e40f11568cf9, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &939813289
 GameObject:
   m_ObjectHideFlags: 0
@@ -2893,6 +2926,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d736dfe4db5d9e04381bdf696ad0e6e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponDataList: []
+  MonsterDataList: []
+  ProjectileDataList: []
 --- !u!1 &1776822255
 GameObject:
   m_ObjectHideFlags: 0
@@ -2950,7 +2986,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_Sprite: {fileID: 21300000, guid: c47778798ef9485489b9e96e8da17f37, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
