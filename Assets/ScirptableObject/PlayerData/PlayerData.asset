@@ -9,15 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f728f0c8d8ddd24f8a432084bfaf370, type: 3}
+  m_Script: {fileID: 11500000, guid: 925e958ad55f2fa44b5a0f75723af2f8, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  MaxHp: 500
-  Atk: 20
-  Def: 5
-  MoveSpeed: 5
-  Gold: 0
-  CritChance: 0.15
-  CritMultiply: 1.2
-  InvinsibleDuration: 1
-  Is_Invinsible: 1
+  hp: 0
+  maxHp: 0
+  atk: 0
+  def: 0
+  moveSpeed: 0
+  gold: 0
+  _crit_Chance: 0
+  _crit_Multiply: 0
+  _in_invinsible_duration: 0
+  _is_invinsible: 0
