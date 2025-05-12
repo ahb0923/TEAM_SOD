@@ -20,12 +20,12 @@ public class MeleeWeapon : BaseWeapon
         animator = GetComponentInChildren<Animator>();
 
         Owner = GetComponentInParent<StatController>();
-
     }
 
     public float GetAttackPower()
     {
         float Total = data.attackPower + Owner.Atk;
+        
         return Total;
     }
 

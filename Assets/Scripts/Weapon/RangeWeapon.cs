@@ -7,7 +7,7 @@ public class RangeWeapon : BaseWeapon
     [SerializeField] private WeaponData r_data;  // Range 전용 SO
     [SerializeField] private Transform projectileSpawnPoint;
 
-    public ProjectileData projectileData => r_data.projectileData;
+    public ProjectileData projectileData;
     public float duration => r_data.projectileData.lifetime;
 
     //public int continuousShotCount => r_data.continuousShotCount;   // 연사 수 (1이면 단발)
