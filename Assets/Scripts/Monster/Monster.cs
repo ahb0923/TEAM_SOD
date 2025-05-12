@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -24,7 +25,7 @@ public class Monster : MonoBehaviour
 
 
     protected GameObject target;
-    [SerializeField] Transform weaponPivot;
+    [SerializeField] protected Transform weaponPivot;
     public BaseWeapon weaponPrefab;
     protected BaseWeapon weapon;
 
@@ -36,14 +37,14 @@ public class Monster : MonoBehaviour
     protected float delay; // 공격 딜레이 계산용 변수
     protected float knockPower; // 넉백 수치
     protected bool isDamage; // 피격
-    protected Rigidbody2D rigid;
+    [SerializeField]  protected Rigidbody2D rigid;
     protected Animator anim;
 
     protected virtual void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        target = GameObject.FindWithTag("Player");
+        target = GameObject.Find("Player");
         //monsterStat.InitStat(_hp, _maxHp, _atk, _def, _moveSpeed, _gold, _crit_Chance, _crit_Multiply, _invinsible_duration, _is_invinsible);
         if (weapon != null)
         {
@@ -107,7 +108,7 @@ public class Monster : MonoBehaviour
             }
         }
     }*/
-    protected virtual IEnumerator DamageCheck()
+    protected virtual IEnumerator DamageCheck() // 몬스터 데미지 애니메이션 및 (데미지 연산 중 무적 적용시 사용) < 선택
     {
         isDamage = true;
         anim.SetTrigger("IsDamage");
@@ -125,4 +126,12 @@ public class Monster : MonoBehaviour
         rigid.AddForce(dir * knockPower, ForceMode2D.Impulse);
     }
 
+    public virtual void CheckPlayer() // 플레이어를 타겟으로 찾을 때 필요하면 사용
+    {
+        Collider2D hit = Physics2D.OverlapCircle(transform.position, _checkRange, LayerMask.GetMask("Player"));
+        if(hit != null)
+        {
+            target = hit.gameObject;
+        }
+    }
 }

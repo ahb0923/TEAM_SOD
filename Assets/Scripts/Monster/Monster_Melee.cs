@@ -8,18 +8,13 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Monster_Melee : Monster
 {
-    protected override void Awake()
-    {
-
-    }
-    protected override void Start()
-    {
-    }
-    // Update is called once per frame
+    
     protected override void Update()
     {
-        delay += Time.deltaTime;
-        Move();
+        base.Update();
+
+        //delay += Time.deltaTime;
+        //Move();
         Attack();
     }
     protected override void Attack()
