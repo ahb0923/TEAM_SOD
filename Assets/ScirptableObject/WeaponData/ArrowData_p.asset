@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d5b6532dc9f5ed41b57eeb5b7c86fae, type: 3}
-  m_Name: ArrowData
+  m_Name: ArrowData_p
   m_EditorClassIdentifier: 
-  id: BasicArrow
+  id: BasicArrow_p
   attackPower: 10
   attackSpeed: 0
   attackDelay: 0

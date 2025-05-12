@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class RangeWeapon : BaseWeapon
 {
-    [SerializeField] private WeaponData r_data;  // Range 전용 SO
+   
     [SerializeField] private Transform projectileSpawnPoint;
 
-    public ProjectileData projectileData;
-    public float duration => r_data.projectileData.lifetime;
+    public ProjectileData projectileData => data.projectileData;
+    public float duration => projectileData.lifetime;
 
     //public int continuousShotCount => r_data.continuousShotCount;   // 연사 수 (1이면 단발)
-    public int multiShotCount => r_data.multiShotCount;        // 한 번에 쏘는 화살 수
-    public float multiShotAngle => r_data.multiShotAngle;        // 화살 퍼짐 각도
+    public int multiShotCount => data.multiShotCount;        // 한 번에 쏘는 화살 수
+    public float multiShotAngle => data.multiShotAngle;        // 화살 퍼짐 각도
 
-    public Color color => r_data.projectileData.Color; //화살 색
-    public float projSpeed => r_data.projectileData.moveSpeed;
+    public Color color => data.projectileData.Color; //화살 색
+    public float projSpeed => projectileData.moveSpeed;
 
     private float lastAttackTime;
 
@@ -31,12 +31,12 @@ public class RangeWeapon : BaseWeapon
 
         lastAttackTime = -Mathf.Infinity; //첫 공격이 즉시 가능하도록
         Owner = GetComponentInParent<StatController>();
-        totalatk_OwnerAndWeapon = r_data.attackPower + Owner.Atk;
+        totalatk_OwnerAndWeapon = Atk + Owner.Atk;
     }
 
     public override void Attack(Vector3 targetPosition) //위치를 파라미터로 받아와서 공격
     {
-        float cooldown = 1f / r_data.attackSpeed;
+        float cooldown = 1f / Speed;
         if (Time.time < lastAttackTime + cooldown)
             return;
         lastAttackTime = Time.time;
