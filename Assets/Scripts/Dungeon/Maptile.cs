@@ -57,10 +57,7 @@ public class Maptile : MonoBehaviour
             var monster = go.GetComponent<Monster>();
             if (monster != null)
             {
-                monster.OnDeath += () =>
-                {
-                    DungeonManager.Instance.UnregisterMonster();
-                };
+                // 몬스터가 죽을 때마다 DungeonManager에 등록 해제
             }
             else
             {

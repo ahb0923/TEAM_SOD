@@ -6,8 +6,8 @@ public class DungeonManager : Singleton<DungeonManager>
 {
     [Header("던전 클리어 시 띄울 UI 패널")]
     [SerializeField] private GameObject clearUIPanel;
-
-
+    
+   
     [Header("플레이어 컨트롤러 (Inspector에 할당)")]
     [SerializeField] private MonoBehaviour playerController;
     private int remainingMonsters = 0;
@@ -42,9 +42,8 @@ public class DungeonManager : Singleton<DungeonManager>
 
     private void ShowClearUI()
     {
-        
-            clearUIPanel.SetActive(true);
-        playerController.enabled = false;
+
+        clearUIPanel.SetActive(true);
 
     }
 
