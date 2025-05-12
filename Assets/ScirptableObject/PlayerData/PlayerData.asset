@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 925e958ad55f2fa44b5a0f75723af2f8, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  hp: 0
-  maxHp: 0
-  atk: 0
-  def: 0
-  moveSpeed: 0
+  maxHp: 500
+  atk: 30
+  def: 5
+  moveSpeed: 5
   gold: 0
-  _crit_Chance: 0
-  _crit_Multiply: 0
-  _in_invinsible_duration: 0
-  _is_invinsible: 0
+  _crit_Chance: 0.15
+  _crit_Multiply: 1.2
+  _in_invinsible_duration: 1
+  _is_invinsible: 1

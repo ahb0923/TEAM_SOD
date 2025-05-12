@@ -19,21 +19,20 @@ public class StatController : MonoBehaviour
     // 추후 무적시간을 위한 값. 몬스터는 0 넣고 유저만 duration 조금 넣으면 될 듯?
 
     [SerializeField]
-    private PlayerData monsterData;
+    private PlayerData playerData;
     
     public void InitStat()
     {
-        /*
-        Hp = _hp;
-        MaxHp = _maxHp;
-        Atk = _atk;
-        Def = _def;
-        MoveSpeed = _moveSpeed;
-        Gold = _gold;
-        Crit_Chance = _crit_Chance;
-        Crit_Multiply = _crit_Multiply;
-        Invinsible_Duration = _invinsible_duration;
-        Is_Invinsible = _is_invinsible;*/  
+        Hp = playerData.maxHp;
+        MaxHp = playerData.maxHp;
+        Atk = playerData.atk; 
+        Def = playerData.def; 
+        MoveSpeed = playerData.moveSpeed;
+        Gold = playerData.gold;
+        Crit_Chance = playerData._crit_Chance;
+        Crit_Multiply = playerData._crit_Multiply;
+        Invinsible_Duration = playerData._in_invinsible_duration;
+        Is_Invinsible = playerData._is_invinsible;
     }
     // 초기화를 위한 InitStat. 몬스터나 유저 쪽에서 사용할 경우 awake 때 불러오자. 추후 ScriptableObjcet를 사용하게 되면 수정해야 할 수 있음.
 

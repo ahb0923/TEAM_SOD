@@ -6,23 +6,21 @@ using UnityEngine;
 public class PlayerData : ScriptableObject
 {
     [SerializeField]
-    private float hp;
+    public float maxHp;
     [SerializeField]
-    private float maxHp;
+    public float atk;
     [SerializeField]
-    private float atk;
+    public float def;
     [SerializeField]
-    private float def;
+    public float moveSpeed;
     [SerializeField]
-    private float moveSpeed;
+    public int gold;
     [SerializeField]
-    private float gold;
+    public float _crit_Chance = 0;
     [SerializeField]
-    private float _crit_Chance = 0;
+    public float _crit_Multiply = 0;
     [SerializeField]
-    private float _crit_Multiply = 0;
+    public float _in_invinsible_duration = 0;
     [SerializeField]
-    private float _in_invinsible_duration = 0;
-    [SerializeField]
-    private bool _is_invinsible;
+    public bool _is_invinsible;
 }
