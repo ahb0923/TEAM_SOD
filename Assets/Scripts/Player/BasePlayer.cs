@@ -59,7 +59,7 @@ public class BasePlayer : MonoBehaviour
     protected void Awake()
     {
         player_rigidbody = GetComponent<Rigidbody2D>();
-        player_Animator = GetComponent<Animator>(); // 애니메이션 추가 시 구현
+        //player_Animator = GetComponent<Animator>(); // 애니메이션 추가 시 구현
         player_Stat = GetComponent<StatController>();
         myPosition = GetComponent<Transform>();
         targetPosition = new List<Transform>();
@@ -109,7 +109,7 @@ public class BasePlayer : MonoBehaviour
     private void OnMove(InputValue value)
     {
         movementDirection = value.Get<Vector2>().normalized;
-        player_Animator.SetTrigger("IsMoving");
+        //player_Animator.SetTrigger("IsMoving");
     }
 
     protected void FixedUpdate()
@@ -132,7 +132,7 @@ public class BasePlayer : MonoBehaviour
         {
             ClearDeadEnemyOnArray();
             FindClosestEmemy();
-            AttackOrNot();
+            //AttackOrNot();
         }
     }
     // FixedUpdate랑 Update 어느 쪽에 뭘 넣으면 좋을지 순서에 대한 문제가 있는 것 같아요.
@@ -235,10 +235,10 @@ public class BasePlayer : MonoBehaviour
     protected IEnumerator ApplyInvincible()
     {
         player_Stat.Is_Invincible_ChangeApply(true);
-        player_Animator.SetBool("IsHit", true);
+        //player_Animator.SetBool("IsHit", true);
         yield return new WaitForSeconds(player_Stat.Invinsible_Duration);
         player_Stat.Is_Invincible_ChangeApply(false);
-        player_Animator.SetBool("IsHit", false);
+        //player_Animator.SetBool("IsHit", false);
     }
 
 
