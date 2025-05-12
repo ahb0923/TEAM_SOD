@@ -921,7 +921,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSprite: {fileID: 845768393}
-  currentWeapon: {fileID: 0}
+  currentWeapon: {fileID: 319964874850279267, guid: 09370fda49536dc4595dbcf8766ca42e, type: 3}
   currState: 0
 --- !u!212 &845768393
 SpriteRenderer:
