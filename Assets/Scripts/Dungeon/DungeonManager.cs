@@ -8,6 +8,8 @@ public class DungeonManager : Singleton<DungeonManager>
 
     //빈공간에 맵을 만드는 로직
 
+    [SerializeField] public bool checkClear;
+
     [SerializeField] private GameObject[] MapPrefab;
     [SerializeField] private GameObject[] MonsterPrefab;
     [SerializeField] private GameObject[] selectPanel;
@@ -78,12 +80,6 @@ public class DungeonManager : Singleton<DungeonManager>
                
             }
         }
-
-
-
-
-
-
     }
 
 
