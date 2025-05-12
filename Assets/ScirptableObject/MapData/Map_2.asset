@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 375ea8aaa6aa2504d9b272aa6a6da9bf, type: 3}
   m_Name: Map_2
   m_EditorClassIdentifier: 
-  code: 0
-  summonMonsterCount: 0
+  code: 2
+  type: 0
+  summonMonsterCount: 15
