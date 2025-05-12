@@ -119,9 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea4b5175f40ddc543a2da7a6842e613b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelCollisionLayer:
-    serializedVersion: 2
-    m_Bits: 0
+  data: {fileID: 11400000, guid: 177831c905140684298a171c2ae2b9a7, type: 2}
+  TotalAtk: 0
 --- !u!1 &8628567026088675976
 GameObject:
   m_ObjectHideFlags: 0
