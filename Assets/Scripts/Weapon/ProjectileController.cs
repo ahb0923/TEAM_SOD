@@ -80,7 +80,7 @@ public class ProjectileController : MonoBehaviour
     }
 
     //임시 코드, 맞았을 경우 이펙트 효과
-    private void DestroyProjectile(Vector3 hitPosition)
+    public void DestroyProjectile(Vector3 hitPosition)
     {
         // 충돌 이펙트 생성
         if (data.impactEffect != null)

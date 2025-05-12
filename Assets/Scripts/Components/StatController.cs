@@ -24,19 +24,18 @@ public class StatController : MonoBehaviour
     public float Crit_Chance { get; private set; }
     public float Crit_Multiply { get; private set; }
     // 크리티컬을 위한 수치. chance는 0~1 사이, multiply는 크리 터질 시 딜 배수
-    public float Invinsible_Duration {  get; private set; }
+    public float Invinsible_Duration { get; private set; }
     public bool Is_Invinsible { get; private set; }
     // 추후 무적시간을 위한 값. 몬스터는 0 넣고 유저만 duration 조금 넣으면 될 듯?
 
     [SerializeField]
     private PlayerData playerData;
-    
     public void InitStat()
     {
         Hp = playerData.maxHp;
         MaxHp = playerData.maxHp;
-        Atk = playerData.atk; 
-        Def = playerData.def; 
+        Atk = playerData.atk;
+        Def = playerData.def;
         MoveSpeed = playerData.moveSpeed;
         Gold = playerData.gold;
         Crit_Chance = playerData._crit_Chance;
@@ -46,7 +45,7 @@ public class StatController : MonoBehaviour
     }
     // 초기화를 위한 InitStat. 몬스터나 유저 쪽에서 사용할 경우 awake 때 불러오자. 추후 ScriptableObjcet를 사용하게 되면 수정해야 할 수 있음.
 
-    
+
     // 데미지 계산 결과와 크리티컬 여부를 동시에 반환받기 위해서 구조체로 데이터타입 선언
     // 데미지 몇 떴는지 영수증을 띄우고, 이 때 크리티컬의 경우 더 화려한 이펙트를 주고 싶다면
     // 최종 데미지와, 크리티컬 여부가 동시에 필요해서 이렇게 번거롭게...
@@ -62,7 +61,7 @@ public class StatController : MonoBehaviour
         // 크리여부에 따른 최종뎀 계산식. 방어력을 지금은 단순 뺄셈해뒀는데, %로 적용할 거면 여기서 변경
         return new DamageResult(final_dmg, _is_Crit);
     }
-    
+
     public void HpReductionApply(DamageResult result) // 몹 쪽이나 유저 쪽 양쪽 모두에서 사용하려면 딜넣는 쪽의 데미지를 매개변수로 받는 게 나을 듯?
     {
         float final_Dmg_Applied = result.final_Damage;
@@ -73,18 +72,18 @@ public class StatController : MonoBehaviour
     }
     public void HpHealApply(float heal)
     {
-        Hp = Mathf.Max(Hp+heal, MaxHp); // 최대 체력 초과 방지. 로비로 돌아올 때 힐해줄 경우에도 활용 가능
+        Hp = Mathf.Max(Hp + heal, MaxHp); // 최대 체력 초과 방지. 로비로 돌아올 때 힐해줄 경우에도 활용 가능
     }
 
     public void MaxHpChangeApply(float maxhp_Change_Amount)
     {
         MaxHp += maxhp_Change_Amount;
-        if (maxhp_Change_Amount > 0) Hp = Mathf.Max(Hp +  maxhp_Change_Amount, MaxHp);
+        if (maxhp_Change_Amount > 0) Hp = Mathf.Max(Hp + maxhp_Change_Amount, MaxHp);
         // 최대체력이 늘어난 경우 늘어난 만큼 힐까지 해 주기
         else if (maxhp_Change_Amount < 0) Hp = Mathf.Max(Hp, MaxHp);
         // 최대체력이 줄어든 경우 그만큼 피를 깎지는 말되 최대체력보다 체력이 많아지지 않도록 조정
     }
-    
+
     // 체력을 체외하고 나머진 단순연산 변화만 있을 것 같아서 각각 메서드를 추가해서 필요할 때마다 호출
     public void GoldChangeApply(int gold_Change_Amount)
     {
@@ -118,5 +117,5 @@ public class StatController : MonoBehaviour
     {
         Is_Invinsible = is_Invincible_TF;
     }
-    
+
 }

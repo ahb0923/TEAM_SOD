@@ -286,8 +286,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f150e8ae86adde48906db5bdf2aef46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapTilePrefab: {fileID: 0}
-  tilePositions: []
 --- !u!4 &269176715
 Transform:
   m_ObjectHideFlags: 0
@@ -303,6 +301,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &535715620 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 230380255836931305, guid: 271dc4aa2d4fae44592eb89bbd7bd52e, type: 3}
+  m_PrefabInstance: {fileID: 1468692612}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &850206184
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,7 +411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688a3d6fab25b59488bd42b57dac4eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  target: {fileID: 535715620}
   offset: {x: 0, y: 0, z: -10}
   smoothSpeed: 0.195
 --- !u!1 &1202554226
@@ -926,8 +929,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d7947bc20d3fc04182a9e53002d95dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clearUIPanel: {fileID: 0}
-  playerController: {fileID: 0}
+  MapPrefab:
+  - {fileID: 9099373435956400807, guid: fcbdd34bbd2444742acea978e4d54ace, type: 3}
+  MonsterPrefab: []
+  selectPanel: []
 --- !u!4 &2065281271
 Transform:
   m_ObjectHideFlags: 0
