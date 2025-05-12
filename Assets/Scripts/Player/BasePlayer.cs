@@ -62,6 +62,7 @@ public class BasePlayer : MonoBehaviour
         //player_Animator = GetComponent<Animator>(); // 애니메이션 추가 시 구현
         player_Stat = GetComponent<StatController>();
         myPosition = GetComponent<Transform>();
+        currentWeapon = GetComponent<RangeWeapon>(); // 추후 무기를 불러오는 로직 추가 필요 (로비에서 무기를 고르는 형식)
         targetPosition = new List<Transform>();
 
 
@@ -109,7 +110,8 @@ public class BasePlayer : MonoBehaviour
     private void OnMove(InputValue value)
     {
         movementDirection = value.Get<Vector2>().normalized;
-        //player_Animator.SetTrigger("IsMoving");
+        //if (movementDirection != null) player_Animator.SetBool("IsMove",true);
+        //else player_Animator.SetBool("Ismove",false);
     }
 
     protected void FixedUpdate()
@@ -235,10 +237,10 @@ public class BasePlayer : MonoBehaviour
     protected IEnumerator ApplyInvincible()
     {
         player_Stat.Is_Invincible_ChangeApply(true);
-        //player_Animator.SetBool("IsHit", true);
+        player_Animator.SetBool("IsHit", true);
         yield return new WaitForSeconds(player_Stat.Invinsible_Duration);
         player_Stat.Is_Invincible_ChangeApply(false);
-        //player_Animator.SetBool("IsHit", false);
+        player_Animator.SetBool("IsHit", false);
     }
 
 
