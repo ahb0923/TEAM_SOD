@@ -23,13 +23,7 @@ public abstract class BaseWeapon : MonoBehaviour
     public virtual void Awake() {}
     protected virtual void Start() {}
 
-    public virtual void AttackTest()
-    {
-        AttackAnimation(); //공격 애니메이션
-
-        if (attackSoundClip) { } //사운드 클립
-           // SoundManager.PlayClip(attackSoundClip);
-    }
+ 
     public virtual void Attack(Vector3 v)
     {
         AttackAnimation(); //공격 애니메이션
@@ -40,7 +34,7 @@ public abstract class BaseWeapon : MonoBehaviour
 
     public void AttackAnimation()
     {
-        //animator.SetTrigger(IsAttack);
+        animator.SetBool("IsAttack", true);
     }
 }
  
