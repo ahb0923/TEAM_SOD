@@ -20,18 +20,18 @@ public class MeleeWeapon : BaseWeapon
         animator = GetComponentInChildren<Animator>();
 
         Owner = GetComponentInParent<StatController>();
-
     }
 
     public float GetAttackPower()
     {
         float Total = data.attackPower + Owner.Atk;
+        
         return Total;
     }
 
     public override void Attack(Vector3 v)
     {
-        float cooldown = 1f / AtkSpeed;
+        float cooldown = 1f / Speed;
         if (Time.time < lastAttackTime + cooldown)
             return;
 
@@ -65,8 +65,4 @@ public class MeleeWeapon : BaseWeapon
 
         // (선택) 데미지 이펙트나 사운드 재생 가능
     }
-
-    private float AtkPower => data.attackPower;
-    private float AtkSpeed => data.attackSpeed;
-   
 }
