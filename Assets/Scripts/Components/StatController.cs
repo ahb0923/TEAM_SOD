@@ -17,9 +17,13 @@ public class StatController : MonoBehaviour
     public float Invinsible_Duration {  get; private set; }
     public bool Is_Invinsible { get; private set; }
     // 추후 무적시간을 위한 값. 몬스터는 0 넣고 유저만 duration 조금 넣으면 될 듯?
+
+    [SerializeField]
+    private MonsterData monsterData;
     
-    public void InitStat(float _hp, float _maxHp, float _atk, float _def, float _moveSpeed, int _gold, float _crit_Chance, float _crit_Multiply, float _invinsible_duration, bool _is_invinsible)
+    public void InitStat()
     {
+        /*
         Hp = _hp;
         MaxHp = _maxHp;
         Atk = _atk;
@@ -29,7 +33,7 @@ public class StatController : MonoBehaviour
         Crit_Chance = _crit_Chance;
         Crit_Multiply = _crit_Multiply;
         Invinsible_Duration = _invinsible_duration;
-        Is_Invinsible = _is_invinsible;
+        Is_Invinsible = _is_invinsible;*/  
     }
     // 초기화를 위한 InitStat. 몬스터나 유저 쪽에서 사용할 경우 awake 때 불러오자. 추후 ScriptableObjcet를 사용하게 되면 수정해야 할 수 있음.
 

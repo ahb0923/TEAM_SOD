@@ -21,7 +21,7 @@ using UnityEngine.UIElements;
     private float attackRange;
     public float AttackRange { get { return attackRange; } set => attackRange = value; }
 
-    Rigidbody2D rigidbody;
+    Rigidbody2D rigidbody;  
 
 
     private void Awake()
