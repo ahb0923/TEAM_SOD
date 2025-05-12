@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,8 +8,9 @@ public class DungeonManager : Singleton<DungeonManager>
 {
 
     //빈공간에 맵을 만드는 로직
-
-    [SerializeField] public bool checkClear;
+    //애니매이션용
+    [SerializeField] public bool checkClear=false;
+    [SerializeField] private Animator doorAnimator;
 
     [SerializeField] private GameObject[] MapPrefab;
     [SerializeField] private GameObject[] MonsterPrefab;
@@ -24,11 +26,22 @@ public class DungeonManager : Singleton<DungeonManager>
         // 1) 씬이 로드될 때마다 맵을 생성
         CreateMap();
         CreateMonster();
-    }
 
+        GameObject doorObj = GameObject.Find("Door");
+        doorAnimator = doorObj.GetComponent<Animator>();
+    }
+    // 애니매이션용 
     private void Update()
     {
-       
+
+        if (checkClear == true)
+        {
+            doorAnimator.SetBool("Open",true);
+        }
+        else
+        {
+            doorAnimator.SetBool("Open", false);
+        }
     }
     public void CreateMap()
     {
