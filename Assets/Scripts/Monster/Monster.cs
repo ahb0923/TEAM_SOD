@@ -53,7 +53,12 @@ public class Monster : MonoBehaviour
     }
 
     protected virtual void Start() { }
-    protected virtual void Update() { }
+    protected virtual void Update() 
+    {
+        delay += Time.deltaTime;
+        Move();
+        Attack();
+    }
 
     protected virtual void Move()
     {
@@ -92,9 +97,9 @@ public class Monster : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerProjectile")) //태그 예시 플레이어 총알과 충돌했을때
         {
             GameObject attackSource = collision.gameObject;
-            if (attackSource.TryGetComponent(out IDamageInfo damageinfo))
+            if (attackSource.TryGetComponent(out ProjectileController projectileControl))
             {
-                StatController.DamageResult result = monsterStat.FinalDamageCalculator(damageinfo);
+                StatController.DamageResult result = monsterStat.FinalDamageCalculator(projectileControl.totalatk);
                 monsterStat.HpReductionApply(result);
                 if (!isDamage)
                 {
