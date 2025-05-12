@@ -11,7 +11,7 @@ public class DataManager : MonoBehaviour
     [SerializeField] private List<WeaponData> weaponDataList;
 
     [Header("에디터 할당 : 모든 몬스터 데이터 리스트")]
-    [SerializeField] private List<MonsterData> MonsterDataList;
+    [SerializeField] private List<PlayerData> MonsterDataList;
 
     [Header("에디터 할당 : 모든 발사체 데이터 리스트")]
     [SerializeField] private List<ProjectileData> ProjectileDataList;
