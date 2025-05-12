@@ -13,22 +13,15 @@ public abstract class BaseWeapon : MonoBehaviour
     public float AttackRange => data.attackRange;
 
     public float WeaponSize => data.weaponSize; //근접무기 사이즈
-    
+    public LayerMask target => data.layer; //타겟 레이어 지정
 
 
     public Animator animator;
     private SpriteRenderer weaponRenderer; 
     public AudioClip attackSoundClip; //발사 오디오 클립
-    public LayerMask target => data.layer; //타겟 레이어 지정
 
-    public virtual void Awake()
-    {
-       
-    }
-    protected virtual void Start()
-    {
-
-    }
+    public virtual void Awake() {}
+    protected virtual void Start() {}
 
     public virtual void AttackTest()
     {
@@ -49,10 +42,5 @@ public abstract class BaseWeapon : MonoBehaviour
     {
         //animator.SetTrigger(IsAttack);
     }
-    public virtual void Rotate(bool isLeft)
-    {
-       // weaponRenderer.flipY = isLeft;
-    }
-
 }
  
