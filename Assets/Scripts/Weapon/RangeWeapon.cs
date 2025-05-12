@@ -8,14 +8,15 @@ public class RangeWeapon : BaseWeapon
     [SerializeField] private Transform projectileSpawnPoint;
 
     public ProjectileData ProjectileData => data.projectileData;
-    public float duration => ProjectileData.lifetime;
+    public float ProjSpeed => ProjectileData.moveSpeed;
+    public float Duration => ProjectileData.lifetime; 
+    public Color Color => data.projectileData.Color; //화살 색
 
-    //public int continuousShotCount => r_data.continuousShotCount;   // 연사 수 (1이면 단발)
-    public int multiShotCount => data.multiShotCount;        // 한 번에 쏘는 화살 수
-    public float multiShotAngle => data.multiShotAngle;        // 화살 퍼짐 각도
+    //public GameObject InpactEffect => ProjectileData.impactEffect;
 
-    public Color color => data.projectileData.Color; //화살 색
-    public float projSpeed => ProjectileData.moveSpeed;
+    public int MultiShotCount => data.multiShotCount;        // 한 번에 쏘는 화살 수
+    public float MultiShotAngle => data.multiShotAngle;        // 화살 퍼짐 각도
+
 
     private float lastAttackTime;
 
@@ -47,8 +48,8 @@ public class RangeWeapon : BaseWeapon
         transform.rotation = Quaternion.Euler(0f, 0f, bowAngle);
         base.Attack(targetPosition);
 
-        int count = multiShotCount;
-        float angleStep = multiShotAngle;
+        int count = MultiShotCount;
+        float angleStep = MultiShotAngle;
         float startAngle = -(count - 1) / 2f * angleStep;
 
         
