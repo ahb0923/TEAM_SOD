@@ -1021,8 +1021,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d7947bc20d3fc04182a9e53002d95dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clearUIPanel: {fileID: 1520208698}
-  playerController: {fileID: 0}
+  MapPrefab:
+  - {fileID: 9099373435956400807, guid: fcbdd34bbd2444742acea978e4d54ace, type: 3}
 --- !u!4 &2065281271
 Transform:
   m_ObjectHideFlags: 0
