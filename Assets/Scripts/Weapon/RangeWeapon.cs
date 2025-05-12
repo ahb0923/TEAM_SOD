@@ -7,15 +7,15 @@ public class RangeWeapon : BaseWeapon
    
     [SerializeField] private Transform projectileSpawnPoint;
 
-    public ProjectileData projectileData => data.projectileData;
-    public float duration => projectileData.lifetime;
+    public ProjectileData ProjectileData => data.projectileData;
+    public float duration => ProjectileData.lifetime;
 
     //public int continuousShotCount => r_data.continuousShotCount;   // 연사 수 (1이면 단발)
     public int multiShotCount => data.multiShotCount;        // 한 번에 쏘는 화살 수
     public float multiShotAngle => data.multiShotAngle;        // 화살 퍼짐 각도
 
     public Color color => data.projectileData.Color; //화살 색
-    public float projSpeed => projectileData.moveSpeed;
+    public float projSpeed => ProjectileData.moveSpeed;
 
     private float lastAttackTime;
 
@@ -66,7 +66,7 @@ public class RangeWeapon : BaseWeapon
             Vector2 dir = Quaternion.Euler(0f, 0f, zAngle) * Vector2.right;
 
             ProjectileManager.Instance.SpawnProjectile(
-                projectileData,
+                ProjectileData,
                 spawnPos,
                 dir,
                 totalatk_OwnerAndWeapon
