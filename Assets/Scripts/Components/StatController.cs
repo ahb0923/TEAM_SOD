@@ -19,7 +19,7 @@ public class StatController : MonoBehaviour
     // 추후 무적시간을 위한 값. 몬스터는 0 넣고 유저만 duration 조금 넣으면 될 듯?
 
     [SerializeField]
-    private MonsterData monsterData;
+    private PlayerData monsterData;
     
     public void InitStat()
     {
