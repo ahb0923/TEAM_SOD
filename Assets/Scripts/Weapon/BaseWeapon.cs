@@ -47,7 +47,7 @@ public abstract class BaseWeapon : MonoBehaviour
 
     public void AttackAnimation()
     {
-        animator.SetBool("IsAttack", true);
+        //animator.SetTrigger(IsAttack);
     }
     public virtual void Rotate(bool isLeft)
     {

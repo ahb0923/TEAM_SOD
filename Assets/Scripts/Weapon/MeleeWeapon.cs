@@ -10,61 +10,13 @@ public class MeleeWeapon : BaseWeapon
     [SerializeField] private Vector2 hitboxSize = Vector2.one;
     [SerializeField] private Vector2 hitboxOffset = Vector2.zero;
 
-
-    public Transform Target;
+   
     private float lastAttackTime;
-    private Vector3 _originalScale;
-
-
-
     protected override void Start()
     {
         base.Start();
-        _originalScale = transform.localScale;
         lastAttackTime = -Mathf.Infinity;
         animator = GetComponentInChildren<Animator>();
-        animator.SetBool("IsAttack", false);
-    }
-    void Update()
-    {
-        FlipTowardsTarget();
-        CheckAndAttack();
-    }
-    private void FlipTowardsTarget()
-    {
-        //  타겟 방향 벡터
-        Vector2 dir = (Target.position - transform.position).normalized;
-        // 원본 회전 각도(화살 방향이 0°를 바라본다고 가정)
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-
-        // 좌우 뒤집기 기준: 90° 초과 또는 -90° 미만
-        bool shouldFlip = angle > 90f || angle < -90f;
-
-        // 실제 적용될 회전 각도
-        float appliedAngle = shouldFlip ? angle + 180f : angle;
-        transform.localEulerAngles = new Vector3(0f, 0f, appliedAngle);
-
-        // 스케일 X 반전
-        Vector3 scale = _originalScale;
-        scale.x = shouldFlip
-            ? -Mathf.Abs(_originalScale.x)
-            : Mathf.Abs(_originalScale.x);
-        transform.localScale = scale;
-    }
-    private void CheckAndAttack()
-    {
-        if (Target == null)
-            return;
-
-        // 1) 거리 계산
-        float dist = Vector2.Distance(transform.position, Target.position);
-
-        // 2) 사거리 이내라면 공격
-        if (dist <= data.attackRange)
-        {
-            Attack(Target.position);
-        }
-        else { animator.SetBool("IsAttack", false); }
     }
 
     public override void Attack(Vector3 v)
@@ -75,7 +27,7 @@ public class MeleeWeapon : BaseWeapon
 
         lastAttackTime = Time.time;
         AttackAnimation();
-        Debug.Log("근접 공격!");
+        animator.SetTrigger("IsAttack");
 
         // 공격 방향에 따라 히트박스 회전
         Vector2 dir = ((Vector2)v - (Vector2)transform.position).normalized;
