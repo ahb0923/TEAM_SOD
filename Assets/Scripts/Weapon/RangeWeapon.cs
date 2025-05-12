@@ -19,6 +19,9 @@ public class RangeWeapon : BaseWeapon
 
     private float lastAttackTime;
 
+    public StatController Owner;
+    public float totalatk_OwnerAndWeapon;
+
     //private ProjectileManager projectileManager;
     
     protected override void Start()
@@ -27,6 +30,8 @@ public class RangeWeapon : BaseWeapon
         //projectileManager = ProjectileManager.Instance;
 
         lastAttackTime = -Mathf.Infinity; //첫 공격이 즉시 가능하도록
+        Owner = GetComponentInParent<StatController>();
+        totalatk_OwnerAndWeapon = r_data.attackPower + Owner.Atk;
     }
 
     public override void AttackTest() //테스트용: 파라미터 없음
@@ -57,7 +62,8 @@ public class RangeWeapon : BaseWeapon
             ProjectileManager.Instance.SpawnProjectile(
                 r_data.projectileData,
                 spawnPos,
-                dir
+                dir,
+                totalatk_OwnerAndWeapon
             );
         }
     }
@@ -96,7 +102,8 @@ public class RangeWeapon : BaseWeapon
             ProjectileManager.Instance.SpawnProjectile(
                 r_data.projectileData,
                 spawnPos,
-                dir
+                dir,
+                totalatk_OwnerAndWeapon
             );
         }
     }

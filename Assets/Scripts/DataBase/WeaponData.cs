@@ -11,6 +11,7 @@ public class WeaponData : ScriptableObject
     public float attackDelay;     // 공격 애니메이션 딜레이
     public float attackRange;     // 타격 또는 사거리
     public float weaponSize;
+    public LayerMask layer;
 
     [Header("투사체 옵션 (근접무기는 null)")]
     public ProjectileData projectileData;

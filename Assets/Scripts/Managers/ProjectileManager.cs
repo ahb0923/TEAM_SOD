@@ -38,11 +38,11 @@ public class ProjectileManager : MonoBehaviour
     }
 
     //투사체 생성
-    public ProjectileController SpawnProjectile(ProjectileData data, Vector2 position, Vector2 direction)
+    public ProjectileController SpawnProjectile(ProjectileData data, Vector2 position, Vector2 direction, float atk)
     {
         var go = Instantiate(data.prefab, position, Quaternion.identity);
         var ctrl = go.GetComponent<ProjectileController>();
-        ctrl.Initialize(data, direction);
+        ctrl.Initialize(data, direction, atk);
         return ctrl;
     }
 

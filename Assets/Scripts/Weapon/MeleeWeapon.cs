@@ -10,13 +10,23 @@ public class MeleeWeapon : BaseWeapon
     [SerializeField] private Vector2 hitboxSize = Vector2.one;
     [SerializeField] private Vector2 hitboxOffset = Vector2.zero;
 
-   
+   public StatController Owner;
+    
     private float lastAttackTime;
     protected override void Start()
     {
         base.Start();
         lastAttackTime = -Mathf.Infinity;
         animator = GetComponentInChildren<Animator>();
+
+        Owner = GetComponentInParent<StatController>();
+
+    }
+
+    public float GetAttackPower()
+    {
+        float Total = data.attackPower + Owner.Atk;
+        return Total;
     }
 
     public override void Attack(Vector3 v)
@@ -35,28 +45,28 @@ public class MeleeWeapon : BaseWeapon
         Vector2 center = (Vector2)transform.position + hitboxOffset;
         Quaternion rotation = Quaternion.Euler(0, 0, angle);
 
-        // BoxCast로 충돌 검사, 또는 OverlapBox 사용
-        RaycastHit2D[] hits = Physics2D.BoxCastAll(
-            center,
-            hitboxSize * WeaponSize,
-            angle,
-            Vector2.zero,
-            0f,
-            targetLayerMask
-        );
+        //// BoxCast로 충돌 검사, 또는 OverlapBox 사용
+        //RaycastHit2D[] hits = Physics2D.BoxCastAll(
+        //    center,
+        //    hitboxSize * WeaponSize,
+        //    angle,
+        //    Vector2.zero,
+        //    0f,
+        //    targetLayerMask
+        //);
 
-        foreach (var hit in hits)
-        {
-            //if (hit.collider != null && hit.collider.TryGetComponent<IDamageable>(out var dmg))
-            //{
-            //    dmg.TakeDamage(AtkPower);
-            //}
-        }
+        //foreach (var hit in hits)
+        //{
+        //    //if (hit.collider != null && hit.collider.TryGetComponent<IDamageable>(out var dmg))
+        //    //{
+        //    //    dmg.TakeDamage(AtkPower);
+        //    //}
+        //}
 
         // (선택) 데미지 이펙트나 사운드 재생 가능
     }
 
     private float AtkPower => data.attackPower;
     private float AtkSpeed => data.attackSpeed;
-    private LayerMask targetLayerMask => target;
+   
 }

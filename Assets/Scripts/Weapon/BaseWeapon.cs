@@ -19,7 +19,7 @@ public abstract class BaseWeapon : MonoBehaviour
     public Animator animator;
     private SpriteRenderer weaponRenderer; 
     public AudioClip attackSoundClip; //발사 오디오 클립
-    public LayerMask target; //타겟 레이어 지정
+    public LayerMask target => data.layer; //타겟 레이어 지정
 
     public virtual void Awake()
     {
