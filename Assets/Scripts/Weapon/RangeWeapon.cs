@@ -23,7 +23,6 @@ public class RangeWeapon : BaseWeapon
     public StatController Owner;
     public float totalatk_OwnerAndWeapon;
 
-    //private ProjectileManager projectileManager;
     
     protected override void Start()
     {
