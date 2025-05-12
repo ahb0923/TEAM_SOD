@@ -1,35 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//¹ß»çÃ¼ Ãæµ¹°ú ÆÄ±« Ã³¸®
+//ë°œì‚¬ì²´ ì¶©ëŒê³¼ íŒŒê´´ ì²˜ë¦¬
 public class ProjectileController : MonoBehaviour
 {
-    private ProjectileData data;
+    [SerializeField] private ProjectileData data;
     private Vector2 direction;
     private float elapsedTime;
 
     private Rigidbody2D rb;
     private SpriteRenderer sr;
-
+    
     /// <summary>
-    /// ¹ß»çÃ¼¸¦ ÃÊ±âÈ­ÇÕ´Ï´Ù.
+    /// ë°œì‚¬ì²´ë¥¼ ì´ˆê¸°í™”í•©ë‹ˆë‹¤.
     /// </summary>
-    /// <param name="data">ScriptableObject·Î Á¤ÀÇµÈ ¹ß»çÃ¼ µ¥ÀÌÅÍ</param>
-    /// <param name="direction">¹ß»ç ¹æÇâ (Á¤±ÔÈ­µÈ º¤ÅÍ)</param>
+    /// <param name="data">ScriptableObjectë¡œ ì •ì˜ëœ ë°œì‚¬ì²´ ë°ì´í„°</param>
+    /// <param name="direction">ë°œì‚¬ ë°©í–¥ (ì •ê·œí™”ëœ ë²¡í„°)</param>
     public void Initialize(ProjectileData data, Vector2 direction)
     {
         this.data = data;
         this.direction = direction.normalized;
         this.elapsedTime = 0f;
-
+        
+        //final_Attack += ë¬´ê¸°ê³µê²©ë ¥ + ë¶€ëª¨ì˜ ê³µê²©ë ¥
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponentInChildren<SpriteRenderer>();
 
-        // ¹ß»çÃ¼ »ö»ó ¼³Á¤
+        // ë°œì‚¬ì²´ ìƒ‰ìƒ ì„¤ì •
         if (sr != null)
             sr.color = data.Color;
 
-        // È¸ÀüÀ» ÅëÇØ ¹æÇâ ¸ÂÃß±â
+        // íšŒì „ì„ í†µí•´ ë°©í–¥ ë§ì¶”ê¸°
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
@@ -39,14 +40,14 @@ public class ProjectileController : MonoBehaviour
         if (data == null) return;
 
         elapsedTime += Time.deltaTime;
-        // ¼ö¸í °æ°ú ½Ã ÆÄ±«, ¼ö¸íÀº È­»ì µ¥ÀÌÅÍ¿¡¼­
+        // ìˆ˜ëª… ê²½ê³¼ ì‹œ íŒŒê´´, ìˆ˜ëª…ì€ í™”ì‚´ ë°ì´í„°ì—ì„œ
         if (elapsedTime >= data.lifetime)
         {
             DestroyProjectile(transform.position);
             return;
         }
 
-        // ÀÌµ¿
+        // ì´ë™
         rb.velocity = direction * data.moveSpeed;
     }
 
@@ -54,14 +55,14 @@ public class ProjectileController : MonoBehaviour
     {
         int layer = other.gameObject.layer;
 
-        //// ·¹º§(º® µî) Ãæµ¹ Ã¼Å©
+        //// ë ˆë²¨(ë²½ ë“±) ì¶©ëŒ ì²´í¬
         //if (((1 << layer) & data.levelCollisionLayer.value) != 0)
         //{
         //    DestroyProjectile(other.ClosestPoint(transform.position));
         //    return;
         //}
 
-        //// ´ë»ó(ÇÃ·¹ÀÌ¾î/¸ó½ºÅÍ) Ãæµ¹ Ã¼Å©
+        //// ëŒ€ìƒ(í”Œë ˆì´ì–´/ëª¬ìŠ¤í„°) ì¶©ëŒ ì²´í¬
         //if (((1 << layer) & data.targetLayerMask.value) != 0)
         //{
         //    if (other.TryGetComponent<IDamageable>(out var dmg))
@@ -71,10 +72,10 @@ public class ProjectileController : MonoBehaviour
         //}
     }
 
-    //ÀÓ½Ã ÄÚµå, ¸Â¾ÒÀ» °æ¿ì ÀÌÆåÆ® È¿°ú
+    //ì„ì‹œ ì½”ë“œ, ë§ì•˜ì„ ê²½ìš° ì´í™íŠ¸ íš¨ê³¼
     private void DestroyProjectile(Vector3 hitPosition)
     {
-        // Ãæµ¹ ÀÌÆåÆ® »ı¼º
+        // ì¶©ëŒ ì´í™íŠ¸ ìƒì„±
         if (data.impactEffect != null)
             Instantiate(data.impactEffect, hitPosition, Quaternion.identity);
 

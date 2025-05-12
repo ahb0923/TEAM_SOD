@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static StatController;
 using UnityEngine.Playables;
 using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
@@ -201,13 +200,6 @@ public class BasePlayer : MonoBehaviour
         bool isLeft = Mathf.Abs(rotZ) > 90f;
 
         playerSprite.flipX = isLeft;
-
-        /* 무기 스프라이트 회전은 여기서. 무기쪽 데이터를 어떻게 받아오는지 보고 결정
-        if (currentWeapon != null)
-        {
-            currentWeapon.rotation = Quaternion.Euler(0, 0, rotZ);
-        }
-        */
     }
 
     protected void OnCollisionEnter2D(Collision2D collision)
@@ -216,17 +208,15 @@ public class BasePlayer : MonoBehaviour
             return; // 이미 데미지 중이면 무시
 
         GameObject attackSource = collision.gameObject;
-        if (attackSource.CompareTag("Enemy")) // 적 태그가 붙어있는 경우
-        {
-            if (attackSource.TryGetComponent(out IDamageInfo damageinfo)) // 충돌한 게임오브젝트의 데미지 정보 인터페이스를 받으면
-            {
-                DamageResult result = player_Stat.FinalDamageCalculator(damageinfo); // 최종뎀 계산
-                player_Stat.HpReductionApply(result); // 최종뎀 체력 적용
-                // UIManager.ShowDamageUI(result.final_Damage, result.is_Critical); 데미지를 띄우는 UI 메서드
-                // if(투사체) attackSource.SelfDestroy(); 투사체일 경우 투사체 삭제.
-                StartCoroutine(ApplyInvincible()); // 무적 적용 코루틴 실행
-            }
-        }
+        //if (// 레이어가 적의 투사체인 경우)
+        //{
+        //    DamageResult result = player_Stat.FinalDamageCalculator(attackSource.final_AttackPoint); // 최종뎀 계산
+        //        player_Stat.HpReductionApply(result); // 최종뎀 체력 적용
+        //        // UIManager.ShowDamageUI(result.final_Damage, result.is_Critical); 데미지를 띄우는 UI 메서드
+        //        // if(투사체) attackSource.SelfDestroy(); 투사체일 경우 투사체 삭제.
+        //        StartCoroutine(ApplyInvincible()); // 무적 적용 코루틴 실행
+          
+        //}
     }
 
     protected IEnumerator ApplyInvincible()

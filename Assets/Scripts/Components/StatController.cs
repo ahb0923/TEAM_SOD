@@ -1,7 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+public struct DamageResult
+{
+    public float final_Damage;
+    public bool is_Critical;
 
+    public DamageResult(float Final_Damage, bool Is_Critical)
+    {
+        final_Damage = Final_Damage;
+        is_Critical = Is_Critical;
+    }
+}
 public class StatController : MonoBehaviour
 {
     public float Hp { get; private set; }
@@ -36,29 +46,19 @@ public class StatController : MonoBehaviour
     }
     // 초기화를 위한 InitStat. 몬스터나 유저 쪽에서 사용할 경우 awake 때 불러오자. 추후 ScriptableObjcet를 사용하게 되면 수정해야 할 수 있음.
 
-    public struct DamageResult
-    {
-        public float final_Damage;
-        public bool is_Critical;
-
-        public DamageResult(float Final_Damage, bool Is_Critical)
-        {
-            final_Damage = Final_Damage;
-            is_Critical = Is_Critical;
-        }
-    }
+    
     // 데미지 계산 결과와 크리티컬 여부를 동시에 반환받기 위해서 구조체로 데이터타입 선언
     // 데미지 몇 떴는지 영수증을 띄우고, 이 때 크리티컬의 경우 더 화려한 이펙트를 주고 싶다면
     // 최종 데미지와, 크리티컬 여부가 동시에 필요해서 이렇게 번거롭게...
     // 한 프레임에 여러 투사체에 맞을 경우에 필드에서 bool is_Crit, finalDmg 이렇게 하면 문제가 생기지 않나?해서.
 
-    public DamageResult FinalDamageCalculator(IDamageInfo damageinfo)
+    public DamageResult FinalDamageCalculator(float damageinfo)
     {
         float random = Random.value; // 0이상 1이하 float값 랸듐
-        bool _is_Crit = (random <= damageinfo.Critcal_Chance) ? true : false; // 크리 여부 판정
-        float final_dmg = damageinfo.Attack - Def;
+        bool _is_Crit = (random <= Crit_Chance) ? true : false; // 크리 여부 판정
+        float final_dmg = damageinfo - Def;
         final_dmg = (final_dmg > 0) ? final_dmg : 0; // 음수처리 방지
-        if (_is_Crit) final_dmg *= damageinfo.Critical_Multiply;
+        if (_is_Crit) final_dmg *= Crit_Multiply;
         // 크리여부에 따른 최종뎀 계산식. 방어력을 지금은 단순 뺄셈해뒀는데, %로 적용할 거면 여기서 변경
         return new DamageResult(final_dmg, _is_Crit);
     }
