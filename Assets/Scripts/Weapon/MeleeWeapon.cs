@@ -35,6 +35,8 @@ public class MeleeWeapon : BaseWeapon
             Debug.LogError("Animator를 찾을 수 없습니다.");
         else if (animator.runtimeAnimatorController == null)
             Debug.LogError("AnimatorController가 할당되지 않았습니다.");
+
+       
     }
 
     void Update()

@@ -33,6 +33,7 @@ public class RangeWeapon : BaseWeapon
 
         totalatk_OwnerAndWeapon = Atk + Owner.Atk;
         _originalScale = transform.localScale;
+        
     }
    
    
