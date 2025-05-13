@@ -49,7 +49,6 @@ public class DungeonManager : Singleton<DungeonManager>
     // 애니매이션용 
     private void Update()
     {
-
         if (checkClear == true)
         {
             doorAnimator.SetBool("Open",true);
@@ -98,22 +97,22 @@ public class DungeonManager : Singleton<DungeonManager>
 
         monster.transform.SetParent(spawnTrans); // 구조 정리 목적
         monsterList.Add(monster);
-            /*
-            for (int j = 0; j < MonsterPrefab.Length; j++)
-            {
-                // (2) 축별로 min/max 순으로 랜덤
-                float randX = Random.Range(posMin.x, posMax.x);
-                float randY = Random.Range(posMin.y, posMax.y);
+        /*
+        for (int j = 0; j < MonsterPrefab.Length; j++)
+        {
+            // (2) 축별로 min/max 순으로 랜덤
+            float randX = Random.Range(posMin.x, posMax.x);
+            float randY = Random.Range(posMin.y, posMax.y);
 
-                // 월드 좌표
-                Vector3 posC = new Vector3(randX, randY, posStandard.z);
+            // 월드 좌표
+            Vector3 posC = new Vector3(randX, randY, posStandard.z);
 
-                GameObject monster = Instantiate(MonsterPrefab[j], posC, Quaternion.identity);
-                monster.transform.SetParent(tilePositions[j]);
+            GameObject monster = Instantiate(MonsterPrefab[j], posC, Quaternion.identity);
+            monster.transform.SetParent(tilePositions[j]);
 
-                monsterList.Add(monster);
+            monsterList.Add(monster);
 
-            }*/
+        }*/
     }
 
     public void StartSpawn(Transform spawnTrans, string monsterKey, float interval, int repeatCount = -1)
