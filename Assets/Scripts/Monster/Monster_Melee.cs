@@ -8,6 +8,17 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Monster_Melee : Monster
 {
+    public MeleeWeapon weaponPrefab;
+    protected BaseWeapon weapon;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        if (weapon == null)
+        {
+            weapon = Instantiate(weaponPrefab, weaponPivot.transform);
+        }
+    }
     protected override void Attack()
     {
         float distance = Mathf.Abs(Vector2.Distance(target.transform.position, transform.position));

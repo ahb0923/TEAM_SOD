@@ -5,10 +5,16 @@ using UnityEngine;
 public class Monster_Range : Monster
 {
     // 스탯은 임시로 적용
+    public RangeWeapon weaponPrefab;
+    protected RangeWeapon weapon;
 
     protected override void Awake()
     {
         base.Awake();
+        if (weapon == null)
+        {
+            weapon = Instantiate(weaponPrefab, weaponPivot.transform);
+        }
     }
     protected override void Start()
     {

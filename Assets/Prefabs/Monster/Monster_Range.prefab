@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4927681906912289932}
   - component: {fileID: 7979377689184787188}
   - component: {fileID: 368735413294240460}
+  - component: {fileID: 6531059131513166524}
   m_Layer: 0
   m_Name: Monster_Range
   m_TagString: Untagged
@@ -167,12 +168,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db0a30921e987548941a2c608b15c59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponPivot: {fileID: 2790556810224628195}
-  weaponPrefab: {fileID: 0}
+  target: {fileID: 0}
+  weaponPivot: {fileID: 5816524717388731149}
+  weaponPrefab: {fileID: 319964874850279267, guid: 0935ecb6c65bfed48b041231c3192454, type: 3}
   _checkRange: 10
   _attackRange: 1
   _attackDelay: 0
-  rigid: {fileID: 0}
 --- !u!50 &368735413294240460
 Rigidbody2D:
   serializedVersion: 4
@@ -200,6 +201,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &6531059131513166524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5013923082303135000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d21576d2524898f4e880da57e28e4a54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 0}
 --- !u!1 &5816524717388731149
 GameObject:
   m_ObjectHideFlags: 0

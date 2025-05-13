@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class Monster_Boss : Monster
 {
-    [SerializeField] GameObject[] attackPattern;
-    private bool isAttack;
     private int attackCount; // 일정 횟수이상 공격 시 그로기
+    public RangeWeapon weaponPrefab;
+    protected RangeWeapon weapon;
+    protected override void Awake()
+    {
+        base.Awake();
+        if (weapon == null)
+        {
+            weapon = Instantiate(weaponPrefab, weaponPivot.transform);
+        }
+    }
     protected override void Attack()
     {
         float distance = Mathf.Abs(Vector2.Distance(target.transform.position, transform.position));
@@ -26,14 +34,7 @@ public class Monster_Boss : Monster
         int ran = Random.Range(1, 4);
         switch (ran)
         {
-            case 1:
-                SpriteRenderer[] zoneImg = attackPattern[ran].GetComponentsInChildren<SpriteRenderer>();
-                BoxCollider2D[] collider = attackPattern[ran].GetComponentsInChildren<BoxCollider2D>();
-                for (int i = 0; i < zoneImg.Length; i++)
-                {
-                    //zoneImg[i].color.a = 0.0f;
-                } 
-
+            case 1:         
                 attackCount++;
                 break;
             case 2:
@@ -43,5 +44,10 @@ public class Monster_Boss : Monster
                 attackCount++;
                 break;
         }
+    }
+
+    private void Pattern1()
+    {
+        //weapon.
     }
 }

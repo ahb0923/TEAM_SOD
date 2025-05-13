@@ -26,8 +26,8 @@ public class Monster : MonoBehaviour
 
     public GameObject target;
     [SerializeField] protected GameObject weaponPivot;
-    public BaseWeapon weaponPrefab;
-    protected BaseWeapon weapon;
+    //public BaseWeapon weaponPrefab;
+    //protected BaseWeapon weapon;
 
 
     protected StatController monsterStat;
@@ -49,10 +49,10 @@ public class Monster : MonoBehaviour
             target = GameObject.Find("Player");
         }
         //monsterStat.InitStat(_hp, _maxHp, _atk, _def, _moveSpeed, _gold, _crit_Chance, _crit_Multiply, _invinsible_duration, _is_invinsible);
-        if (weapon == null)
+        /*if (weapon == null)
         {
             weapon = Instantiate(weaponPrefab, weaponPivot.transform);
-        }
+        }*/
     }
 
     protected virtual void Start() { }
