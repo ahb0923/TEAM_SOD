@@ -24,7 +24,7 @@ public class Monster : MonoBehaviour
     protected float _invinsible_duration = 0;
 
 
-    protected GameObject target;
+    public GameObject target;
     [SerializeField] protected Transform weaponPivot;
     public BaseWeapon weaponPrefab;
     protected BaseWeapon weapon;
