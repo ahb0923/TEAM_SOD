@@ -7,14 +7,6 @@ using UnityEngine.Events;
 public class NpcInterAction : BaseInterAction
 {
 
-    private int _beforeCount = 1;
-    private int _afterCount = 2;
-
-
-    protected int lastMoney;
-    protected int goldPrice=100;
-
-
     public  override void OpenPanel()
     {
         var model = new PanelModel
@@ -26,34 +18,7 @@ public class NpcInterAction : BaseInterAction
 
         };
 
-        
-        model.TextPro["Before"].text = _beforeCount.ToString();
-        model.TextPro["After"].text = _afterCount.ToString();
-        model.TextPro["Gold"].text = goldPrice.ToString();
-
-
-        
-
-
-
-     
-        model.ButtonActions["Button_UpGrade"] = () => 
-        {
-            _beforeCount++;
-            _afterCount++;
-           
-            lastMoney -= goldPrice;
-            goldPrice += 100;
-            //무기 강화 로직
-
-            OpenPanel();
-        };
-        model.ButtonActions["Button_Cancel"] = () =>
-        {
-            UIManager.Instance.ClosePanel(model);
-        };
-
-
+       
 
         UIManager.Instance.ShowPanel(model);
 
