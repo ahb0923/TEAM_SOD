@@ -24,7 +24,7 @@ public class MeleeWeapon : BaseWeapon
         _originalScale = transform.localScale;
 
         Owner = GetComponentInParent<StatController>();
-
+        Target = Owner.GetComponent<Monster_Melee>().target.transform;
         // ② AnimatorController 할당 확인
         if (animator == null)
             Debug.LogError("Animator를 찾을 수 없습니다.");

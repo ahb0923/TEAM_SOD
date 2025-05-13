@@ -24,8 +24,8 @@ public class Monster : MonoBehaviour
     protected float _invinsible_duration = 0;
 
 
-    protected GameObject target;
-    [SerializeField] protected Transform weaponPivot;
+    public GameObject target;
+    [SerializeField] protected GameObject weaponPivot;
     public BaseWeapon weaponPrefab;
     protected BaseWeapon weapon;
 
@@ -44,11 +44,14 @@ public class Monster : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        target = GameObject.Find("Player");
+        if (target == null)
+        {
+            target = GameObject.Find("Player");
+        }
         //monsterStat.InitStat(_hp, _maxHp, _atk, _def, _moveSpeed, _gold, _crit_Chance, _crit_Multiply, _invinsible_duration, _is_invinsible);
         if (weapon == null)
         {
-            weapon = Instantiate(weaponPrefab, weaponPivot);
+            weapon = Instantiate(weaponPrefab, weaponPivot.transform);
         }
     }
 
@@ -80,10 +83,12 @@ public class Monster : MonoBehaviour
             if (direction.x > 0)
             {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
+                weaponPivot.transform.rotation = Quaternion.Euler(0, 0, -90);              
             }
-            if (direction.x < 0)
+            else if (direction.x < 0)
             {
                 transform.rotation = Quaternion.Euler(0, 180, 0);
+                weaponPivot.transform.rotation = Quaternion.Euler(0, 0, 90);
             }
             rigid.velocity = direction * _moveSpeed * Time.deltaTime;
             anim.SetBool("IsRun", true);
@@ -139,4 +144,5 @@ public class Monster : MonoBehaviour
             target = hit.gameObject;
         }
     }
+
 }
