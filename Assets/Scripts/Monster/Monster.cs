@@ -46,7 +46,7 @@ public class Monster : MonoBehaviour
         anim = GetComponent<Animator>();
         target = GameObject.Find("Player");
         //monsterStat.InitStat(_hp, _maxHp, _atk, _def, _moveSpeed, _gold, _crit_Chance, _crit_Multiply, _invinsible_duration, _is_invinsible);
-        if (weapon != null)
+        if (weapon == null)
         {
             weapon = Instantiate(weaponPrefab, weaponPivot);
         }
