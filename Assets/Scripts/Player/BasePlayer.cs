@@ -209,15 +209,23 @@ public class BasePlayer : MonoBehaviour
         {
             player_CurrentWeapon.Attack(lookDirection);
         }
+        else
+        {
+            player_CurrentWeapon.animator.SetBool("IsAttack",false);
+        }
     }
 
 
     protected void Rotate(Vector2 look_Direction)
     {
-        float rotZ = Mathf.Atan2(look_Direction.y, look_Direction.x) * Mathf.Rad2Deg;
-        bool isLeft = Mathf.Abs(rotZ) > 90f;
-
+        
+        Vector2 localLookDirection = look_Direction - (Vector2)this.transform.position;
+        if (look_Direction == Vector2.zero) return; // 무효한 방향 방지
+        bool isLeft = localLookDirection.x < 0f;
+        
         playerSprite.flipX = isLeft;
+
+
     }
 
     protected void OnCollisionEnter2D(Collision2D collision)

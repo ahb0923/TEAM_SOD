@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Monster_Range : Monster
 {
-    // ½ºÅÈÀº ÀÓ½Ã·Î Àû¿ë
+    // ìŠ¤íƒ¯ì€ ì„ì‹œë¡œ ì ìš©
 
     protected override void Awake()
     {
@@ -27,9 +27,9 @@ public class Monster_Range : Monster
         float distance = Mathf.Abs(Vector2.Distance(target.transform.position, transform.position));
         if (distance <= _attackRange && delay >= _attackDelay)
         {
-            //°ø°İ
-            CreateProjectile();
-            Debug.Log("¿ø°Å¸® °ø°İ");
+            //ê³µê²©
+            //CreateProjectile();
+            Debug.Log("ì›ê±°ë¦¬ ê³µê²©");
             delay = 0;
         }
         else
@@ -40,7 +40,7 @@ public class Monster_Range : Monster
     }
     private void CreateProjectile()
     {
-        //ÅºÂÊ ¸ÓÁö ÈÄ ¼öÁ¤     
+        //íƒ„ìª½ ë¨¸ì§€ í›„ ìˆ˜ì •     
         Vector2 direction = (target.transform.position - transform.position).normalized;
     }
 }
