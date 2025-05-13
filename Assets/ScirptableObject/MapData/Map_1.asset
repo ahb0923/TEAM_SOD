@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Map_1
   m_EditorClassIdentifier: 
   code: 0
-  monsterWave: 0
+  monsterWave: 5
+  type: 0
