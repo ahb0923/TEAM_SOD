@@ -24,10 +24,12 @@ public class ProjectileController : MonoBehaviour
         this.direction = direction.normalized;
         this.elapsedTime = 0f;
         
-        //final_Attack += 무기공격력 + 부모의 공격력
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponentInChildren<SpriteRenderer>();
+
+        //final_Attack += 무기공격력 + 부모의 공격력
         TotalAtk = totalatk;
+
         // 발사체 색상 설정
         if (sr != null)
             sr.color = data.Color;
@@ -62,12 +64,12 @@ public class ProjectileController : MonoBehaviour
     {
         int layer = other.gameObject.layer;
 
-        //// 레벨(벽 등) 충돌 체크
-        //if (((1 << layer) & data.levelCollisionLayer.value) != 0)
-        //{
-        //    DestroyProjectile(other.ClosestPoint(transform.position));
-        //    return;
-        //}
+        // 레벨(벽 등) 충돌 체크
+        if (((1 << layer) & data.layer.value) != 0)
+        {
+            DestroyProjectile(other.ClosestPoint(transform.position));
+            return;
+        }
 
         //// 대상(플레이어/몬스터) 충돌 체크
         //if (((1 << layer) & data.targetLayerMask.value) != 0)
