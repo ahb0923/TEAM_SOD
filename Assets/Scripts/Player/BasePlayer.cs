@@ -85,7 +85,7 @@ public class BasePlayer : MonoBehaviour
     // 추후 ScriptableObject로 구현하여 실수 줄이기
     protected void Start()
     {
-        player_Stat.InitStat();
+        player_Stat.InitStat_Player();
         PlayerWeaponSelect();
     }
 
