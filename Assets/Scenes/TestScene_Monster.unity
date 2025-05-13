@@ -215,42 +215,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &952486838 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1019175626375855802, guid: f10b6982ba0b1764eaf50f67d359d4ad, type: 3}
-  m_PrefabInstance: {fileID: 5644888607610916948}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1735500562
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1735500563}
-  m_Layer: 0
-  m_Name: WeaponPivot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1735500563
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1735500562}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: -0.1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 952486838}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1750170282
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,21 +351,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7686014666947229734, guid: f10b6982ba0b1764eaf50f67d359d4ad, type: 3}
-      propertyPath: _attackDelay
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7686014666947229734, guid: f10b6982ba0b1764eaf50f67d359d4ad, type: 3}
-      propertyPath: _attackRange
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 5243293737839266116, guid: f10b6982ba0b1764eaf50f67d359d4ad, type: 3}
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 1019175626375855802, guid: f10b6982ba0b1764eaf50f67d359d4ad, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1735500563}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f10b6982ba0b1764eaf50f67d359d4ad, type: 3}
 --- !u!1660057539 &9223372036854775807
