@@ -11,18 +11,22 @@ public class DungeonUI : BaseInterAction
     [Header("클리어 보상 설정")]
     //[SerializeField] private int clearGold = 100;
 
-    private BaseWeapon weapon; //무기 정보를 가져오기 위한 변수? 이렇게 가져오면되나? 
+    private RangeWeapon weapon; //플레이어 정보 
+    private GameObject Player;
 
+
+    //Awake로 해도...?(해야?)
+    private void Start()
+    {
+        Player = GetComponent<GameObject>();
+    }
     public override void OpenPanel()
     {
-        // 1) 플레이어 정보 가져오기  
-        //weapon = GameManager.Instance.GetPlayerWeapon(); // 무기 정보가져오는데 어떻게 가져오지?
+        // 1) 무기 정보 가져오기  
+        weapon = Player.GetComponentInChildren<RangeWeapon>();
 
 
 
-        // 0) 클리어 골드 지급
-        //player.Money += clearGold;                          // 플레이어 골드는 가져오면될듯 
-        //UIManager.Instance.UpdateMoney(_player.Money);
 
         // 1) PanelModel 준비
         var model = new PanelModel
@@ -40,16 +44,21 @@ public class DungeonUI : BaseInterAction
         //model.TextPro["ClearGoldText"].text = clearGold.ToString();
         //model.TextPro["CurrentMoneyText"].text = player.Money.ToString();
 
+
         // 3) 버튼 콜백 설정
-        model.ButtonActions["CloseButton"] = () =>
+        model.ButtonActions["Button_NextWave"] = () =>
         {
             selectPanel.SetActive(false);
              
            // MapManager.Instance.NextMap();
         };
-        //model.ButtonActions["UpgradeAttackBtn"] = () => { weapon.attackPower++; OpenPanel(); };
-        //model.ButtonActions["UpgradeAtkSpdBtn"] = () => { weapon.AttackSpeed++; OpenPanel(); };
-        //model.ButtonActions["UpgradeMoveSpdBtn"] = () => { weapon.MoveSpeed++; OpenPanel(); };
+        model.ButtonActions["UpgradeAttackBtn"] = () => { weapon.dungeon_AddPower++; }; 
+        model.ButtonActions["UpgradeAttackBtn"] = () => { weapon.dungeon_AddSpeed++; }; 
+        model.ButtonActions["UpgradeAttackBtn"] = () => { weapon.dungeon_ShotCount++; }; 
+        
+
+
+
 
         // 4) UI 표시
         UIManager.Instance.ShowPanel(model);

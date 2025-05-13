@@ -20,5 +20,9 @@ public class WeaponData : ScriptableObject
     public int multiShotCount;        // 한 번에 쏘는 화살 수
     public float multiShotAngle;        // 화살 퍼짐 각도
 
-    // 타입 넣기 -> DataManager에서 다루기 위해
+    [Header("던전 내 추가 능력치 (기본값은 0)")]
+    public float dungeon_AddPower;
+    public float dungeon_AddSpeed;
+    public float dungeon_AddRange;
+    public int dungeon_ShotCount;
 }

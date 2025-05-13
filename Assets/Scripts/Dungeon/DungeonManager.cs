@@ -144,8 +144,8 @@ public class DungeonManager : Singleton<DungeonManager>
 
 
 
-        //[Header("던전 클리어 시 띄울 UI 패널")]
-        //[SerializeField] private GameObject clearUIPanel;
+    //[Header("던전 클리어 시 띄울 UI 패널")]
+    //[SerializeField] private GameObject clearUIPanel;
 
 
     //[Header("플레이어 컨트롤러 (Inspector에 할당)")]
@@ -197,5 +197,10 @@ public class DungeonManager : Singleton<DungeonManager>
     //    SceneHandleManager.Instance.LoadScene("LobbyScene");
     //}
 
-
+    //============================
+    //[Header("=== UI 연결 ===")]
+    //[SerializeField] private DungeonUI dungeonUI;
+    //[SerializeField] private BossDungeonUI bossDungeonUI;
+    //[SerializeField] private FailedDungeonUI failedDungeonUI;
+    //[SerializeField] private StatController playerStat;
 }
