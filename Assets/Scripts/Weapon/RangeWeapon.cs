@@ -32,6 +32,7 @@ public class RangeWeapon : BaseWeapon
         Owner = GetComponentInParent<StatController>();
 
         totalatk_OwnerAndWeapon = Atk + Owner.Atk;
+        _originalScale = transform.localScale;
     }
    
    
@@ -41,11 +42,23 @@ public class RangeWeapon : BaseWeapon
         if (Time.time < lastAttackTime + cooldown)
             return;
         lastAttackTime = Time.time;
-        
+
         // 활 회전: 타겟을 정확히 바라보도록 transform 회전
         Vector2 toTarget = (Vector2)targetPosition - (Vector2)transform.position;
-        float bowAngle = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, bowAngle);
+        float baseAngle = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg;
+
+        bool shouldFlip = baseAngle > 90f || baseAngle < -90f;
+
+        float appliedAngle = shouldFlip ? baseAngle + 180f : baseAngle;
+        transform.localEulerAngles = new Vector3(0f, 0f, appliedAngle);
+
+        Vector3 scale = _originalScale;
+        scale.x = shouldFlip
+            ? -Mathf.Abs(_originalScale.x)
+            : Mathf.Abs(_originalScale.x);
+        transform.localScale = scale;
+
+
         base.Attack(targetPosition);
 
         int count = MultiShotCount;
