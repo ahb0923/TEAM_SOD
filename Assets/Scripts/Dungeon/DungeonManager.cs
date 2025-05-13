@@ -236,5 +236,10 @@ public class DungeonManager : Singleton<DungeonManager>
     //    SceneHandleManager.Instance.LoadScene("LobbyScene");
     //}
 
-
+    //============================
+    //[Header("=== UI ¿¬°á ===")]
+    //[SerializeField] private DungeonUI dungeonUI;
+    //[SerializeField] private BossDungeonUI bossDungeonUI;
+    //[SerializeField] private FailedDungeonUI failedDungeonUI;
+    //[SerializeField] private StatController playerStat;
 }
