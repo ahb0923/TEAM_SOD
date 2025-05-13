@@ -22,4 +22,8 @@ MonoBehaviour:
     m_Bits: 0
   projectileData: {fileID: 11400000, guid: a6dbad8b2d003874c9275237736f3c40, type: 2}
   multiShotCount: 1
-  multiShotAngle: 1
+  multiShotAngle: 3
+  dungeon_AddPower: 0
+  dungeon_AddSpeed: 0
+  dungeon_AddRange: 0
+  dungeon_ShotCount: 0

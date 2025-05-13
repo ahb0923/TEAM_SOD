@@ -15,7 +15,6 @@ MonoBehaviour:
   id: BasicBow
   attackPower: 2
   attackSpeed: 3
-  attackDelay: 1
   attackRange: 10
   weaponSize: 1
   layer:
@@ -23,4 +22,8 @@ MonoBehaviour:
     m_Bits: 0
   projectileData: {fileID: 11400000, guid: 177831c905140684298a171c2ae2b9a7, type: 2}
   multiShotCount: 1
-  multiShotAngle: 1
+  multiShotAngle: 3
+  dungeon_AddPower: 0
+  dungeon_AddSpeed: 0
+  dungeon_AddRange: 0
+  dungeon_ShotCount: 0
