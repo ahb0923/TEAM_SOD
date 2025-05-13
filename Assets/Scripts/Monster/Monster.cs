@@ -116,7 +116,7 @@ public class Monster : MonoBehaviour
         isDamage = false;
     }
     public virtual void Death()
-    {
+    { 
         Destroy(gameObject);
     }
 
