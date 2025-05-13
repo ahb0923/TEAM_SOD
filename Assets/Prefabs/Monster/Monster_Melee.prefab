@@ -197,6 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   weaponPivot: {fileID: 4026869030938657411}
+  monsterStat: {fileID: 8982268090349576187}
   _checkRange: 10
   _attackRange: 1
   _attackDelay: 1
@@ -214,6 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
+  monsterData: {fileID: 11400000, guid: e3c5aeaf8479dbf42a1975af442aa87b, type: 2}
 --- !u!1 &4026869030938657411
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: BasicBow
   attackPower: 2
-  attackSpeed: 10
+  attackSpeed: 2
   attackDelay: 1
-  attackRange: 10
+  attackRange: 3
   weaponSize: 1
   layer:
     serializedVersion: 2

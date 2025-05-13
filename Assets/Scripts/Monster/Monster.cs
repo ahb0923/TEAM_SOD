@@ -23,14 +23,9 @@ public class Monster : MonoBehaviour
     protected bool _is_invinsible;
     protected float _invinsible_duration = 0;
 
-
     public GameObject target;
     [SerializeField] protected GameObject weaponPivot;
-    //public BaseWeapon weaponPrefab;
-    //protected BaseWeapon weapon;
-
-
-    protected StatController monsterStat;
+    [SerializeField] protected StatController monsterStat;
     [SerializeField] protected float _checkRange;  // 타겟 탐색 범위
     [SerializeField] protected float _attackRange; // 공격 사거리
     [SerializeField] protected float _attackDelay; // 공격 주기
@@ -44,22 +39,18 @@ public class Monster : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        monsterStat.InitStat_Monster();
         if (target == null)
         {
             target = GameObject.Find("Player");
         }
-        //monsterStat.InitStat(_hp, _maxHp, _atk, _def, _moveSpeed, _gold, _crit_Chance, _crit_Multiply, _invinsible_duration, _is_invinsible);
-        /*if (weapon == null)
-        {
-            weapon = Instantiate(weaponPrefab, weaponPivot.transform);
-        }*/
+        
     }
 
     protected virtual void Start() { }
     protected virtual void Update() 
     {
         delay += Time.deltaTime;
-        Move();
         Attack();
     }
 
@@ -97,15 +88,15 @@ public class Monster : MonoBehaviour
 
     protected virtual void Attack() { }
 
-    /*protected virtual void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerProjectile")) //태그 예시 플레이어 총알과 충돌했을때
         {
             GameObject attackSource = collision.gameObject;
-            if (attackSource.TryGetComponent(out ProjectileController projectileControl))
+            if (attackSource.TryGetComponent<ProjectileController>(out ProjectileController proj))
             {
-                StatController.DamageResult result = monsterStat.FinalDamageCalculator(projectileControl.totalatk);
-                monsterStat.HpReductionApply(result);
+                float atk = proj.GetAttackPower(); // 최종 공격력을 리턴해주는 메서드 하나 있으면 될 듯?
+                DamageResult result = monsterStat.FinalDamageCalculator(atk); // 최종뎀 계산
                 if (!isDamage)
                 {
                     KnockBack(collision.transform.position);
@@ -117,7 +108,7 @@ public class Monster : MonoBehaviour
                 }
             }
         }
-    }*/
+    }
     protected virtual IEnumerator DamageCheck() // 몬스터 데미지 애니메이션 및 (데미지 연산 중 무적 적용시 사용) < 선택
     {
         isDamage = true;

@@ -15,7 +15,7 @@ public class MeleeWeapon : BaseWeapon
     public Transform Target;
     public StatController Owner;
 
-    //public GameObject Owner_Moster;
+    public GameObject Owner_Moster;
 
     private float lastAttackTime;
     protected override void Start()
@@ -28,7 +28,7 @@ public class MeleeWeapon : BaseWeapon
         Owner = GetComponentInParent<StatController>();
 
         //Owner_Moster = GetComponentInParent<GameObject>();
-        //Target = Owner_Moster.GetComponent<Monster_Melee>().target.transform;
+        Target = Owner.GetComponent<Monster_Melee>().target.transform;
 
         // ② AnimatorController 할당 확인
         if (animator == null)

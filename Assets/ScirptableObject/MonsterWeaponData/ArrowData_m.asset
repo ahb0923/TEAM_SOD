@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: BasicArrow_m
   attackPower: 10
-  attackSpeed: 0
-  attackDelay: 0
-  attackRange: 0
+  attackSpeed: 1
+  attackDelay: 1
+  attackRange: 3
   weaponSize: 0
   layer:
     serializedVersion: 2

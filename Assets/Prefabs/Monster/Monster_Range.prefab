@@ -99,7 +99,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 200
   m_Sprite: {fileID: 21300000, guid: 02c3ae1f317a96545beb3f63d9971f15, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -170,10 +170,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   weaponPivot: {fileID: 5816524717388731149}
-  weaponPrefab: {fileID: 319964874850279267, guid: 0935ecb6c65bfed48b041231c3192454, type: 3}
+  monsterStat: {fileID: 6531059131513166524}
   _checkRange: 10
   _attackRange: 1
   _attackDelay: 0
+  weaponPrefab: {fileID: 319964874850279267, guid: 0935ecb6c65bfed48b041231c3192454, type: 3}
 --- !u!50 &368735413294240460
 Rigidbody2D:
   serializedVersion: 4
@@ -214,6 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
+  monsterData: {fileID: 11400000, guid: 4677504801cd62546aa4ac12f547d311, type: 2}
 --- !u!1 &5816524717388731149
 GameObject:
   m_ObjectHideFlags: 0

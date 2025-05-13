@@ -48,13 +48,11 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 8f0e133d677a2a14195b8dbb1e300a34, type: 2}
   animator: {fileID: 3836758647060491909}
   attackSoundClip: {fileID: 0}
-  target:
-    serializedVersion: 2
-    m_Bits: 0
   hitboxSize: {x: 1, y: 1}
   hitboxOffset: {x: 0, y: 0}
+  Target: {fileID: 0}
   Owner: {fileID: 0}
-  Totalattack: 0
+  Owner_Moster: {fileID: 0}
 --- !u!1 &5516369654840413571
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,7 +126,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 200
   m_Sprite: {fileID: 21300000, guid: 6f5912c9062fe66418d23ed125648bf5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -14,6 +14,7 @@ public class Monster_Melee : Monster
     protected override void Awake()
     {
         base.Awake();
+        Move();
         if (weapon == null)
         {
             weapon = Instantiate(weaponPrefab, weaponPivot.transform);
