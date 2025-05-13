@@ -88,15 +88,20 @@ public class Monster : MonoBehaviour
 
     protected virtual void Attack() { }
 
-    protected virtual void OnCollisionEnter2D(Collision2D collision)
+    protected void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerProjectile")) //태그 예시 플레이어 총알과 충돌했을때
         {
+            Debug.Log("맞음");
             GameObject attackSource = collision.gameObject;
             if (attackSource.TryGetComponent<ProjectileController>(out ProjectileController proj))
             {
                 float atk = proj.GetAttackPower(); // 최종 공격력을 리턴해주는 메서드 하나 있으면 될 듯?
-                DamageResult result = monsterStat.FinalDamageCalculator(atk); // 최종뎀 계산
+                DamageResult result = monsterStat.FinalDamageCalculator(atk);
+                monsterStat.HpReductionApply(result);
+                Debug.Log(monsterStat.Hp);
+                proj.DestroyProjectile(proj.transform.position);
+                // 최종뎀 계산
                 if (!isDamage)
                 {
                     KnockBack(collision.transform.position);
