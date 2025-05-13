@@ -44,7 +44,8 @@ public class Monster : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        target = GameObject.Find("Player");
+        //target = GameObject.Find("Player");임시 수정
+        target = GameObject.Find("Test_Player");
         //monsterStat.InitStat(_hp, _maxHp, _atk, _def, _moveSpeed, _gold, _crit_Chance, _crit_Multiply, _invinsible_duration, _is_invinsible);
         if (weapon != null)
         {
