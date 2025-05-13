@@ -9,18 +9,19 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 public class DungeonUI : BaseInterAction
 {
     [Header("클리어 보상 설정")]
-    [SerializeField] private int clearGold = 100;
+    //[SerializeField] private int clearGold = 100;
 
-    private BaseWeapon weapon; //플레이어 정보 
+    private BaseWeapon weapon; //무기 정보를 가져오기 위한 변수? 이렇게 가져오면되나? 
 
     public override void OpenPanel()
     {
         // 1) 플레이어 정보 가져오기  
-        //weapon = GameManager.Instance.GetPlayerWeapon();
+        //weapon = GameManager.Instance.GetPlayerWeapon(); // 무기 정보가져오는데 어떻게 가져오지?
+
 
 
         // 0) 클리어 골드 지급
-        //player.Money += clearGold;
+        //player.Money += clearGold;                          // 플레이어 골드는 가져오면될듯 
         //UIManager.Instance.UpdateMoney(_player.Money);
 
         // 1) PanelModel 준비
