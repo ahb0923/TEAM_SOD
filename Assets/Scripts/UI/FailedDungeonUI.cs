@@ -15,7 +15,7 @@ public class FailedDungeonUI : BaseInterAction
             TextPro = new Dictionary<string, TextMeshProUGUI>(texts),
             ButtonActions = new Dictionary<string, UnityAction>
             {
-                ["Button_Lobby"] = () => SceneHandleManager.Instance.LoadScene(SCENE_TYPE.DungeonScene.ToString())
+                ["Button_Lobby"] = () => SceneHandleManager.Instance.LoadScene(SCENE_TYPE.LobbyScene.ToString())
             }
         };
         UIManager.Instance.ShowPanel(model);
