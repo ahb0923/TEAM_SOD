@@ -15,70 +15,76 @@ public class RangeWeapon : BaseWeapon
 
     //public GameObject InpactEffect => ProjectileData.impactEffect;
 
-    public int MultiShotCount => data.multiShotCount;        // 한 번에 쏘는 화살 수
+    public int MultiShotCount => data.multiShotCount + data.dungeon_ShotCount;        // 한 번에 쏘는 화살 수
     public float MultiShotAngle => data.multiShotAngle;        // 화살 퍼짐 각도
 
     private float lastAttackTime;
-    public StatController Owner;
-    public float totalatk_OwnerAndWeapon;
-    private Vector3 _originalScale;
+    public StatController owner;
+    public float totalatk_OwnerAndWeapon => data.attackPower + owner.Atk + data.dungeon_AddPower;
+    private Vector3 originalScale;
+
+    protected override void Awake()
+    {     
+        owner = GetComponentInParent<StatController>();
+    }
 
     protected override void Start()
     {
-        base.Start();
-        //projectileManager = ProjectileManager.Instance;
-    
         lastAttackTime = -Mathf.Infinity; //첫 공격이 즉시 가능하도록
-        Owner = GetComponentInParent<StatController>();
-
-        totalatk_OwnerAndWeapon = Atk + Owner.Atk;
-        _originalScale = transform.localScale;
-        
+        originalScale = transform.localScale;
     }
    
    
     public override void Attack(Vector3 targetPosition) //위치를 파라미터로 받아와서 공격
     {
-        float cooldown = 1f / Speed;
-        if (Time.time < lastAttackTime + cooldown)
+        if (!AttackCoolTime())
             return;
-        lastAttackTime = Time.time;
-
-        // 활 회전: 타겟을 정확히 바라보도록 transform 회전
-        Vector2 toTarget = (Vector2)targetPosition - (Vector2)transform.position;
-        float baseAngle = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg;
-
-        bool shouldFlip = baseAngle > 90f || baseAngle < -90f;
-
-        float appliedAngle = shouldFlip ? baseAngle + 180f : baseAngle;
-        transform.localEulerAngles = new Vector3(0f, 0f, appliedAngle);
-
-        Vector3 scale = _originalScale;
-        scale.x = shouldFlip
-            ? -Mathf.Abs(_originalScale.x)
-            : Mathf.Abs(_originalScale.x);
-        transform.localScale = scale;
-
-
+        Debug.Log(totalatk_OwnerAndWeapon);
         base.Attack(targetPosition);
 
-        int count = MultiShotCount;
-        float angleStep = MultiShotAngle;
-        float startAngle = -(count - 1) / 2f * angleStep;
+        //타겟을 향해서 회전
+        FaceTarget(targetPosition);
+
+        //투사체 생성 요청 -> projectileManager
+        SpawnProjectiles(targetPosition);
+    }
+    private bool AttackCoolTime()
+    {
+        float cooldown = 1f / Speed;
+        if (Time.time < lastAttackTime + cooldown)
+            return false;
+
+        lastAttackTime = Time.time;
+        return true;
+    }
+
+    private void FaceTarget(Vector3 targetPosition)
+    {
+        Vector2 toTarget = ((Vector2)targetPosition - (Vector2)transform.position).normalized;
+        float angle = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg;
+        bool shouldFlip = angle > 90f || angle < -90f;
 
         
+        float appliedAngle = shouldFlip ? angle + 180f : angle;
+        transform.localEulerAngles = new Vector3(0f, 0f, appliedAngle);
+
+       
+        Vector3 scale = originalScale;
+        scale.x = shouldFlip ? -Mathf.Abs(originalScale.x) : Mathf.Abs(originalScale.x);
+        transform.localScale = scale;
+    }
+
+    private void SpawnProjectiles(Vector3 targetPosition)
+    {
+        Vector2 baseDirection = ((Vector2)targetPosition - (Vector2)transform.position).normalized;
         Vector2 spawnPos = projectileSpawnPoint.position;
-        
-        float baseZ = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg;
+        float baseAngle = Mathf.Atan2(baseDirection.y, baseDirection.x) * Mathf.Rad2Deg;
 
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < MultiShotCount; i++)
         {
-
-            float localAngle = startAngle + angleStep * i;
-            float zAngle = baseZ + localAngle;
-
-            // 최종 발사 방향 계산
-            Vector2 dir = Quaternion.Euler(0f, 0f, zAngle) * Vector2.right;
+            float offset = -(MultiShotCount - 1) * 0.5f * MultiShotAngle + i * MultiShotAngle;
+            float shotAngle = baseAngle + offset;
+            Vector2 dir = Quaternion.Euler(0f, 0f, shotAngle) * Vector2.right;
 
             ProjectileManager.Instance.SpawnProjectile(
                 ProjectileData,
@@ -88,4 +94,15 @@ public class RangeWeapon : BaseWeapon
             );
         }
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        if (data == null) return;
+
+        // 무기 위치 기준으로 attackRange 원형 표시
+        Gizmos.color = new Color(1f, 0.5f, 0f, 0.5f);  // 주황 반투명
+        Gizmos.DrawWireSphere(transform.position, data.attackRange);
+    }
+#endif
 }

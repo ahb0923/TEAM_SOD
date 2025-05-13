@@ -46,12 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe15b621cf65c2a44af82face2343bf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 6b6f795ed42457643b9091725d77b4a3, type: 2}
+  data: {fileID: 11400000, guid: 40d0829afed5888428e27fce66c60ed1, type: 2}
   animator: {fileID: 4626365175822789566}
   attackSoundClip: {fileID: 0}
   projectileSpawnPoint: {fileID: 1742381686953796594}
-  Owner: {fileID: 0}
-  totalatk_OwnerAndWeapon: 0
+  owner: {fileID: 0}
 --- !u!1 &4893470876176665229
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,7 +126,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 11d0e3b246f09d54f84b10a362785ee1, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.19105244, g: 0.8805031, b: 0.306937, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -183,7 +182,7 @@ Transform:
   m_GameObject: {fileID: 8627916693434199913}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.37, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -23,38 +23,36 @@ public class Monster : MonoBehaviour
     protected bool _is_invinsible;
     protected float _invinsible_duration = 0;
 
-
     public GameObject target;
-    [SerializeField] protected Transform weaponPivot;
-    public BaseWeapon weaponPrefab;
-    protected BaseWeapon weapon;
-
-
-    protected StatController monsterStat;
+    [SerializeField] protected GameObject weaponPivot;
+    [SerializeField] protected StatController monsterStat;
     [SerializeField] protected float _checkRange;  // 타겟 탐색 범위
     [SerializeField] protected float _attackRange; // 공격 사거리
     [SerializeField] protected float _attackDelay; // 공격 주기
     protected float delay; // 공격 딜레이 계산용 변수
     protected float knockPower; // 넉백 수치
     protected bool isDamage; // 피격
-    [SerializeField]  protected Rigidbody2D rigid;
+    protected Rigidbody2D rigid;
     protected Animator anim;
 
     protected virtual void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        //target = GameObject.Find("Player");임시 수정
-        target = GameObject.Find("Test_Player");
-        //monsterStat.InitStat(_hp, _maxHp, _atk, _def, _moveSpeed, _gold, _crit_Chance, _crit_Multiply, _invinsible_duration, _is_invinsible);
-        if (weapon != null)
+        monsterStat.InitStat_Monster();
+        if (target == null)
         {
-            weapon = Instantiate(weaponPrefab, weaponPivot);
+            target = GameObject.Find("Player");
         }
+        
     }
 
     protected virtual void Start() { }
-    protected virtual void Update() { }
+    protected virtual void Update() 
+    {
+        delay += Time.deltaTime;
+        Attack();
+    }
 
     protected virtual void Move()
     {
@@ -64,7 +62,7 @@ public class Monster : MonoBehaviour
             rigid.velocity = Vector2.zero;
             return;
         }
-        else if (Mathf.Abs(Vector2.Distance(transform.position, target.transform.position)) <= _attackRange)
+        if (Mathf.Abs(Vector2.Distance(transform.position, target.transform.position)) <= _attackRange)
         {
             anim.SetBool("IsRun", false);
             rigid.velocity = Vector2.zero;
@@ -76,10 +74,12 @@ public class Monster : MonoBehaviour
             if (direction.x > 0)
             {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
+                weaponPivot.transform.rotation = Quaternion.Euler(0, 0, -90);              
             }
-            if (direction.x < 0)
+            else if (direction.x < 0)
             {
                 transform.rotation = Quaternion.Euler(0, 180, 0);
+                weaponPivot.transform.rotation = Quaternion.Euler(0, 0, 90);
             }
             rigid.velocity = direction * _moveSpeed * Time.deltaTime;
             anim.SetBool("IsRun", true);
@@ -88,15 +88,15 @@ public class Monster : MonoBehaviour
 
     protected virtual void Attack() { }
 
-    /*protected virtual void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerProjectile")) //태그 예시 플레이어 총알과 충돌했을때
         {
             GameObject attackSource = collision.gameObject;
-            if (attackSource.TryGetComponent(out IDamageInfo damageinfo))
+            if (attackSource.TryGetComponent<ProjectileController>(out ProjectileController proj))
             {
-                StatController.DamageResult result = monsterStat.FinalDamageCalculator(damageinfo);
-                monsterStat.HpReductionApply(result);
+                float atk = proj.GetAttackPower(); // 최종 공격력을 리턴해주는 메서드 하나 있으면 될 듯?
+                DamageResult result = monsterStat.FinalDamageCalculator(atk); // 최종뎀 계산
                 if (!isDamage)
                 {
                     KnockBack(collision.transform.position);
@@ -108,7 +108,7 @@ public class Monster : MonoBehaviour
                 }
             }
         }
-    }*/
+    }
     protected virtual IEnumerator DamageCheck() // 몬스터 데미지 애니메이션 및 (데미지 연산 중 무적 적용시 사용) < 선택
     {
         isDamage = true;
@@ -135,4 +135,5 @@ public class Monster : MonoBehaviour
             target = hit.gameObject;
         }
     }
+
 }

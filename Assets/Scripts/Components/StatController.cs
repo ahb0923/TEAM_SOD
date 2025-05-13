@@ -30,7 +30,10 @@ public class StatController : MonoBehaviour
 
     [SerializeField]
     private PlayerData playerData;
-    public void InitStat()
+    [SerializeField]
+    private MonsterData monsterData;
+
+    public void InitStat_Player()
     {
         Hp = playerData.maxHp;
         MaxHp = playerData.maxHp;
@@ -42,6 +45,20 @@ public class StatController : MonoBehaviour
         Crit_Multiply = playerData._crit_Multiply;
         Invinsible_Duration = playerData._in_invinsible_duration;
         Is_Invinsible = playerData._is_invinsible;
+    }
+
+    public void InitStat_Monster()
+    {
+        Hp = monsterData.maxHp;
+        MaxHp = monsterData.maxHp;
+        Atk = monsterData.atk;
+        Def = monsterData.def;
+        MoveSpeed = monsterData.moveSpeed;
+        //Gold = monsterData.gold;
+        Crit_Chance = monsterData._crit_Chance;
+        Crit_Multiply = monsterData._crit_Multiply;
+        Invinsible_Duration = monsterData._in_invinsible_duration;
+        Is_Invinsible = monsterData._is_invinsible;
     }
     // 초기화를 위한 InitStat. 몬스터나 유저 쪽에서 사용할 경우 awake 때 불러오자. 추후 ScriptableObjcet를 사용하게 되면 수정해야 할 수 있음.
 
