@@ -8,21 +8,23 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Monster_Melee : Monster
 {
-    
-    protected override void Update()
-    {
-        base.Update();
+    public MeleeWeapon weaponPrefab;
+    protected BaseWeapon weapon;
 
-        //delay += Time.deltaTime;
-        //Move();
-        Attack();
+    protected override void Awake()
+    {
+        base.Awake();
+        Move();
+        if (weapon == null)
+        {
+            weapon = Instantiate(weaponPrefab, weaponPivot.transform);
+        }
     }
     protected override void Attack()
     {
         float distance = Mathf.Abs(Vector2.Distance(target.transform.position, transform.position));
         if (distance <= _attackRange && delay >= _attackDelay)
         {
-            delay = 0;
         }
     }
 }
