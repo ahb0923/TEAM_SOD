@@ -24,10 +24,12 @@ public class ProjectileController : MonoBehaviour
         this.direction = direction.normalized;
         this.elapsedTime = 0f;
         
-        //final_Attack += 무기공격력 + 부모의 공격력
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponentInChildren<SpriteRenderer>();
+
+        //final_Attack += 무기공격력 + 부모의 공격력
         TotalAtk = totalatk;
+
         // 발사체 색상 설정
         if (sr != null)
             sr.color = data.Color;
@@ -35,6 +37,9 @@ public class ProjectileController : MonoBehaviour
         // 회전을 통해 방향 맞추기
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        transform.localScale = Vector3.one;
+       
+        sr.flipY = direction.y > 0f;
     }
 
     public float GetAttackPower()

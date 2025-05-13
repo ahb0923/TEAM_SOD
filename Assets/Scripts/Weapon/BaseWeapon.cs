@@ -9,7 +9,7 @@ public abstract class BaseWeapon : MonoBehaviour
     public string weaponId => data.id;
     public float Atk => data.attackPower;
     public float Speed => data.attackSpeed;
-    public float Delay => data.attackDelay;
+    //public float Delay => data.attackDelay;
     public float AttackRange => data.attackRange;
 
     public float WeaponSize => data.weaponSize; //근접무기 사이즈
@@ -23,13 +23,7 @@ public abstract class BaseWeapon : MonoBehaviour
     public virtual void Awake() {}
     protected virtual void Start() {}
 
-    public virtual void AttackTest()
-    {
-        AttackAnimation(); //공격 애니메이션
-
-        if (attackSoundClip) { } //사운드 클립
-           // SoundManager.PlayClip(attackSoundClip);
-    }
+ 
     public virtual void Attack(Vector3 v)
     {
         AttackAnimation(); //공격 애니메이션
@@ -40,7 +34,8 @@ public abstract class BaseWeapon : MonoBehaviour
 
     public void AttackAnimation()
     {
-        //animator.SetTrigger(IsAttack);
+        animator.SetFloat("AttackSpeed", Speed);
+        animator.SetTrigger("IsAttack");
     }
 }
  

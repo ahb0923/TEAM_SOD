@@ -24,10 +24,10 @@ public class Monster : MonoBehaviour
     protected float _invinsible_duration = 0;
 
 
-    protected GameObject target;
-    [SerializeField] protected Transform weaponPivot;
-    public BaseWeapon weaponPrefab;
-    protected BaseWeapon weapon;
+    public GameObject target;
+    [SerializeField] protected GameObject weaponPivot;
+    //public BaseWeapon weaponPrefab;
+    //protected BaseWeapon weapon;
 
 
     protected StatController monsterStat;
@@ -37,23 +37,31 @@ public class Monster : MonoBehaviour
     protected float delay; // 공격 딜레이 계산용 변수
     protected float knockPower; // 넉백 수치
     protected bool isDamage; // 피격
-    [SerializeField]  protected Rigidbody2D rigid;
+    protected Rigidbody2D rigid;
     protected Animator anim;
 
     protected virtual void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        target = GameObject.Find("Player");
-        //monsterStat.InitStat(_hp, _maxHp, _atk, _def, _moveSpeed, _gold, _crit_Chance, _crit_Multiply, _invinsible_duration, _is_invinsible);
-        if (weapon != null)
+        if (target == null)
         {
-            weapon = Instantiate(weaponPrefab, weaponPivot);
+            target = GameObject.Find("Player");
         }
+        //monsterStat.InitStat(_hp, _maxHp, _atk, _def, _moveSpeed, _gold, _crit_Chance, _crit_Multiply, _invinsible_duration, _is_invinsible);
+        /*if (weapon == null)
+        {
+            weapon = Instantiate(weaponPrefab, weaponPivot.transform);
+        }*/
     }
 
     protected virtual void Start() { }
-    protected virtual void Update() { }
+    protected virtual void Update() 
+    {
+        delay += Time.deltaTime;
+        Move();
+        Attack();
+    }
 
     protected virtual void Move()
     {
@@ -63,7 +71,7 @@ public class Monster : MonoBehaviour
             rigid.velocity = Vector2.zero;
             return;
         }
-        else if (Mathf.Abs(Vector2.Distance(transform.position, target.transform.position)) <= _attackRange)
+        if (Mathf.Abs(Vector2.Distance(transform.position, target.transform.position)) <= _attackRange)
         {
             anim.SetBool("IsRun", false);
             rigid.velocity = Vector2.zero;
@@ -75,10 +83,12 @@ public class Monster : MonoBehaviour
             if (direction.x > 0)
             {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
+                weaponPivot.transform.rotation = Quaternion.Euler(0, 0, -90);              
             }
-            if (direction.x < 0)
+            else if (direction.x < 0)
             {
                 transform.rotation = Quaternion.Euler(0, 180, 0);
+                weaponPivot.transform.rotation = Quaternion.Euler(0, 0, 90);
             }
             rigid.velocity = direction * _moveSpeed * Time.deltaTime;
             anim.SetBool("IsRun", true);
@@ -92,9 +102,9 @@ public class Monster : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerProjectile")) //태그 예시 플레이어 총알과 충돌했을때
         {
             GameObject attackSource = collision.gameObject;
-            if (attackSource.TryGetComponent(out IDamageInfo damageinfo))
+            if (attackSource.TryGetComponent(out ProjectileController projectileControl))
             {
-                StatController.DamageResult result = monsterStat.FinalDamageCalculator(damageinfo);
+                StatController.DamageResult result = monsterStat.FinalDamageCalculator(projectileControl.totalatk);
                 monsterStat.HpReductionApply(result);
                 if (!isDamage)
                 {
@@ -134,4 +144,5 @@ public class Monster : MonoBehaviour
             target = hit.gameObject;
         }
     }
+
 }

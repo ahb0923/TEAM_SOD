@@ -1,54 +1,69 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class RangeWeapon : BaseWeapon
 {
    
     [SerializeField] private Transform projectileSpawnPoint;
 
-    public ProjectileData projectileData => data.projectileData;
-    public float duration => projectileData.lifetime;
+    public ProjectileData ProjectileData => data.projectileData;
+    public float ProjSpeed => ProjectileData.moveSpeed;
+    public float Duration => ProjectileData.lifetime; 
+    public Color Color => data.projectileData.Color; //í™”ì‚´ ìƒ‰
 
-    //public int continuousShotCount => r_data.continuousShotCount;   // ¿¬»ç ¼ö (1ÀÌ¸é ´Ü¹ß)
-    public int multiShotCount => data.multiShotCount;        // ÇÑ ¹ø¿¡ ½î´Â È­»ì ¼ö
-    public float multiShotAngle => data.multiShotAngle;        // È­»ì ÆÛÁü °¢µµ
+    //public GameObject InpactEffect => ProjectileData.impactEffect;
 
-    public Color color => data.projectileData.Color; //È­»ì »ö
-    public float projSpeed => projectileData.moveSpeed;
+    public int MultiShotCount => data.multiShotCount;        // í•œ ë²ˆì— ì˜ëŠ” í™”ì‚´ ìˆ˜
+    public float MultiShotAngle => data.multiShotAngle;        // í™”ì‚´ í¼ì§ ê°ë„
 
     private float lastAttackTime;
-
     public StatController Owner;
     public float totalatk_OwnerAndWeapon;
+    private Vector3 _originalScale;
 
-    //private ProjectileManager projectileManager;
-    
     protected override void Start()
     {
         base.Start();
         //projectileManager = ProjectileManager.Instance;
-
-        lastAttackTime = -Mathf.Infinity; //Ã¹ °ø°İÀÌ Áï½Ã °¡´ÉÇÏµµ·Ï
+    
+        lastAttackTime = -Mathf.Infinity; //ì²« ê³µê²©ì´ ì¦‰ì‹œ ê°€ëŠ¥í•˜ë„ë¡
         Owner = GetComponentInParent<StatController>();
-        totalatk_OwnerAndWeapon = Atk + Owner.Atk;
-    }
 
-    public override void Attack(Vector3 targetPosition) //À§Ä¡¸¦ ÆÄ¶ó¹ÌÅÍ·Î ¹Ş¾Æ¿Í¼­ °ø°İ
+        totalatk_OwnerAndWeapon = Atk + Owner.Atk;
+        _originalScale = transform.localScale;
+        
+    }
+   
+   
+    public override void Attack(Vector3 targetPosition) //ìœ„ì¹˜ë¥¼ íŒŒë¼ë¯¸í„°ë¡œ ë°›ì•„ì™€ì„œ ê³µê²©
     {
         float cooldown = 1f / Speed;
         if (Time.time < lastAttackTime + cooldown)
             return;
         lastAttackTime = Time.time;
 
-        // È° È¸Àü: Å¸°ÙÀ» Á¤È®È÷ ¹Ù¶óº¸µµ·Ï transform È¸Àü
+        // í™œ íšŒì „: íƒ€ê²Ÿì„ ì •í™•íˆ ë°”ë¼ë³´ë„ë¡ transform íšŒì „
         Vector2 toTarget = (Vector2)targetPosition - (Vector2)transform.position;
-        float bowAngle = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, bowAngle);
+        float baseAngle = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg;
+
+        bool shouldFlip = baseAngle > 90f || baseAngle < -90f;
+
+        float appliedAngle = shouldFlip ? baseAngle + 180f : baseAngle;
+        transform.localEulerAngles = new Vector3(0f, 0f, appliedAngle);
+
+        Vector3 scale = _originalScale;
+        scale.x = shouldFlip
+            ? -Mathf.Abs(_originalScale.x)
+            : Mathf.Abs(_originalScale.x);
+        transform.localScale = scale;
+
+
         base.Attack(targetPosition);
 
-        int count = multiShotCount;
-        float angleStep = multiShotAngle;
+        int count = MultiShotCount;
+        float angleStep = MultiShotAngle;
         float startAngle = -(count - 1) / 2f * angleStep;
 
         
@@ -62,15 +77,15 @@ public class RangeWeapon : BaseWeapon
             float localAngle = startAngle + angleStep * i;
             float zAngle = baseZ + localAngle;
 
-            // ÃÖÁ¾ ¹ß»ç ¹æÇâ °è»ê
+            // ìµœì¢… ë°œì‚¬ ë°©í–¥ ê³„ì‚°
             Vector2 dir = Quaternion.Euler(0f, 0f, zAngle) * Vector2.right;
 
-            ProjectileManager.Instance.SpawnProjectile(
-                projectileData,
-                spawnPos,
-                dir,
-                totalatk_OwnerAndWeapon
-            );
+         // ProjectileManager.Instance.SpawnProjectile(
+         //     ProjectileData,
+         //     spawnPos,
+         //     dir,
+         //     totalatk_OwnerAndWeapon
+         // );
         }
     }
 }
