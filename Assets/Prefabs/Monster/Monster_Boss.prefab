@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 200
   m_Sprite: {fileID: 21300000, guid: 198c90ea4bfbede43a8ef047534c1c5b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -124,10 +124,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   weaponPivot: {fileID: 2725534677044696763}
-  weaponPrefab: {fileID: 4292447336826878635, guid: 09adefd65717d5d4ca6bfb7d2d9e7f42, type: 3}
   _checkRange: 0
   _attackRange: 0
   _attackDelay: 0
+  weaponPrefab: {fileID: 4292447336826878635, guid: 09adefd65717d5d4ca6bfb7d2d9e7f42, type: 3}
 --- !u!50 &990355810670250034
 Rigidbody2D:
   serializedVersion: 4

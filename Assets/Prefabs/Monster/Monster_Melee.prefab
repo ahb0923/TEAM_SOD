@@ -214,6 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
+  monsterData: {fileID: 0}
 --- !u!1 &4026869030938657411
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ using static UnityEngine.GraphicsBuffer;
 public class MeleeWeapon : BaseWeapon
 {
 
-    [Header("±ÙÁ¢ °ø°İ ¹üÀ§ ¿ÀÇÁ¼Â")]
+    [Header("ê·¼ì ‘ ê³µê²© ë²”ìœ„ ì˜¤í”„ì…‹")]
     [SerializeField] private Vector2 hitboxSize = Vector2.one;
     [SerializeField] private Vector2 hitboxOffset = Vector2.zero;
 
@@ -28,13 +28,13 @@ public class MeleeWeapon : BaseWeapon
         Owner = GetComponentInParent<StatController>();
 
         //Owner_Moster = GetComponentInParent<GameObject>();
-        //Target = Owner_Moster.GetComponent<Monster_Melee>().target.transform;
+        Target = Owner.GetComponent<Monster_Melee>().target.transform;
 
-        // ¨è AnimatorController ÇÒ´ç È®ÀÎ
+        // â‘¡ AnimatorController í• ë‹¹ í™•ì¸
         if (animator == null)
-            Debug.LogError("Animator¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+            Debug.LogError("Animatorë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
         else if (animator.runtimeAnimatorController == null)
-            Debug.LogError("AnimatorController°¡ ÇÒ´çµÇÁö ¾Ê¾Ò½À´Ï´Ù.");
+            Debug.LogError("AnimatorControllerê°€ í• ë‹¹ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
 
        
     }
@@ -95,14 +95,14 @@ public class MeleeWeapon : BaseWeapon
 
         lastAttackTime = Time.time;
         base.Attack(v);
-        Debug.Log("±ÙÁ¢°ø°İ");
-        // °ø°İ ¹æÇâ¿¡ µû¶ó È÷Æ®¹Ú½º È¸Àü
+        Debug.Log("ê·¼ì ‘ê³µê²©");
+        // ê³µê²© ë°©í–¥ì— ë”°ë¼ íˆíŠ¸ë°•ìŠ¤ íšŒì „
         Vector2 dir = ((Vector2)v - (Vector2)transform.position).normalized;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         Vector2 center = (Vector2)transform.position + hitboxOffset;
         Quaternion rotation = Quaternion.Euler(0, 0, angle);
 
-        // BoxCast·Î Ãæµ¹ °Ë»ç, ¶Ç´Â OverlapBox »ç¿ë
+        // BoxCastë¡œ ì¶©ëŒ ê²€ì‚¬, ë˜ëŠ” OverlapBox ì‚¬ìš©
         RaycastHit2D[] hits = Physics2D.BoxCastAll(
             center,
             hitboxSize * WeaponSize,
@@ -120,6 +120,6 @@ public class MeleeWeapon : BaseWeapon
         //    //}
         //}
 
-        // (¼±ÅÃ) µ¥¹ÌÁö ÀÌÆåÆ®³ª »ç¿îµå Àç»ı °¡´É
+        // (ì„ íƒ) ë°ë¯¸ì§€ ì´í™íŠ¸ë‚˜ ì‚¬ìš´ë“œ ì¬ìƒ ê°€ëŠ¥
     }
 }

@@ -11,12 +11,12 @@ public class RangeWeapon : BaseWeapon
     public ProjectileData ProjectileData => data.projectileData;
     public float ProjSpeed => ProjectileData.moveSpeed;
     public float Duration => ProjectileData.lifetime; 
-    public Color Color => data.projectileData.Color; //È­»ì »ö
+    public Color Color => data.projectileData.Color; //í™”ì‚´ ìƒ‰
 
     //public GameObject InpactEffect => ProjectileData.impactEffect;
 
-    public int MultiShotCount => data.multiShotCount;        // ÇÑ ¹ø¿¡ ½î´Â È­»ì ¼ö
-    public float MultiShotAngle => data.multiShotAngle;        // È­»ì ÆÛÁü °¢µµ
+    public int MultiShotCount => data.multiShotCount;        // í•œ ë²ˆì— ì˜ëŠ” í™”ì‚´ ìˆ˜
+    public float MultiShotAngle => data.multiShotAngle;        // í™”ì‚´ í¼ì§ ê°ë„
 
     private float lastAttackTime;
     public StatController Owner;
@@ -28,7 +28,7 @@ public class RangeWeapon : BaseWeapon
         base.Start();
         //projectileManager = ProjectileManager.Instance;
     
-        lastAttackTime = -Mathf.Infinity; //Ã¹ °ø°İÀÌ Áï½Ã °¡´ÉÇÏµµ·Ï
+        lastAttackTime = -Mathf.Infinity; //ì²« ê³µê²©ì´ ì¦‰ì‹œ ê°€ëŠ¥í•˜ë„ë¡
         Owner = GetComponentInParent<StatController>();
 
         totalatk_OwnerAndWeapon = Atk + Owner.Atk;
@@ -37,14 +37,14 @@ public class RangeWeapon : BaseWeapon
     }
    
    
-    public override void Attack(Vector3 targetPosition) //À§Ä¡¸¦ ÆÄ¶ó¹ÌÅÍ·Î ¹Ş¾Æ¿Í¼­ °ø°İ
+    public override void Attack(Vector3 targetPosition) //ìœ„ì¹˜ë¥¼ íŒŒë¼ë¯¸í„°ë¡œ ë°›ì•„ì™€ì„œ ê³µê²©
     {
         float cooldown = 1f / Speed;
         if (Time.time < lastAttackTime + cooldown)
             return;
         lastAttackTime = Time.time;
 
-        // È° È¸Àü: Å¸°ÙÀ» Á¤È®È÷ ¹Ù¶óº¸µµ·Ï transform È¸Àü
+        // í™œ íšŒì „: íƒ€ê²Ÿì„ ì •í™•íˆ ë°”ë¼ë³´ë„ë¡ transform íšŒì „
         Vector2 toTarget = (Vector2)targetPosition - (Vector2)transform.position;
         float baseAngle = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg;
 
@@ -77,15 +77,15 @@ public class RangeWeapon : BaseWeapon
             float localAngle = startAngle + angleStep * i;
             float zAngle = baseZ + localAngle;
 
-            // ÃÖÁ¾ ¹ß»ç ¹æÇâ °è»ê
+            // ìµœì¢… ë°œì‚¬ ë°©í–¥ ê³„ì‚°
             Vector2 dir = Quaternion.Euler(0f, 0f, zAngle) * Vector2.right;
 
-            ProjectileManager.Instance.SpawnProjectile(
-                ProjectileData,
-                spawnPos,
-                dir,
-                totalatk_OwnerAndWeapon
-            );
+         // ProjectileManager.Instance.SpawnProjectile(
+         //     ProjectileData,
+         //     spawnPos,
+         //     dir,
+         //     totalatk_OwnerAndWeapon
+         // );
         }
     }
 }
