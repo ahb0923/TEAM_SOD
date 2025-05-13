@@ -26,5 +26,5 @@ MonoBehaviour:
   prefab: {fileID: 6080629557673122875, guid: f74d0d84bf883e3418a8db5cfd12f117, type: 3}
   moveSpeed: 5
   lifetime: 2
-  Color: {r: 0.16346256, g: 0.91194963, b: 0.2977991, a: 0.21568628}
+  Color: {r: 0.16346256, g: 0.91194963, b: 0.2977991, a: 1}
   impactEffect: {fileID: 0}

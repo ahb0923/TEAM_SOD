@@ -50,8 +50,7 @@ MonoBehaviour:
   animator: {fileID: 4626365175822789566}
   attackSoundClip: {fileID: 0}
   projectileSpawnPoint: {fileID: 1742381686953796594}
-  Owner: {fileID: 0}
-  totalatk_OwnerAndWeapon: 0
+  owner: {fileID: 0}
 --- !u!1 &4893470876176665229
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +182,7 @@ Transform:
   m_GameObject: {fileID: 8627916693434199913}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.35, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
