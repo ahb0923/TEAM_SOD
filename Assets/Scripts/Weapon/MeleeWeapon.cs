@@ -14,7 +14,9 @@ public class MeleeWeapon : BaseWeapon
     private Vector3 _originalScale;
     public Transform Target;
     public StatController Owner;
-    
+
+    //public GameObject Owner_Moster;
+
     private float lastAttackTime;
     protected override void Start()
     {
@@ -24,15 +26,17 @@ public class MeleeWeapon : BaseWeapon
         _originalScale = transform.localScale;
 
         Owner = GetComponentInParent<StatController>();
-        Target = Owner.GetComponent<Monster_Melee>().target.transform;
+
+        //Owner_Moster = GetComponentInParent<GameObject>();
+        //Target = Owner_Moster.GetComponent<Monster_Melee>().target.transform;
+
         // ② AnimatorController 할당 확인
         if (animator == null)
             Debug.LogError("Animator를 찾을 수 없습니다.");
         else if (animator.runtimeAnimatorController == null)
             Debug.LogError("AnimatorController가 할당되지 않았습니다.");
-        animator.SetBool("IsAttack", false);
 
-
+       
     }
 
     void Update()
@@ -73,7 +77,7 @@ public class MeleeWeapon : BaseWeapon
         {
             Attack(Target.position);
         }
-        else { animator.SetBool("IsAttack", false); }
+        
     }
 
     public float GetAttackPower()
@@ -91,7 +95,7 @@ public class MeleeWeapon : BaseWeapon
 
         lastAttackTime = Time.time;
         base.Attack(v);
-
+        Debug.Log("근접공격");
         // 공격 방향에 따라 히트박스 회전
         Vector2 dir = ((Vector2)v - (Vector2)transform.position).normalized;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
