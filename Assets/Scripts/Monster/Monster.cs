@@ -11,7 +11,7 @@ public class Monster : MonoBehaviour
 {
     //[SerializeField] MonsterData_ho data;
 
-    // ìŠ¤íƒ¯ì€ ì„ì‹œë¡œ ì ìš©
+    // ½ºÅÈÀº ÀÓ½Ã·Î Àû¿ë
     protected float _hp = 10;
     protected float _maxHp = 10;
     protected float _atk = 10;
@@ -31,29 +31,34 @@ public class Monster : MonoBehaviour
 
 
     protected StatController monsterStat;
-    [SerializeField] protected float _checkRange;  // íƒ€ê²Ÿ íƒìƒ‰ ë²”ìœ„
-    [SerializeField] protected float _attackRange; // ê³µê²© ì‚¬ê±°ë¦¬
-    [SerializeField] protected float _attackDelay; // ê³µê²© ì£¼ê¸°
-    protected float delay; // ê³µê²© ë”œë ˆì´ ê³„ì‚°ìš© ë³€ìˆ˜
-    protected float knockPower; // ë„‰ë°± ìˆ˜ì¹˜
-    protected bool isDamage; // í”¼ê²©
-    [SerializeField]  protected Rigidbody2D rigid;
+    [SerializeField] protected float _checkRange;  // Å¸°Ù Å½»ö ¹üÀ§
+    [SerializeField] protected float _attackRange; // °ø°İ »ç°Å¸®
+    [SerializeField] protected float _attackDelay; // °ø°İ ÁÖ±â
+    protected float delay; // °ø°İ µô·¹ÀÌ °è»ê¿ë º¯¼ö
+    protected float knockPower; // ³Ë¹é ¼öÄ¡
+    protected bool isDamage; // ÇÇ°İ
+    protected Rigidbody2D rigid;
     protected Animator anim;
 
     protected virtual void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        target = GameObject.Find("Test_Player");
+        target = GameObject.Find("Player");
         //monsterStat.InitStat(_hp, _maxHp, _atk, _def, _moveSpeed, _gold, _crit_Chance, _crit_Multiply, _invinsible_duration, _is_invinsible);
-        if (weapon != null)
+        if (weapon == null)
         {
             weapon = Instantiate(weaponPrefab, weaponPivot);
         }
     }
 
     protected virtual void Start() { }
-    protected virtual void Update() { }
+    protected virtual void Update() 
+    {
+        delay += Time.deltaTime;
+        Move();
+        Attack();
+    }
 
     protected virtual void Move()
     {
@@ -63,7 +68,7 @@ public class Monster : MonoBehaviour
             rigid.velocity = Vector2.zero;
             return;
         }
-        else if (Mathf.Abs(Vector2.Distance(transform.position, target.transform.position)) <= _attackRange)
+        if (Mathf.Abs(Vector2.Distance(transform.position, target.transform.position)) <= _attackRange)
         {
             anim.SetBool("IsRun", false);
             rigid.velocity = Vector2.zero;
@@ -89,26 +94,26 @@ public class Monster : MonoBehaviour
 
     /*protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerProjectile")) //íƒœê·¸ ì˜ˆì‹œ í”Œë ˆì´ì–´ ì´ì•Œê³¼ ì¶©ëŒí–ˆì„ë•Œ
+        if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerProjectile")) //ÅÂ±× ¿¹½Ã ÇÃ·¹ÀÌ¾î ÃÑ¾Ë°ú Ãæµ¹ÇßÀ»¶§
         {
             GameObject attackSource = collision.gameObject;
-            if (attackSource.TryGetComponent(out IDamageInfo damageinfo))
+            if (attackSource.TryGetComponent(out ProjectileController projectileControl))
             {
-                StatController.DamageResult result = monsterStat.FinalDamageCalculator(damageinfo);
+                StatController.DamageResult result = monsterStat.FinalDamageCalculator(projectileControl.totalatk);
                 monsterStat.HpReductionApply(result);
                 if (!isDamage)
                 {
                     KnockBack(collision.transform.position);
                     StartCoroutine("DamageCheck");
                 }
-                if (monsterStat.Hp <= 0)// ì²´ë ¥ 0ì´í•˜ ì¼ì‹œ Death() í•¨ìˆ˜ í˜¸ì¶œ
+                if (monsterStat.Hp <= 0)// Ã¼·Â 0ÀÌÇÏ ÀÏ½Ã Death() ÇÔ¼ö È£Ãâ
                 {
                     Death();
                 }
             }
         }
     }*/
-    protected virtual IEnumerator DamageCheck() // ëª¬ìŠ¤í„° ë°ë¯¸ì§€ ì• ë‹ˆë©”ì´ì…˜ ë° (ë°ë¯¸ì§€ ì—°ì‚° ì¤‘ ë¬´ì  ì ìš©ì‹œ ì‚¬ìš©) < ì„ íƒ
+    protected virtual IEnumerator DamageCheck() // ¸ó½ºÅÍ µ¥¹ÌÁö ¾Ö´Ï¸ŞÀÌ¼Ç ¹× (µ¥¹ÌÁö ¿¬»ê Áß ¹«Àû Àû¿ë½Ã »ç¿ë) < ¼±ÅÃ
     {
         isDamage = true;
         anim.SetTrigger("IsDamage");
@@ -116,7 +121,7 @@ public class Monster : MonoBehaviour
         isDamage = false;
     }
     public virtual void Death()
-    { 
+    {
         Destroy(gameObject);
     }
 
@@ -126,7 +131,7 @@ public class Monster : MonoBehaviour
         rigid.AddForce(dir * knockPower, ForceMode2D.Impulse);
     }
 
-    public virtual void CheckPlayer() // í”Œë ˆì´ì–´ë¥¼ íƒ€ê²Ÿìœ¼ë¡œ ì°¾ì„ ë•Œ í•„ìš”í•˜ë©´ ì‚¬ìš©
+    public virtual void CheckPlayer() // ÇÃ·¹ÀÌ¾î¸¦ Å¸°ÙÀ¸·Î Ã£À» ¶§ ÇÊ¿äÇÏ¸é »ç¿ë
     {
         Collider2D hit = Physics2D.OverlapCircle(transform.position, _checkRange, LayerMask.GetMask("Player"));
         if(hit != null)
