@@ -37,6 +37,9 @@ public class ProjectileController : MonoBehaviour
         // 회전을 통해 방향 맞추기
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        transform.localScale = Vector3.one;
+       
+        sr.flipY = direction.y > 0f;
     }
 
     public float GetAttackPower()
