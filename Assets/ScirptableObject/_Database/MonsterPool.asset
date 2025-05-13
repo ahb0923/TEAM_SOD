@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f91ba8665b6c9e242b1304b305be1210, type: 3}
   m_Name: MonsterPool
   m_EditorClassIdentifier: 
-  monsters: []
+  datas:
+  - {fileID: 11400000, guid: e3c5aeaf8479dbf42a1975af442aa87b, type: 2}
+  - {fileID: 11400000, guid: 4677504801cd62546aa4ac12f547d311, type: 2}
