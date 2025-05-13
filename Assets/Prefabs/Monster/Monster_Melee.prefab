@@ -194,12 +194,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa2ec8df7daf49a45a428e4919209322, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponPivot: {fileID: 0}
+  target: {fileID: 0}
+  weaponPivot: {fileID: 1019175626375855802}
   weaponPrefab: {fileID: 0}
   _checkRange: 10
   _attackRange: 0
   _attackDelay: 0
-  rigid: {fileID: 0}
 --- !u!1 &5243293737839266116
 GameObject:
   m_ObjectHideFlags: 0
