@@ -91,7 +91,7 @@ public class MeleeWeapon : BaseWeapon
 
         lastAttackTime = Time.time;
         base.Attack(v);
-
+        Debug.Log("근접공격");
         // 공격 방향에 따라 히트박스 회전
         Vector2 dir = ((Vector2)v - (Vector2)transform.position).normalized;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;

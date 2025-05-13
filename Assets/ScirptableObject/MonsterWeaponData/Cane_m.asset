@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee1cb5c46ca8d154ba4dcbf0793c1b9a, type: 3}
-  m_Name: KnifeData
+  m_Name: Cane_m
   m_EditorClassIdentifier: 
-  id: Kinfe
+  id: Cane
   attackPower: 10
-  attackSpeed: 4
+  attackSpeed: 1
   attackDelay: 1
-  attackRange: 2
+  attackRange: 10
   weaponSize: 1
   layer:
     serializedVersion: 2
     m_Bits: 0
-  projectileData: {fileID: 0}
-  multiShotCount: 0
-  multiShotAngle: 0
+  projectileData: {fileID: 11400000, guid: a05c6b8a79926cd45bfaafebdb890833, type: 2}
+  multiShotCount: 1
+  multiShotAngle: 1
