@@ -9,7 +9,7 @@ public abstract class BaseWeapon : MonoBehaviour
     public string weaponId => data.id;
     public float Atk => data.attackPower;
     public float Speed => data.attackSpeed;
-    public float Delay => data.attackDelay;
+    //public float Delay => data.attackDelay;
     public float AttackRange => data.attackRange;
 
     public float WeaponSize => data.weaponSize; //근접무기 사이즈
@@ -34,7 +34,8 @@ public abstract class BaseWeapon : MonoBehaviour
 
     public void AttackAnimation()
     {
-        animator.SetBool("IsAttack", true);
+        animator.SetFloat("AttackSpeed", Speed);
+        animator.SetTrigger("IsAttack");
     }
 }
  

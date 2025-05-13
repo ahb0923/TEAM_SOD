@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scriptable Object/PlayerData")]
-public class PlayerData : ScriptableObject
+[CreateAssetMenu(menuName = "Data/PlayerData")]
+public class PlayerData : BaseData
 {
     [SerializeField]
     public float maxHp;
