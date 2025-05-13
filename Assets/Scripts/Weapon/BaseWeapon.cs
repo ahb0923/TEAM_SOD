@@ -8,9 +8,9 @@ public abstract class BaseWeapon : MonoBehaviour
 
     public string weaponId => data.id;
     public float Atk => data.attackPower;
-    public float Speed => data.attackSpeed;
+    public float Speed => data.attackSpeed + data.dungeon_AddSpeed;
     //public float Delay => data.attackDelay;
-    public float AttackRange => data.attackRange;
+    public float AttackRange => data.attackRange + data.dungeon_AddRange;
 
     public float WeaponSize => data.weaponSize; //근접무기 사이즈
     public LayerMask target => data.layer; //타겟 레이어 지정

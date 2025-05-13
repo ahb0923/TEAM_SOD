@@ -15,12 +15,12 @@ public class RangeWeapon : BaseWeapon
 
     //public GameObject InpactEffect => ProjectileData.impactEffect;
 
-    public int MultiShotCount => data.multiShotCount;        // 한 번에 쏘는 화살 수
+    public int MultiShotCount => data.multiShotCount + data.dungeon_ShotCount;        // 한 번에 쏘는 화살 수
     public float MultiShotAngle => data.multiShotAngle;        // 화살 퍼짐 각도
 
     private float lastAttackTime;
     public StatController owner;
-    public float totalatk_OwnerAndWeapon => data.attackPower + owner.Atk;
+    public float totalatk_OwnerAndWeapon => data.attackPower + owner.Atk + data.dungeon_AddPower;
     private Vector3 originalScale;
 
     protected override void Awake()
@@ -39,7 +39,7 @@ public class RangeWeapon : BaseWeapon
     {
         if (!AttackCoolTime())
             return;
-
+        Debug.Log(totalatk_OwnerAndWeapon);
         base.Attack(targetPosition);
 
         //타겟을 향해서 회전
@@ -94,4 +94,15 @@ public class RangeWeapon : BaseWeapon
             );
         }
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        if (data == null) return;
+
+        // 무기 위치 기준으로 attackRange 원형 표시
+        Gizmos.color = new Color(1f, 0.5f, 0f, 0.5f);  // 주황 반투명
+        Gizmos.DrawWireSphere(transform.position, data.attackRange);
+    }
+#endif
 }

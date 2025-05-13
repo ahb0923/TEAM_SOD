@@ -107,4 +107,23 @@ public class MeleeWeapon : BaseWeapon
         lastAttackTime = Time.time;
         return true;
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        if (data == null) return;
+
+        // 회전 및 스케일 적용된 상태에서 Offset, Size에 따라 박스 표시
+        Vector3 center = transform.position + (Vector3)hitboxOffset;
+        Quaternion rot = transform.rotation;
+        Vector3 size = new Vector3(hitboxSize.x, hitboxSize.y, 1f);
+
+        Gizmos.color = new Color(0f, 1f, 0f, 0.5f);   // 초록 반투명
+        Matrix4x4 old = Gizmos.matrix;
+        Gizmos.matrix = Matrix4x4.TRS(center, rot, Vector3.one);
+        Gizmos.DrawWireCube(Vector3.zero, size);
+        Gizmos.matrix = old;
+    }
+#endif
+
 }

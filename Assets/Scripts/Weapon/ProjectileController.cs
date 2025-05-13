@@ -31,7 +31,8 @@ public class ProjectileController : MonoBehaviour
 
         
         totalAtk = totalatk;
-
+        Debug.Log(totalAtk);
+        Debug.Log(totalAtk + data.attackPower);
         ApplyVisualSettings();
     }
     private void ApplyVisualSettings()
