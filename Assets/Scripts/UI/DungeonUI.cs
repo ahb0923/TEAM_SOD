@@ -17,7 +17,7 @@ public class DungeonUI : BaseInterAction
     //Awake로 해도...?(해야?)
     private void Start()
     {
-        Player = Player = GameObject.FindWithTag("Player");
+        Player = GameObject.FindWithTag("Player");
         weapon = Player.GetComponentInChildren<RangeWeapon>();
     }
     public override void OpenPanel()

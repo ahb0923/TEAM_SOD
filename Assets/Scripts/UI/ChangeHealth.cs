@@ -6,18 +6,19 @@ using UnityEngine.UI;
 
 public class ChangeHealth : MonoBehaviour
 {
-   
-    
-    [SerializeField] private StatController statController;
+
+    private GameObject player;
+    private StatController statController;
 
     [Tooltip("Slider")]
     [SerializeField] private Slider hpSlider;
 
     private void Awake()
     {
+        player =GameObject.FindWithTag("Player");
         // StatController 할당 
-        
-            statController = GetComponent<StatController>();
+
+        statController =player.GetComponent<StatController>();
 
         // Slider 컴포넌트 할당 
         
@@ -30,7 +31,7 @@ public class ChangeHealth : MonoBehaviour
         hpSlider.maxValue = statController.MaxHp;  // :contentReference[oaicite:0]{index=0}:contentReference[oaicite:1]{index=1}
 
         // 초기값을 현재 HP로 설정
-        hpSlider.value = statController.Hp;        // :contentReference[oaicite:2]{index=2}:contentReference[oaicite:3]{index=3}
+        hpSlider.value = statController.MaxHp;        // :contentReference[oaicite:2]{index=2}:contentReference[oaicite:3]{index=3}
     }
 
     private void Update()

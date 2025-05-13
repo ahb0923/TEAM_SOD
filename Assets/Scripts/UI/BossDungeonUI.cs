@@ -6,12 +6,20 @@ using UnityEngine.Events;
 
 public class BossDungeonUI : BaseInterAction
 {
-    [Header("클리어 보상 설정")]
+    
     [SerializeField] private int clearGold = 1000;
 
-    [SerializeField] private StatController statController;
+    private GameObject player;
+    private StatController statController;
+    private void Awake()
+    {
+        player = GameObject.FindWithTag("Player");
+        // StatController 할당 
 
-    
+        statController = player.GetComponent<StatController>();
+
+        
+    }
     public override void OpenPanel()
     {
         statController.GoldChangeApply(clearGold);
