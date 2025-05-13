@@ -209,10 +209,6 @@ public class BasePlayer : MonoBehaviour
         {
             player_CurrentWeapon.Attack(lookDirection);
         }
-        else
-        {
-            player_CurrentWeapon.animator.SetBool("IsAttack",false);
-        }
     }
 
 
@@ -275,6 +271,12 @@ public class BasePlayer : MonoBehaviour
             // 웨이브 클리어
             Debug.Log("몬스터를 찾을 수 없습니다.");
         }
+    }
+
+    public float ReturnPlayerHP()
+        // 유저의 HP값을 UI에 띄워야 할 때 쓰세용. 근데 UI에 어떤 정보를 띄울지 정해지면 이따가 마무리되면 얘기해봐용
+    {
+        return player_Stat.Hp;
     }
 
 }
