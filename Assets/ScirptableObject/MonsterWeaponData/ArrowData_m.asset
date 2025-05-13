@@ -14,9 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: BasicArrow_m
   attackPower: 10
-  attackSpeed: 1
-  attackDelay: 1
-  attackRange: 3
+  attackSpeed: 0
+  attackRange: 0
   weaponSize: 0
   layer:
     serializedVersion: 2
@@ -24,8 +23,12 @@ MonoBehaviour:
   projectileData: {fileID: 0}
   multiShotCount: 1
   multiShotAngle: 1
+  dungeon_AddPower: 0
+  dungeon_AddSpeed: 0
+  dungeon_AddRange: 0
+  dungeon_ShotCount: 0
   prefab: {fileID: 6080629557673122875, guid: f74d0d84bf883e3418a8db5cfd12f117, type: 3}
-  moveSpeed: 10
-  lifetime: 2
-  Color: {r: 0.9559748, g: 0, b: 0, a: 0.21568628}
+  moveSpeed: 5
+  lifetime: 10
+  Color: {r: 0.16346256, g: 0.91194963, b: 0.2977991, a: 1}
   impactEffect: {fileID: 0}
