@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Data/PlayerData")]
-public class PlayerData : BaseData
+[CreateAssetMenu(menuName = "Data/MonsterData")]
+public class MonsterData : BaseData
 {
     [SerializeField]
     public float maxHp;
@@ -14,7 +14,7 @@ public class PlayerData : BaseData
     [SerializeField]
     public float moveSpeed;
     [SerializeField]
-    public int gold;
+    public int dropGold;
     [SerializeField]
     public float _crit_Chance = 0;
     [SerializeField]

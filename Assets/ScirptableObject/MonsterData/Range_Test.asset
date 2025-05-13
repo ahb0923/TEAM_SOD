@@ -9,12 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 925e958ad55f2fa44b5a0f75723af2f8, type: 3}
-  m_Name: RangeData
+  m_Script: {fileID: 11500000, guid: 654a54eeeb8f6eb4d96417dadca3d4b9, type: 3}
+  m_Name: Range_Test
   m_EditorClassIdentifier: 
-  hp: 10
+  code: 0
   maxHp: 0
-  atk: 5
-  def: 5
-  moveSpeed: 5
-  gold: 0
+  atk: 0
+  def: 0
+  moveSpeed: 0
+  dropGold: 0
+  _crit_Chance: 0
+  _crit_Multiply: 0
+  _in_invinsible_duration: 0
+  _is_invinsible: 0

@@ -10,8 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 375ea8aaa6aa2504d9b272aa6a6da9bf, type: 3}
-  m_Name: Map_5
+  m_Name: BossMap_1
   m_EditorClassIdentifier: 
-  code: 5
-  type: 0
-  summonMonsterCount: 30
+  code: 0
+  monsterWave: 0

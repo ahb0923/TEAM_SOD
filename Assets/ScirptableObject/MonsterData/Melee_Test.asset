@@ -9,9 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 375ea8aaa6aa2504d9b272aa6a6da9bf, type: 3}
-  m_Name: Map_6
+  m_Script: {fileID: 11500000, guid: 654a54eeeb8f6eb4d96417dadca3d4b9, type: 3}
+  m_Name: Melee_Test
   m_EditorClassIdentifier: 
-  code: 6
-  type: 1
-  summonMonsterCount: 1
+  code: 0
+  maxHp: 0
+  atk: 0
+  def: 0
+  moveSpeed: 0
+  dropGold: 0
+  _crit_Chance: 0
+  _crit_Multiply: 0
+  _in_invinsible_duration: 0
+  _is_invinsible: 0

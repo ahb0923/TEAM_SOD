@@ -14,9 +14,14 @@ public class DungeonMap : MonoBehaviour
     private List<Monster> monsterList;
 
 
-    public void Init()
+    private void Awake()
     {
         monsterList = new List<Monster>();
+    }
+
+
+    public void Init()
+    {
     }
 
 

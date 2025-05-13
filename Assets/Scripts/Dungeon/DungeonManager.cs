@@ -13,7 +13,7 @@ public class DungeonManager : Singleton<DungeonManager>
     [SerializeField] private Animator doorAnimator;
 
     [SerializeField] private GameObject[] MapPrefab;
-    [SerializeField] private GameObject[] MonsterPrefab;
+    //[SerializeField] private GameObject[] MonsterPrefab;
     [SerializeField] private GameObject[] selectPanel;
 
     private List<Transform> tilePositions = new List<Transform>();
@@ -25,10 +25,26 @@ public class DungeonManager : Singleton<DungeonManager>
     {
         // 1) 씬이 로드될 때마다 맵을 생성
         CreateMap();
-        CreateMonster();
+        //CreateMonster();
 
         GameObject doorObj = GameObject.Find("Door");
         doorAnimator = doorObj.GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        Transform spawnTransform = tilePositions[0].Find("Grid/Spawn");
+
+        if (spawnTransform != null)
+        {
+            Debug.Log($"찾은거 : {tilePositions[0].Find("Grid/Spawn").name}");
+            StartSpawn(spawnTransform, "Melee_Test", 3f, 10);  // 3초 간격, 10마리 생성
+            StartSpawn(spawnTransform, "Range_Test", 5f, 5);  // 5초 간격, 5마리 생성
+        }
+        else
+        {
+            Debug.Log("스폰 위치 없음");
+        }
     }
     // 애니매이션용 
     private void Update()
@@ -56,15 +72,33 @@ public class DungeonManager : Singleton<DungeonManager>
 
     }
 
-    public void CreateMonster()
+    public void CreateMonster(Transform spawnTrans, string monsterKey)
     {
-        for (int i = 0; i < tilePositions.Count; i++)
+        BoxCollider2D spawnArea = spawnTrans.GetComponent<BoxCollider2D>();
+        if (spawnArea == null)
         {
-            Vector3 posStandard = tilePositions[i].position;
-            Vector3 posMin = posStandard + new Vector3(-7.5f, -4.0f, 0f);
-            Vector3 posMax = posStandard + new Vector3(7.5f, 4.0f, 0f);
+            Debug.Log("스폰공간에 컬라이더 없음");
+            return;
+        }
+        Vector3 center = spawnArea.bounds.center;
+        Vector3 size = spawnArea.bounds.size;
 
+        float randX = Random.Range(center.x - size.x / 2f, center.x + size.x / 2f);
+        float randZ = Random.Range(center.z - size.z / 2f, center.z + size.z / 2f);
+        float y = center.y;
 
+        Vector3 spawnPos = new Vector3(randX, y, randZ);
+
+        GameObject monster = PoolManager.Instance.GetObject(monsterKey, spawnPos);
+        if (monster == null)
+        {
+            Debug.LogWarning($"풀에서 '{monsterKey}'를 가져오지 못했습니다.");
+            return;
+        }
+
+        monster.transform.SetParent(spawnTrans); // 구조 정리 목적
+        monsterList.Add(monster);
+            /*
             for (int j = 0; j < MonsterPrefab.Length; j++)
             {
                 // (2) 축별로 min/max 순으로 랜덤
@@ -79,19 +113,24 @@ public class DungeonManager : Singleton<DungeonManager>
 
                 monsterList.Add(monster);
 
-            }
-        }
-
+            }*/
     }
 
-    public void RemainMonser() 
+    public void StartSpawn(Transform spawnTrans, string monsterKey, float interval, int repeatCount = -1)
     {
-        for (int i = 0; i < monsterList.Count; i++)
+        StartCoroutine(MonsterSpawnRoutine(spawnTrans, monsterKey, interval, repeatCount));
+    }
+
+    private IEnumerator MonsterSpawnRoutine(Transform spawnTrans, string monsterKey, float interval, int repeatCount)
+    {
+        int spawnCount = 0;
+
+        while (repeatCount < 0 || spawnCount < repeatCount)
         {
-            if (monsterList[i] == null)
-            {
-               
-            }
+            CreateMonster(spawnTrans, monsterKey);
+
+            spawnCount++;
+            yield return new WaitForSeconds(interval);
         }
     }
 
@@ -144,8 +183,8 @@ public class DungeonManager : Singleton<DungeonManager>
 
 
 
-        //[Header("던전 클리어 시 띄울 UI 패널")]
-        //[SerializeField] private GameObject clearUIPanel;
+    //[Header("던전 클리어 시 띄울 UI 패널")]
+    //[SerializeField] private GameObject clearUIPanel;
 
 
     //[Header("플레이어 컨트롤러 (Inspector에 할당)")]

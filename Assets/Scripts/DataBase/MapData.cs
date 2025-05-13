@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Data/MapData")]
+
 public class MapData : ScriptableObject
 {
     [SerializeField]
     private int code;
     [SerializeField]
-    private DUNGEON_TYPE type;
+    private int monsterWave;
     [SerializeField]
-    private int summonMonsterCount;
+    private DUNGEON_TYPE type;
 }

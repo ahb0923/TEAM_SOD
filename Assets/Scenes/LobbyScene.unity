@@ -1767,6 +1767,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponDataList: []
   ProjectileDataList: []
+  MapDataList:
+  - {fileID: 11400000, guid: ab21f235fd85c4a449d66b1b78bc6cfe, type: 2}
+  - {fileID: 11400000, guid: dff0110f78f2f694ab3c47652c2895e7, type: 2}
+  - {fileID: 11400000, guid: 44cbae72d490c014c8f20b5743af052f, type: 2}
+  - {fileID: 11400000, guid: 933bd1aa817bfbc4da74ca45f03d6d56, type: 2}
+  - {fileID: 11400000, guid: 2477c21967f0d5d47957e08ca71f0648, type: 2}
+  - {fileID: 11400000, guid: 867c30e3d81622a45a85ca0e6198d15a, type: 2}
 --- !u!1 &1076319428
 GameObject:
   m_ObjectHideFlags: 0
