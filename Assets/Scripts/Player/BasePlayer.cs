@@ -61,7 +61,7 @@ public class BasePlayer : MonoBehaviour
     protected void Awake()
     {
         player_rigidbody = GetComponent<Rigidbody2D>();
-        player_Animator = GetComponent<Animator>();
+        player_Animator = GetComponentInChildren<Animator>();
         player_Stat = GetComponent<StatController>();
         myPosition = GetComponent<Transform>();
        
@@ -76,6 +76,7 @@ public class BasePlayer : MonoBehaviour
         {
             targetPosition.Add(enemyArray[i].transform); // 게임오브젝트의 트랜스폼 정보 저장
         }
+        Debug.Log(enemyArray.Count());
     }
 
 
@@ -84,7 +85,7 @@ public class BasePlayer : MonoBehaviour
     // 추후 ScriptableObject로 구현하여 실수 줄이기
     protected void Start()
     {
-        player_Stat.InitStat();
+        player_Stat.InitStat_Player();
         PlayerWeaponSelect();
     }
 
@@ -214,10 +215,14 @@ public class BasePlayer : MonoBehaviour
 
     protected void Rotate(Vector2 look_Direction)
     {
-        float rotZ = Mathf.Atan2(look_Direction.y, look_Direction.x) * Mathf.Rad2Deg;
-        bool isLeft = Mathf.Abs(rotZ) > 90f;
-
+        
+        Vector2 localLookDirection = look_Direction - (Vector2)this.transform.position;
+        if (look_Direction == Vector2.zero) return; // 무효한 방향 방지
+        bool isLeft = localLookDirection.x < 0f;
+        
         playerSprite.flipX = isLeft;
+
+
     }
 
     protected void OnCollisionEnter2D(Collision2D collision)
@@ -267,6 +272,12 @@ public class BasePlayer : MonoBehaviour
             // 웨이브 클리어
             Debug.Log("몬스터를 찾을 수 없습니다.");
         }
+    }
+
+    public float ReturnPlayerHP()
+        // 유저의 HP값을 UI에 띄워야 할 때 쓰세용. 근데 UI에 어떤 정보를 띄울지 정해지면 이따가 마무리되면 얘기해봐용
+    {
+        return player_Stat.Hp;
     }
 
 }
