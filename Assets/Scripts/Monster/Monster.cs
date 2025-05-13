@@ -71,18 +71,23 @@ public class Monster : MonoBehaviour
         else
         {
             Vector2 direction = (target.transform.position - transform.position).normalized;
-            if (direction.x > 0)
-            {
-                transform.rotation = Quaternion.Euler(0, 0, 0);
-                weaponPivot.transform.rotation = Quaternion.Euler(0, 0, -90);              
-            }
-            else if (direction.x < 0)
-            {
-                transform.rotation = Quaternion.Euler(0, 180, 0);
-                weaponPivot.transform.rotation = Quaternion.Euler(0, 0, 90);
-            }
             rigid.velocity = direction * _moveSpeed * Time.deltaTime;
             anim.SetBool("IsRun", true);
+        }
+    }
+
+    protected virtual void MonsteRotate()
+    {
+        Vector2 direction = (target.transform.position - transform.position).normalized;
+        if (direction.x > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            weaponPivot.transform.rotation = Quaternion.Euler(0, 0, -90);
+        }
+        else if (direction.x < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+            weaponPivot.transform.rotation = Quaternion.Euler(0, 0, 90);
         }
     }
 

@@ -25,6 +25,7 @@ public class Monster_Range : Monster
     protected override void Update()
     {
         Move();
+        MonsteRotate();
         Attack();
     }
 
@@ -67,6 +68,21 @@ public class Monster_Range : Monster
             }
             rigid.velocity = direction * _moveSpeed * Time.deltaTime;
             anim.SetBool("IsRun", true);
+        }
+    }
+
+    protected override void MonsteRotate()
+    {
+        Vector2 direction = (target.transform.position - transform.position).normalized;
+        if (direction.x > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            weapon.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if (direction.x < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+            weapon.transform.localRotation = Quaternion.Euler(0, 180, 0);
         }
     }
 
