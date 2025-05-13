@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 3ae72553736862245b09c0b681de1572, type: 2}
+  pivot: {fileID: 3305892551758810320}
   TotalAtk: 0
 --- !u!1 &8628567026088675976
 GameObject:

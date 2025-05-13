@@ -10,7 +10,7 @@ public class ProjectileController : MonoBehaviour
 
     private Rigidbody2D rb;
     private SpriteRenderer sr;
-
+    public Transform pivot;
     public float TotalAtk;
     
     /// <summary>
@@ -37,9 +37,12 @@ public class ProjectileController : MonoBehaviour
         // 회전을 통해 방향 맞추기
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
-        transform.localScale = Vector3.one;
-       
-        sr.flipY = direction.y > 0f;
+        //transform.localScale = Vector3.one;
+        if (this.direction.x < 0)
+            pivot.localRotation = Quaternion.Euler(180, 0, 0);
+        else
+            pivot.localRotation = Quaternion.Euler(0, 0, 0);
+        //sr.flipY = direction.y > 0f;
     }
 
     public float GetAttackPower()
