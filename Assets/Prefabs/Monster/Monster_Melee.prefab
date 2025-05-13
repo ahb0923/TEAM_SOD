@@ -199,7 +199,6 @@ MonoBehaviour:
   _checkRange: 10
   _attackRange: 0
   _attackDelay: 0
-  rigid: {fileID: 0}
 --- !u!1 &2560128555744964504
 GameObject:
   m_ObjectHideFlags: 0

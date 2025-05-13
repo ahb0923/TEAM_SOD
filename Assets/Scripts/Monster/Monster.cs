@@ -37,7 +37,7 @@ public class Monster : MonoBehaviour
     protected float delay; // 공격 딜레이 계산용 변수
     protected float knockPower; // 넉백 수치
     protected bool isDamage; // 피격
-    [SerializeField]  protected Rigidbody2D rigid;
+    protected Rigidbody2D rigid;
     protected Animator anim;
 
     protected virtual void Awake()
@@ -68,7 +68,7 @@ public class Monster : MonoBehaviour
             rigid.velocity = Vector2.zero;
             return;
         }
-        else if (Mathf.Abs(Vector2.Distance(transform.position, target.transform.position)) <= _attackRange)
+        if (Mathf.Abs(Vector2.Distance(transform.position, target.transform.position)) <= _attackRange)
         {
             anim.SetBool("IsRun", false);
             rigid.velocity = Vector2.zero;
