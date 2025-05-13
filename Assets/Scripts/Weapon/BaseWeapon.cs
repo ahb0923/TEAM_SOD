@@ -20,7 +20,8 @@ public abstract class BaseWeapon : MonoBehaviour
     private SpriteRenderer weaponRenderer; 
     public AudioClip attackSoundClip; //발사 오디오 클립
 
-    public virtual void Awake() {}
+
+    protected virtual void Awake() {}
     protected virtual void Start() {}
 
  

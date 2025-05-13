@@ -29,7 +29,7 @@ public class ProjectileController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponentInChildren<SpriteRenderer>();
 
-        //final_Attack += 무기공격력 + 부모의 공격력
+        
         totalAtk = totalatk;
 
         ApplyVisualSettings();
@@ -41,11 +41,9 @@ public class ProjectileController : MonoBehaviour
             sr.color = data.Color;
         }
 
-        // Rotate to face direction
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
-
-        // Flip sprite on pivot if moving left
+   
         if (pivot != null)
         {
             pivot.localRotation = direction.x < 0
@@ -56,6 +54,7 @@ public class ProjectileController : MonoBehaviour
 
     public float GetAttackPower()
     {
+        //final_Attack += 무기공격력 + 부모의 공격력
         return totalAtk + data.attackPower;
     }
 
