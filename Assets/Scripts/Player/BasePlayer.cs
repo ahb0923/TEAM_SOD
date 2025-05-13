@@ -61,7 +61,7 @@ public class BasePlayer : MonoBehaviour
     protected void Awake()
     {
         player_rigidbody = GetComponent<Rigidbody2D>();
-        player_Animator = GetComponent<Animator>();
+        player_Animator = GetComponentInChildren<Animator>();
         player_Stat = GetComponent<StatController>();
         myPosition = GetComponent<Transform>();
        
@@ -76,6 +76,7 @@ public class BasePlayer : MonoBehaviour
         {
             targetPosition.Add(enemyArray[i].transform); // 게임오브젝트의 트랜스폼 정보 저장
         }
+        Debug.Log(enemyArray.Count());
     }
 
 
