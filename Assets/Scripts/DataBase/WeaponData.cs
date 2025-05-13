@@ -8,7 +8,6 @@ public class WeaponData : ScriptableObject
     public string id;
     public float attackPower;     // 근접·투사체 데미지 공통
     public float attackSpeed;     // 초당 공격 횟수
-    public float attackDelay;     // 공격 애니메이션 딜레이
     public float attackRange;     // 타격 또는 사거리
     public float weaponSize;
     public LayerMask layer;

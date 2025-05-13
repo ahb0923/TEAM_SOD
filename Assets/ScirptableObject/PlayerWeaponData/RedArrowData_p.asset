@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d5b6532dc9f5ed41b57eeb5b7c86fae, type: 3}
-  m_Name: ArrowData_m
+  m_Name: RedArrowData_p
   m_EditorClassIdentifier: 
-  id: BasicArrow_m
+  id: RedArrowData_p
   attackPower: 10
   attackSpeed: 0
+  attackDelay: 0
   attackRange: 0
   weaponSize: 0
   layer:
@@ -24,7 +25,7 @@ MonoBehaviour:
   multiShotCount: 1
   multiShotAngle: 1
   prefab: {fileID: 6080629557673122875, guid: f74d0d84bf883e3418a8db5cfd12f117, type: 3}
-  moveSpeed: 5
+  moveSpeed: 10
   lifetime: 2
-  Color: {r: 0.16346256, g: 0.91194963, b: 0.2977991, a: 0.21568628}
+  Color: {r: 1, g: 0, b: 0, a: 1}
   impactEffect: {fileID: 0}
