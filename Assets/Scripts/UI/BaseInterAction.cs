@@ -36,9 +36,11 @@ public class BaseInterAction : MonoBehaviour
     protected Dictionary<string, Sprite> sprites;
     protected Dictionary<string, TextMeshProUGUI> texts;
 
+    [SerializeField] private GameObject targetObject;
+
 
     //플레이어불러오기
-    
+
 
 
     protected virtual void Awake()
@@ -53,7 +55,8 @@ public class BaseInterAction : MonoBehaviour
                .Where(e => !string.IsNullOrEmpty(e.key) && e.textPro != null)
                .ToDictionary(e => e.key, e => e.textPro);
         
-        
+       
+
     }
 
 
@@ -72,14 +75,17 @@ public class BaseInterAction : MonoBehaviour
     protected void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
-            _playerInRange = true;
+           
+           _playerInRange = true;
     }
 
     protected void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
+            //여기다가 애니매이션 
             _playerInRange = false;
     }
+
 
     public virtual void OpenPanel() 
     { 
