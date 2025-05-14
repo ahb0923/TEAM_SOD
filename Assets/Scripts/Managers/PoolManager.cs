@@ -6,7 +6,7 @@ using UnityEngine;
 public class PoolManager : Singleton<PoolManager>
 {
     [SerializeField]
-    public PoolSetting poolSetting;
+    public PoolSetting[] poolSetting;
 
     private Dictionary<string, Queue<GameObject>> pools = new();
     private Dictionary<string, GameObject> prefabMap = new();
@@ -19,27 +19,30 @@ public class PoolManager : Singleton<PoolManager>
 
     private void InitPool()
     {
-        foreach(var data in poolSetting.datas)
+        for (int j = 0; j < poolSetting.Length; j++)
         {
-            if (data.prefab == null)
-                Debug.Log($"해당 『{data.dataKey}』의 프리팹 연결 안되었음");
-
-            string key = data.name;
-            GameObject prefab = data.prefab;
-            int count = data.initSize;
-
-            prefabMap[key] = prefab;
-            Queue<GameObject> queue = new Queue<GameObject>();
-
-            for(int i=0; i<count; i++)
+            foreach (var data in poolSetting[j].datas)
             {
-                var obj = Instantiate(prefab, transform);
-                obj.SetActive(false);
-                queue.Enqueue(obj);
-            }
+                if (data.prefab == null)
+                    Debug.Log($"해당 『{data.dataKey}』의 프리팹 연결 안되었음");
 
-            pools[key] = queue;
-            Debug.Log($"풀링 체크용 : { data.dataKey}");
+                string key = data.name;
+                GameObject prefab = data.prefab;
+                int count = data.initSize;
+
+                prefabMap[key] = prefab;
+                Queue<GameObject> queue = new Queue<GameObject>();
+
+                for (int i = 0; i < count; i++)
+                {
+                    var obj = Instantiate(prefab, transform);
+                    obj.SetActive(false);
+                    queue.Enqueue(obj);
+                }
+
+                pools[key] = queue;
+                Debug.Log($"풀링 체크용 : {data.dataKey}");
+            }
         }
     }
 
@@ -61,8 +64,10 @@ public class PoolManager : Singleton<PoolManager>
     public void ReturnObject(string key, GameObject obj)
     {
         obj.SetActive(false);
+        obj.transform.SetParent(this.transform, worldPositionStays: false);
         pools[key].Enqueue(obj);
     }
+    
     //public void ReturnProjectile(string key, GameObject obj)
     //{
     //    obj.SetActive(false);

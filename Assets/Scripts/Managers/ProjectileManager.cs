@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ProjectileManager : MonoBehaviour
 {
@@ -35,16 +36,19 @@ public class ProjectileManager : MonoBehaviour
     {
         // 풀에서 꺼내 쓰기
         GameObject go = PoolManager.Instance.GetObject(data.dataKey, position);
-        
+
         //초기화
         var ctrl = go.GetComponent<ProjectileController>();
+        go.transform.SetParent(ActiveProjectilesContainer.Instance.transform, worldPositionStays: true);
+        if (go == null)
+        {
+            Debug.LogError($"풀에서 오브젝트를 가져오지 못했습니다. key: {data.dataKey}");
+            return null;
+        }
         ctrl.Initialize(data, direction, atk,crit_c,crit_m);
         return ctrl;
     }
-    public void DespawnProjectile(string key, GameObject obj)
-    {
-        PoolManager.Instance.ReturnObject(key, obj);
-    }
+    
 
     //파티클 함수(임시)
     //public void CreateImpactParticlesAtPostion(Vector3 position, BasicBow basicBow)
