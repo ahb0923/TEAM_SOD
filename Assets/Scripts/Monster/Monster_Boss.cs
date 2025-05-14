@@ -137,6 +137,6 @@ public class Monster_Boss : Monster
     public override void Death()
     {
         string keyName = MONSTER_KEY.Range_Test.ToString();
-        PoolManager.Instance.ReturnObject(keyName, this.gameObject);
+        ProjectilePoolManager.Instance.ReturnObject(keyName, this.gameObject);
     }
 }

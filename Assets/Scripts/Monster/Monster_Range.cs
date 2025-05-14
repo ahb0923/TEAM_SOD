@@ -94,7 +94,7 @@ public class Monster_Range : Monster
     public override void Death()
     {
         string keyName = MONSTER_KEY.Range_Test.ToString();
-        PoolManager.Instance.ReturnObject(keyName, this.gameObject);
+        MonsterPoolManager.Instance.ReturnObject(keyName, this.gameObject);
     }
 
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-public class PoolManager : Singleton<PoolManager>
+public class MonsterPoolManager : Singleton<MonsterPoolManager>
 {
     [SerializeField]
     public PoolSetting poolSetting;
@@ -19,7 +19,7 @@ public class PoolManager : Singleton<PoolManager>
 
     private void InitPool()
     {
-        foreach(var data in poolSetting.datas)
+        foreach (var data in poolSetting.datas)
         {
             if (data.prefab == null)
                 Debug.Log($"해당 『{data.dataKey}』의 프리팹 연결 안되었음");
@@ -31,7 +31,7 @@ public class PoolManager : Singleton<PoolManager>
             prefabMap[key] = prefab;
             Queue<GameObject> queue = new Queue<GameObject>();
 
-            for(int i=0; i<count; i++)
+            for (int i = 0; i < count; i++)
             {
                 var obj = Instantiate(prefab, transform);
                 obj.SetActive(false);
@@ -39,7 +39,7 @@ public class PoolManager : Singleton<PoolManager>
             }
 
             pools[key] = queue;
-            Debug.Log($"풀링 체크용 : { data.dataKey}");
+            Debug.Log($"풀링 체크용 : {data.dataKey}");
         }
     }
 
@@ -61,6 +61,7 @@ public class PoolManager : Singleton<PoolManager>
     public void ReturnObject(string key, GameObject obj)
     {
         obj.SetActive(false);
+        obj.transform.SetParent(transform);
         pools[key].Enqueue(obj);
     }
     //public void ReturnProjectile(string key, GameObject obj)

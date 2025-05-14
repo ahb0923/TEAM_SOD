@@ -34,7 +34,7 @@ public class ProjectileManager : MonoBehaviour
     public ProjectileController SpawnProjectile(ProjectileData data, Vector2 position, Vector2 direction, float atk,float crit_c, float crit_m)
     {
         // 풀에서 꺼내 쓰기
-        GameObject go = PoolManager.Instance.GetObject(data.dataKey, position);
+        GameObject go = ProjectilePoolManager.Instance.GetObject(data.dataKey, position);
         
         //초기화
         var ctrl = go.GetComponent<ProjectileController>();
@@ -43,7 +43,7 @@ public class ProjectileManager : MonoBehaviour
     }
     public void DespawnProjectile(string key, GameObject obj)
     {
-        PoolManager.Instance.ReturnObject(key, obj);
+        ProjectilePoolManager.Instance.ReturnObject(key, obj);
     }
 
     //파티클 함수(임시)
