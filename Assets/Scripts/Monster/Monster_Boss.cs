@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class Monster_Boss : Monster
 {
-    private int attackCount = 0; // ÀÏÁ¤ È½¼öÀÌ»ó °ø°Ý ½Ã ±×·Î±â
+    private int attackCount = 0; // ï¿½ï¿½ï¿½ï¿½ È½ï¿½ï¿½ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½×·Î±ï¿½
     public RangeWeapon weaponPrefab;
     protected RangeWeapon weapon;
-    public SpriteRenderer sprite;
     protected bool isPattern = false;
     protected bool isGroggy = false;
 
@@ -35,6 +34,7 @@ public class Monster_Boss : Monster
             StartCoroutine("BossGroggy");
         }
         MonsterRotate();
+        Move();
     }
     protected override void Attack()
     {
@@ -106,17 +106,17 @@ public class Monster_Boss : Monster
         switch (ran)
         {
             case 1:
-                Debug.Log("ÆÐÅÏ 1");              
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ 1");              
                 Pattern1();
                 attackCount++;             
                 break;
             case 2:
-                Debug.Log("ÆÐÅÏ 2");              
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ 2");              
                 Pattern2();               
                 attackCount++;              
                 break;
             case 3:
-                Debug.Log("ÆÐÅÏ 3");              
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ 3");              
                 Pattern3();
                 attackCount++;               
                 break;
@@ -125,17 +125,17 @@ public class Monster_Boss : Monster
 
     protected IEnumerator BossGroggy()
     {
-        Debug.Log("±×·Î±â »óÅÂÀÔ´Ï´Ù.");
+        Debug.Log("ï¿½×·Î±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.");
         attackCount = 0;
         isGroggy = true;
-        anim.SetTrigger("IsGroggy");
+        anim.SetBool("IsGroggy", true);
         yield return new WaitForSeconds(5.0f);
+        anim.SetBool("IsGroggy", false);
         isGroggy = false;
     }
 
     public override void Death()
     {
-        string keyName = MONSTER_KEY.Range_Test.ToString();
-        PoolManager.Instance.ReturnObject(keyName, this.gameObject);
+        Destroy(this.gameObject);
     }
 }

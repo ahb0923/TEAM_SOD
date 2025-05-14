@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d5b6532dc9f5ed41b57eeb5b7c86fae, type: 3}
-  m_Name: RedArrowData_p
+  m_Name: BlueArrowData_p
   m_EditorClassIdentifier: 
-  dataKey: RedArrowData_p
+  dataKey: BlueArrowData_p
   code: 0
-  prefab: {fileID: 6080629557673122875, guid: 59168f4249c8a66409662066082f5d0d, type: 3}
+  prefab: {fileID: 6080629557673122875, guid: d455870dad2caaa48821241ad122b751, type: 3}
   initSize: 5
-  id: RedArrowData_p
+  id: BlueArrowData_p
   attackPower: 10
   attackSpeed: 0
   attackRange: 0
@@ -27,8 +27,8 @@ MonoBehaviour:
   projectileData: {fileID: 0}
   multiShotCount: 1
   multiShotAngle: 1
-  prefabs: {fileID: 6080629557673122875, guid: 59168f4249c8a66409662066082f5d0d, type: 3}
+  prefabs: {fileID: 6080629557673122875, guid: d455870dad2caaa48821241ad122b751, type: 3}
   moveSpeed: 10
   lifetime: 2
-  Color: {r: 1, g: 0, b: 0.1475892, a: 1}
+  Color: {r: 0, g: 0.15430522, b: 1, a: 1}
   impactEffect: {fileID: 0}

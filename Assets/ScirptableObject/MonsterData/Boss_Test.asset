@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 654a54eeeb8f6eb4d96417dadca3d4b9, type: 3}
-  m_Name: Melee_Test
+  m_Name: Boss_Test
   m_EditorClassIdentifier: 
-  dataKey: Monster_Melee
+  dataKey: 
   code: 0
-  prefab: {fileID: 8194795533287649001, guid: f10b6982ba0b1764eaf50f67d359d4ad, type: 3}
+  prefab: {fileID: 1066680810096077210, guid: 997216a7eb8c2154889f66aadedb2b1b, type: 3}
   initSize: 10
-  maxHp: 50
-  atk: 3
-  def: 10
-  moveSpeed: 50
-  dropGold: 500
+  maxHp: 150
+  atk: 10
+  def: 3
+  moveSpeed: 0
+  dropGold: 0
   _crit_Chance: 0
   _crit_Multiply: 0
   _in_invinsible_duration: 0

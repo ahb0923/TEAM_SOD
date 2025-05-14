@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee1cb5c46ca8d154ba4dcbf0793c1b9a, type: 3}
-  m_Name: BowData_p
+  m_Name: BlueBowData_p
   m_EditorClassIdentifier: 
-  dataKey: BasicBowData_p
+  dataKey: BlueBowData_p
   code: 0
-  prefab: {fileID: 4282570311816112828, guid: 09370fda49536dc4595dbcf8766ca42e, type: 3}
+  prefab: {fileID: 4282570311816112828, guid: 75aa7cd3c6a7c0e4c953eff1acbba6fb, type: 3}
   initSize: 10
-  id: BasicBowData_p
+  id: BlueBowData_p
   attackPower: 2
-  attackSpeed: 3
+  attackSpeed: 4.5
   attackRange: 10
-  weaponSize: 1
+  weaponSize: 0
   layer:
     serializedVersion: 2
     m_Bits: 0
-  projectileData: {fileID: 11400000, guid: 177831c905140684298a171c2ae2b9a7, type: 2}
-  multiShotCount: 1
+  projectileData: {fileID: 11400000, guid: 626969bbb255a544cad8ad4397afee07, type: 2}
+  multiShotCount: 2
   multiShotAngle: 3
