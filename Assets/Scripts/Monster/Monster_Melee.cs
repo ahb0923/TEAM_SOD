@@ -33,10 +33,4 @@ public class Monster_Melee : Monster
         {
         }
     }
-
-    public override void Death()
-    {
-        string keyName = MONSTER_KEY.Melee_Test.ToString();
-        PoolManager.Instance.ReturnObject(keyName, this.gameObject);
-    }
 }

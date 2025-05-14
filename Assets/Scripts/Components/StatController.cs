@@ -31,7 +31,7 @@ public class StatController : MonoBehaviour
     [SerializeField]
     private PlayerData playerData;
     [SerializeField]
-    private MonsterData monsterData;
+    public MonsterData monsterData;
 
     public void InitStat_Player()
     {

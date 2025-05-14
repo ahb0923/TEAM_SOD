@@ -45,7 +45,7 @@ public class Monster : MonoBehaviour
     {
         delay += Time.deltaTime;
         Attack();
-        MonsterRotate();
+        //MonsterRotate();
         Move();
     }
 
@@ -142,6 +142,7 @@ public class Monster : MonoBehaviour
     }
     public virtual void Death()
     {
+        PoolManager.Instance.ReturnObject(monsterStat.monsterData.name, this.gameObject);
     }
 
     public virtual void KnockBack(Vector2 collision)

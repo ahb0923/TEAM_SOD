@@ -429,11 +429,11 @@ MonoBehaviour:
   _attackRange: 1
   _attackDelay: 0
   dmgText:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8365959933138078788}
+  - {fileID: 5435652031002280621}
+  - {fileID: 6652158762086980556}
+  - {fileID: 434628730889446846}
+  - {fileID: 3948620491706742874}
   sprite: {fileID: 8183215603767746993}
   weaponPrefab: {fileID: 319964874850279267, guid: 0935ecb6c65bfed48b041231c3192454, type: 3}
 --- !u!50 &368735413294240460
