@@ -6,8 +6,26 @@ using UnityEngine.Events;
 
 public class NpcInterAction : BaseInterAction
 {
+    [SerializeField] private GameObject eWard;
+    protected override void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            eWard.SetActive(true);
+            _playerInRange = true;
+        }
+    }
 
-    public  override void OpenPanel()
+    protected override void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            eWard.SetActive(false);
+            _playerInRange = false;
+        }
+    }
+
+    public override void OpenPanel()
     {
         var model = new PanelModel
         {
@@ -18,7 +36,7 @@ public class NpcInterAction : BaseInterAction
 
         };
 
-        model.ButtonActions["Button_Enter"] = () =>
+        model.ButtonActions["B"] = () =>
         {
 
         };

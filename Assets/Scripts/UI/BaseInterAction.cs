@@ -36,7 +36,7 @@ public class BaseInterAction : MonoBehaviour
     protected Dictionary<string, Sprite> sprites;
     protected Dictionary<string, TextMeshProUGUI> texts;
 
-    private GameObject AnigameObject;
+    
 
 
 
@@ -74,18 +74,20 @@ public class BaseInterAction : MonoBehaviour
         }
     }
 
-    protected void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
-            
-        _playerInRange = true;
+        {
+            _playerInRange = true;
+        }
     }
 
-    protected void OnTriggerExit2D(Collider2D other)
+    protected virtual void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
-            //여기다가 애니매이션 
+        {
             _playerInRange = false;
+        }
     }
 
 
