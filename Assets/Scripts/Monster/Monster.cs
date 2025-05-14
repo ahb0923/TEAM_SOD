@@ -18,13 +18,14 @@ public class Monster : MonoBehaviour
     public GameObject target;
     [SerializeField] protected GameObject weaponPivot;
     [SerializeField] protected StatController monsterStat;
-    [SerializeField] protected float _checkRange;  // íƒ€ê²Ÿ íƒìƒ‰ ë²”ìœ„
-    [SerializeField] protected float _attackRange; // ê³µê²© ì‚¬ê±°ë¦¬
-    [SerializeField] protected float _attackDelay; // ê³µê²© ì£¼ê¸°
-    [SerializeField] protected DamageText dmgText;
-    protected float delay; // ê³µê²© ë”œë ˆì´ ê³„ì‚°ìš© ë³€ìˆ˜
-    protected float knockPower; // ë„‰ë°± ìˆ˜ì¹˜
-    protected bool isDamage; // í”¼ê²©
+    [SerializeField] protected float _checkRange;  // Å¸°Ù Å½»ö ¹üÀ§
+    [SerializeField] protected float _attackRange; // °ø°İ »ç°Å¸®
+    [SerializeField] protected float _attackDelay; // °ø°İ ÁÖ±â
+    [SerializeField] public DamageText dmgText;
+    [SerializeField] protected SpriteRenderer sprite;
+    protected float delay; // °ø°İ µô·¹ÀÌ °è»ê¿ë º¯¼ö
+    protected float knockPower; // ³Ë¹é ¼öÄ¡
+    protected bool isDamage; // ÇÇ°İ
     protected Rigidbody2D rigid;
     protected Animator anim;
 
@@ -37,7 +38,6 @@ public class Monster : MonoBehaviour
         {
             target = GameObject.Find("Player");
         }
-        
     }
 
     protected virtual void Start() { }
@@ -66,9 +66,21 @@ public class Monster : MonoBehaviour
         else
         {
             Vector2 direction = (target.transform.position - transform.position).normalized;
-            rigid.velocity = direction * monsterStat.MoveSpeed* Time.deltaTime;
-            Debug.Log(monsterStat.MoveSpeed + "ì…ë‹ˆë‹¤");
-            Debug.Log(_attackRange + "ì…ë‹ˆë‹¤");
+            if (direction.x > 0)
+            {
+                sprite.flipX = false;
+                //transform.rotation = Quaternion.Euler(0, 0, 0);
+                weaponPivot.transform.localPosition = new Vector2(0.5f, 0);
+                //weaponPivot.transform.rotation = Quaternion.Euler(0, 0, -90); 
+            }
+            else if (direction.x < 0)
+            {
+                sprite.flipX = true;
+                //transform.rotation = Quaternion.Euler(0, 180, 0);
+                weaponPivot.transform.localPosition = new Vector2(-0.5f, 0);
+                //weaponPivot.transform.rotation = Quaternion.Euler(0, 0, 90);
+            }
+            rigid.velocity = direction * monsterStat.MoveSpeed * Time.deltaTime;
             anim.SetBool("IsRun", true);
         }
     }
@@ -92,33 +104,34 @@ public class Monster : MonoBehaviour
 
     protected void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerProjectile")) //íƒœê·¸ ì˜ˆì‹œ í”Œë ˆì´ì–´ ì´ì•Œê³¼ ì¶©ëŒí–ˆì„ë•Œ
+        if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerProjectile")) //ÅÂ±× ¿¹½Ã ÇÃ·¹ÀÌ¾î ÃÑ¾Ë°ú Ãæµ¹ÇßÀ»¶§
         {
             GameObject attackSource = collision.gameObject;
             if (attackSource.TryGetComponent<ProjectileController>(out ProjectileController proj))
             {
-                float atk = proj.GetAttackPower(); // ìµœì¢… ê³µê²©ë ¥ì„ ë¦¬í„´í•´ì£¼ëŠ” ë©”ì„œë“œ í•˜ë‚˜ ìˆìœ¼ë©´ ë  ë“¯?
                 float crit_C = proj.GetCriChance();
                 float crit_M = proj.GetCriMutiply();
+                float atk = proj.GetAttackPower(); // ÃÖÁ¾ °ø°İ·ÂÀ» ¸®ÅÏÇØÁÖ´Â ¸Ş¼­µå ÇÏ³ª ÀÖÀ¸¸é µÉ µí?
                 DamageResult result = monsterStat.FinalDamageCalculator(atk, crit_C, crit_M);
                 monsterStat.HpReductionApply(result);
+                Debug.Log(monsterStat.Hp);
                 dmgText.SetDamage((int)result.final_Damage);
                 dmgText.gameObject.SetActive(true);
                 proj.DestroyProjectile(proj.transform.position);
-                // ìµœì¢…ë€ ê³„ì‚°
+                // ÃÖÁ¾µ© °è»ê
                 if (!isDamage)
                 {
                     KnockBack(collision.transform.position);
                     StartCoroutine("DamageCheck");
                 }
-                if (monsterStat.Hp <= 0)// ì²´ë ¥ 0ì´í•˜ ì¼ì‹œ Death() í•¨ìˆ˜ í˜¸ì¶œ
+                if (monsterStat.Hp <= 0)// Ã¼·Â 0ÀÌÇÏ ÀÏ½Ã Death() ÇÔ¼ö È£Ãâ
                 {
                     Death();
                 }
             }
         }
     }
-    protected virtual IEnumerator DamageCheck() // ëª¬ìŠ¤í„° ë°ë¯¸ì§€ ì• ë‹ˆë©”ì´ì…˜ ë° (ë°ë¯¸ì§€ ì—°ì‚° ì¤‘ ë¬´ì  ì ìš©ì‹œ ì‚¬ìš©) < ì„ íƒ
+    protected virtual IEnumerator DamageCheck() // ¸ó½ºÅÍ µ¥¹ÌÁö ¾Ö´Ï¸ŞÀÌ¼Ç ¹× (µ¥¹ÌÁö ¿¬»ê Áß ¹«Àû Àû¿ë½Ã »ç¿ë) < ¼±ÅÃ
     {
         isDamage = true;
         anim.SetTrigger("IsDamage");
@@ -127,7 +140,6 @@ public class Monster : MonoBehaviour
     }
     public virtual void Death()
     {
-        PoolManager.Instance.ReturnObject("Melee_Test", this.gameObject);
     }
 
     public virtual void KnockBack(Vector2 collision)
@@ -136,7 +148,7 @@ public class Monster : MonoBehaviour
         rigid.AddForce(dir * knockPower, ForceMode2D.Impulse);
     }
 
-    public virtual void CheckPlayer() // í”Œë ˆì´ì–´ë¥¼ íƒ€ê²Ÿìœ¼ë¡œ ì°¾ì„ ë•Œ í•„ìš”í•˜ë©´ ì‚¬ìš©
+    public virtual void CheckPlayer() // ÇÃ·¹ÀÌ¾î¸¦ Å¸°ÙÀ¸·Î Ã£À» ¶§ ÇÊ¿äÇÏ¸é »ç¿ë
     {
         Collider2D hit = Physics2D.OverlapCircle(transform.position, _checkRange, LayerMask.GetMask("Player"));
         if(hit != null)

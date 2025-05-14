@@ -93,8 +93,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 10
+  m_fontSizeBase: 10
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -278,6 +278,7 @@ MonoBehaviour:
   _attackRange: 5
   _attackDelay: 2
   dmgText: {fileID: 118152540439040953}
+  sprite: {fileID: 8362964637499560805}
   weaponPrefab: {fileID: 4292447336826878635, guid: 09adefd65717d5d4ca6bfb7d2d9e7f42, type: 3}
   sprite: {fileID: 8362964637499560805}
 --- !u!50 &990355810670250034
@@ -457,7 +458,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 250
   m_TargetDisplay: 0
 --- !u!114 &4319430403734163681
 MonoBehaviour:

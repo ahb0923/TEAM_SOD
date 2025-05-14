@@ -49,10 +49,12 @@ public class Monster_Boss : Monster
         if(transform.position.x - target.transform.position.x > 0) 
         {
             sprite.flipX = true;
+            weaponPivot.transform.localPosition = new Vector2(-0.5f, 0);
         }
         else if (transform.position.x - target.transform.position.x > 0)
         {
             sprite.flipX = false;
+            weaponPivot.transform.localPosition = new Vector2(0.5f, 0);
         }
     }
 
@@ -129,5 +131,11 @@ public class Monster_Boss : Monster
         anim.SetTrigger("IsGroggy");
         yield return new WaitForSeconds(5.0f);
         isGroggy = false;
+    }
+
+    public override void Death()
+    {
+        string keyName = MONSTER_KEY.Range_Test.ToString();
+        PoolManager.Instance.ReturnObject(keyName, this.gameObject);
     }
 }

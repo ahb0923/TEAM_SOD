@@ -19,7 +19,7 @@ MonoBehaviour:
   maxHp: 500
   atk: 10
   def: 5
-  moveSpeed: 50
+  moveSpeed: 200
   dropGold: 500
   _crit_Chance: 0
   _crit_Multiply: 0

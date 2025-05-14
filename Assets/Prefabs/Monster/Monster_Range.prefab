@@ -60,7 +60,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 250
   m_TargetDisplay: 0
 --- !u!114 &5165204930669403769
 MonoBehaviour:
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 7979377689184787188}
   - component: {fileID: 368735413294240460}
   - component: {fileID: 6531059131513166524}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Monster_Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +277,8 @@ MonoBehaviour:
   _checkRange: 50
   _attackRange: 1
   _attackDelay: 0
-  dmgText: {fileID: 3996508655880218624}
+  dmgText: {fileID: 8365959933138078788}
+  sprite: {fileID: 8183215603767746993}
   weaponPrefab: {fileID: 319964874850279267, guid: 0935ecb6c65bfed48b041231c3192454, type: 3}
 --- !u!50 &368735413294240460
 Rigidbody2D:
@@ -362,14 +363,14 @@ GameObject:
   - component: {fileID: 5294152889132846692}
   - component: {fileID: 949621351376042050}
   - component: {fileID: 8858635591968042806}
-  - component: {fileID: 3996508655880218624}
+  - component: {fileID: 8365959933138078788}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: DmgText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5294152889132846692
 RectTransform:
   m_ObjectHideFlags: 0
@@ -486,7 +487,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &3996508655880218624
+--- !u!114 &8365959933138078788
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
