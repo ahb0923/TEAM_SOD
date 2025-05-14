@@ -25,15 +25,26 @@ public class DungeonManager : Singleton<DungeonManager>
     private List<MapHandler> mapHandlers = new();
 
 
-    private void Awake()
+    protected override void Awake()
     {
         // 1) 씬이 로드될 때마다 맵을 생성
-
+        base.Awake();
         //CreateMonster();
         CreateMap();
         GameObject doorObj = GameObject.Find("Door");
         doorAnimator = doorObj.GetComponent<Animator>();
+
+        if (rewardUI == null)
+            Debug.LogWarning("보상 버튼 못찾음!!!!");
+        if (rewardUI != null)
+        {
+            rewardUI.gameObject.SetActive(false);
+        }
+
     }
+
+
+
     // 애니매이션용 
     private void Update()
     {
@@ -100,6 +111,33 @@ public class DungeonManager : Singleton<DungeonManager>
     {
         return mapHandlers[mapCode].transform;
     }
+
+
+    // 임시 보상 ui화면 띄우기
+
+    [SerializeField]
+    Transform rewardUI;
+    private int selectedRewardIndex = -1;
+    public bool RewardSelected => selectedRewardIndex != -1;
+
+    public void ViewReawardButton()
+    {
+        selectedRewardIndex = -1;
+        rewardUI.gameObject.SetActive(true);
+    }
+
+    public void SelectReward(int index)
+    {
+        selectedRewardIndex = index;
+        rewardUI.gameObject.SetActive(false);
+        Debug.Log($"보상 선택됨: {index}");
+    }
+
+    public int GetSelectedReward()
+    {
+        return selectedRewardIndex;
+    }
+
 }
         //[Header("던전 클리어 시 띄울 UI 패널")]
         //[SerializeField] private GameObject clearUIPanel;

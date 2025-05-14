@@ -220,6 +220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
   monsterData: {fileID: 11400000, guid: e3c5aeaf8479dbf42a1975af442aa87b, type: 2}
+<<<<<<< HEAD
 --- !u!114 &4118465965793782749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,6 +233,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f725d14eb4c1ff4c9e5a1719b626221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+=======
+  testkey: Melee_Test
+>>>>>>> Hyobin_05_14
 --- !u!1 &4026869030938657411
 GameObject:
   m_ObjectHideFlags: 0

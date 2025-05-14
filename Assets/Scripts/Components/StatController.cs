@@ -32,6 +32,11 @@ public class StatController : MonoBehaviour
     private PlayerData playerData;
     [SerializeField]
     private MonsterData monsterData;
+    
+    //test용 임시
+    [SerializeField]
+    public string testkey;
+
 
     public void InitStat_Player()
     {

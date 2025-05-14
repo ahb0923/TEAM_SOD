@@ -321,6 +321,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
   monsterData: {fileID: 11400000, guid: 4677504801cd62546aa4ac12f547d311, type: 2}
+<<<<<<< HEAD
+=======
+  testkey: Range_Test
+>>>>>>> Hyobin_05_14
 --- !u!1 &5816524717388731149
 GameObject:
   m_ObjectHideFlags: 0
