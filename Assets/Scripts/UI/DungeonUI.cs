@@ -8,47 +8,47 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class DungeonUI : BaseInterAction
 {
-  
+    [SerializeField] 
+    private Transform[] rewardPanels;
+    private DungeonRewardHandler rewardHandler;
 
-    private RangeWeapon weapon; //«√∑π¿ÃæÓ ¡§∫∏ 
+    private RangeWeapon weapon; //ÌîåÎ†àÏù¥Ïñ¥ Ï†ïÎ≥¥ 
     private GameObject Player;
 
-
-    //Awake∑Œ «ÿµµ...?(«ÿæﬂ?)
+    //AwakeÎ°ú Ìï¥ÎèÑ...?(Ìï¥Ïïº?)
     private void Start()
     {
         Player = GameObject.FindWithTag("Player");
         weapon = Player.GetComponentInChildren<RangeWeapon>();
+
+        rewardHandler = FindObjectOfType<DungeonRewardHandler>();
+        transform.gameObject.SetActive(false);
     }
-    public override void OpenPanel()
+    public void ShowRewards(RewardData[] rewards)
     {
-   
+        transform.gameObject.SetActive(true);
 
-        // 1) PanelModel ¡ÿ∫Ò
-        var model = new PanelModel
+        for (int i = 0; i < rewardPanels.Length; i++)
         {
-            Panel = selectPanel,
-            Sprites = new Dictionary<string, Sprite>(sprites),
-            TextPro = new Dictionary<string, TextMeshProUGUI>(texts),
-            ButtonActions = new Dictionary<string, UnityAction>()
-        };
+            var reward = rewards[i];
+            var panel = rewardPanels[i];
+            Debug.Log($" title : {reward.title} / image : {reward.image} / text : {reward.text}");
 
-        // 2) µø¿˚ ≈ÿΩ∫∆Æ ∞ªΩ≈
-        //model.TextPro["AttackValueText"].text = player.Attack.ToString();
-        
+            panel.Find("Title").GetComponent<TextMeshProUGUI>().text = reward.title;
+            panel.Find("Icon_Bg").GetComponent<Image>().sprite = reward.image;
+            panel.Find("Text").GetComponent<TextMeshProUGUI>().text = reward.text;
 
-        // 3) πˆ∆∞ ƒ›πÈ º≥¡§
-        
-        model.ButtonActions["Button_AtkPower"] = () => { weapon.data.dungeon_AddPower++; selectPanel.SetActive(false); };  // MapManager.Instance.NextMap();
-        model.ButtonActions["Button_AtkSpeed"] = () => { weapon.data.dungeon_AddSpeed++; selectPanel.SetActive(false); };
-        model.ButtonActions["Button_ShotCount"] = () => { weapon.data.dungeon_ShotCount++; selectPanel.SetActive(false); };
-
-
-
-
-
-        // 4) UI «•Ω√
-        UIManager.Instance.ShowPanel(model);
+            var btn = panel.Find("Button").GetComponent<Button>();
+            int index = i;
+            btn.onClick.RemoveAllListeners();
+            btn.onClick.AddListener(() => {
+                rewardHandler.SelectReward(index);
+                transform.gameObject.SetActive(false);
+            });
+        }
     }
-
+    public void HidePanel()
+    {
+        transform.gameObject.SetActive(false);
+    }
 }

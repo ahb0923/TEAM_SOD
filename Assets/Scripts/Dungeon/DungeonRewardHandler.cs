@@ -1,18 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class DungeonRewardHandler : MonoBehaviour
+public class DungeonRewardHandler : Singleton<DungeonRewardHandler>
 {
-    // Start is called before the first frame update
-    void Start()
+
+    
+    [SerializeField] 
+    private List<RewardData> allRewards;
+
+    [SerializeField] 
+    private DungeonUI dungeonUI;
+
+    [SerializeField]
+    private RewardData[] currentRewards;
+
+    private int selectedRewardIndex = -1;
+    public bool RewardSelected => selectedRewardIndex != -1;
+
+    public void ShowRewardOptions()
     {
-        
+        selectedRewardIndex = -1;
+        currentRewards = allRewards.OrderBy(x => Random.value).Take(3).ToArray();
+        dungeonUI.ShowRewards(currentRewards);
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public void SelectReward(int index)
     {
-        
+        // Tag 값으로 구분하는지 Layer값으로 구분하는지 헷갈리네요
+        var player = GameObject.FindWithTag("Player").GetComponent<StatController>();
+
+        // ########## 이 위치에다가 스탯 컨트롤러의 스탯변경 로직 호출 ##########
+
+        selectedRewardIndex = index;
+        dungeonUI.HidePanel();
+        Debug.Log($"[보상 선택됨] {currentRewards[index].title}");
+    }
+
+    public int GetSelectedReward()
+    {
+        return selectedRewardIndex;
     }
 }

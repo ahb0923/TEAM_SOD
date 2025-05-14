@@ -133,15 +133,10 @@ public class MapHandler : MonoBehaviour
 
             yield return new WaitUntil(() => IsAllMonstersDead());
 
-            DungeonManager.Instance.ViewReawardButton();
-
-            //yield return new WaitUntil(() => IsRewardSelected());
-
-            //yield return new WaitUntil(() => DungeonManager.Instance.RewardSelected);
+            DungeonManager.Instance.OnWaveClear();
 
             yield return new WaitUntil(() => IsRewardSelected());
 
-            // int rewardIndex = DungeonManager.Intance.GetSelectedReward();
 
 
             // 2초 대기 => 시간 변경은 실제 게임 흐름 체크해보고 변경 ㄱㄱ
@@ -164,7 +159,7 @@ public class MapHandler : MonoBehaviour
     }
     private bool IsRewardSelected()
     {
-        return DungeonManager.Instance.RewardSelected;
+        return DungeonRewardHandler.Instance.RewardSelected;
         // 실제 보상 선택 완료 여부 판단 코드 작성할 것
         // 뭐...DungeonUI의 Reward UI 오브젝트가 선택버튼을 눌러서 OnDisable이 될대 해당 함수를 호출한다던지..
     }

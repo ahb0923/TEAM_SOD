@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ad2f24cbc3786fe4c9ab1f6c2bd31d50, type: 3}
-  m_Name: New Reward Data
+  m_Name: MoveSpeed_Rare
   m_EditorClassIdentifier: 
   code: 0
   grade: 0
-  title: 0
-  text: 0
+  title: "\uC774\uB3D9\uC18D\uB3C4 \uC99D\uAC00-\uB808\uC5B4"
+  text: "\uC774\uB3D9\uC18D\uB3C4+2"
   image: {fileID: 0}
   hp: 0
   maxHp: 0
   atk: 0
   def: 0
-  playerMoveSpeed: 0
+  playerMoveSpeed: 2
   playerCriChance: 0
-  playerCriMulti: 1
+  playerCriMulti: 0
   playerInvisible: 0
   weaponPower: 0
   weaponSpeed: 0

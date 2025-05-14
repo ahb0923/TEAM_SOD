@@ -6,7 +6,7 @@ public abstract class BaseWeapon : MonoBehaviour
 {
     public WeaponData data;  // 데이터 가져오기 : 인스펙터 창에서 연결
 
-    public string weaponId => data.id;
+    public string id => data.dataKey;
     public float Atk => data.attackPower;
     public float Speed => data.attackSpeed;
     //public float Delay => data.attackDelay;
@@ -20,7 +20,8 @@ public abstract class BaseWeapon : MonoBehaviour
     private SpriteRenderer weaponRenderer; 
     public AudioClip attackSoundClip; //발사 오디오 클립
 
-    public virtual void Awake() {}
+
+    protected virtual void Awake() {}
     protected virtual void Start() {}
 
  

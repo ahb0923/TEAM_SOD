@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataKey: Monster_Range
   code: 1
-  prefab: {fileID: 5013923082303135000, guid: e8fb4a80c05be0f47abb209dd8be382a, type: 3}
+  prefab: {fileID: 5874365390563230230, guid: e8fb4a80c05be0f47abb209dd8be382a, type: 3}
   initSize: 10
-  maxHp: 200
+  maxHp: 500
   atk: 10
   def: 5
-  moveSpeed: 2
+  moveSpeed: 200
   dropGold: 500
   _crit_Chance: 0
   _crit_Multiply: 0

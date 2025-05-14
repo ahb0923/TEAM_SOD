@@ -36,9 +36,12 @@ public class BaseInterAction : MonoBehaviour
     protected Dictionary<string, Sprite> sprites;
     protected Dictionary<string, TextMeshProUGUI> texts;
 
+    
+
+
 
     //플레이어불러오기
-    
+
 
 
     protected virtual void Awake()
@@ -52,8 +55,9 @@ public class BaseInterAction : MonoBehaviour
         texts = textEntries
                .Where(e => !string.IsNullOrEmpty(e.key) && e.textPro != null)
                .ToDictionary(e => e.key, e => e.textPro);
-        
-        
+
+
+        Canvas canvas = FindObjectOfType<Canvas>();
     }
 
 
@@ -65,21 +69,27 @@ public class BaseInterAction : MonoBehaviour
         if (_playerInRange && Input.GetKeyDown(KeyCode.E))
         {
             
+
             OpenPanel();
         }
     }
 
-    protected void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
+        {
             _playerInRange = true;
+        }
     }
 
-    protected void OnTriggerExit2D(Collider2D other)
+    protected virtual void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
+        {
             _playerInRange = false;
+        }
     }
+
 
     public virtual void OpenPanel() 
     { 

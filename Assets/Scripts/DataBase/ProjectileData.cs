@@ -6,7 +6,7 @@ using UnityEngine;
 public class ProjectileData : WeaponData
 {
   
-    public GameObject prefab;         // 발사체 프리팹
+    public GameObject prefabs;         // 발사체 프리팹
     public float moveSpeed;        // 초기 속도
     public float lifetime;         // 생존 시간
     public  Color Color;

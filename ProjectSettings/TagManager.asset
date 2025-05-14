@@ -4,18 +4,19 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Monster_MeleeWeapon
   - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Background
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - PlayerProjectile
+  - EnemyProjectile
+  - Player
+  - Enemy
   - 
   - 
   - 

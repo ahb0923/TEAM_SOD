@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ProjectileManager : MonoBehaviour
 {
@@ -31,13 +32,23 @@ public class ProjectileManager : MonoBehaviour
     }
 
     //투사체 생성
-    public ProjectileController SpawnProjectile(ProjectileData data, Vector2 position, Vector2 direction, float atk)
+    public ProjectileController SpawnProjectile(ProjectileData data, Vector2 position, Vector2 direction, float atk,float crit_c, float crit_m)
     {
-        var go = Instantiate(data.prefab, position, Quaternion.identity);
+        // 풀에서 꺼내 쓰기
+        GameObject go = PoolManager.Instance.GetObject(data.dataKey, position);
+
+        //초기화
         var ctrl = go.GetComponent<ProjectileController>();
-        ctrl.Initialize(data, direction, atk);
+        go.transform.SetParent(ActiveProjectilesContainer.Instance.transform, worldPositionStays: true);
+        if (go == null)
+        {
+            Debug.LogError($"풀에서 오브젝트를 가져오지 못했습니다. key: {data.dataKey}");
+            return null;
+        }
+        ctrl.Initialize(data, direction, atk,crit_c,crit_m);
         return ctrl;
     }
+    
 
     //파티클 함수(임시)
     //public void CreateImpactParticlesAtPostion(Vector3 position, BasicBow basicBow)

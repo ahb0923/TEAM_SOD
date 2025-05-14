@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d5b6532dc9f5ed41b57eeb5b7c86fae, type: 3}
-  m_Name: SkullData_m
+  m_Name: RedArrowData_p
   m_EditorClassIdentifier: 
-  id: skull
-  attackPower: 20
+  dataKey: RedArrowData_p
+  code: 0
+  prefab: {fileID: 6080629557673122875, guid: 59168f4249c8a66409662066082f5d0d, type: 3}
+  initSize: 5
+  id: RedArrowData_p
+  attackPower: 10
   attackSpeed: 0
-  attackDelay: 0
   attackRange: 0
   weaponSize: 0
   layer:
@@ -24,8 +27,8 @@ MonoBehaviour:
   projectileData: {fileID: 0}
   multiShotCount: 1
   multiShotAngle: 1
-  prefab: {fileID: 7644571734608507409, guid: ad4cf094ce931f44fbaee9edbff7fca8, type: 3}
-  moveSpeed: 2
-  lifetime: 20
-  Color: {r: 0, g: 0.5471698, b: 0.026072696, a: 1}
+  prefabs: {fileID: 6080629557673122875, guid: 59168f4249c8a66409662066082f5d0d, type: 3}
+  moveSpeed: 10
+  lifetime: 2
+  Color: {r: 1, g: 0, b: 0.1475892, a: 1}
   impactEffect: {fileID: 0}
