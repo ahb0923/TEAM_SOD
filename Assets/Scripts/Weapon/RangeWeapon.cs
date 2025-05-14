@@ -11,12 +11,12 @@ public class RangeWeapon : BaseWeapon
     public ProjectileData ProjectileData => data.projectileData;
     public float ProjSpeed => ProjectileData.moveSpeed;
     public float Duration => ProjectileData.lifetime; 
-    public Color Color => data.projectileData.Color; //È­»ì »ö
+    public Color Color => data.projectileData.Color; //í™”ì‚´ ìƒ‰
 
     //public GameObject InpactEffect => ProjectileData.impactEffect;
 
-    public int MultiShotCount => data.multiShotCount + data.dungeon_ShotCount;        // ÇÑ ¹ø¿¡ ½î´Â È­»ì ¼ö
-    public float MultiShotAngle => data.multiShotAngle;        // È­»ì ÆÛÁü °¢µµ
+    public int MultiShotCount => data.multiShotCount + data.dungeon_ShotCount;        // í•œ ë²ˆì— ì˜ëŠ” í™”ì‚´ ìˆ˜
+    public float MultiShotAngle => data.multiShotAngle;        // í™”ì‚´ í¼ì§ ê°ë„
 
     private float lastAttackTime;
     public StatController owner;
@@ -30,22 +30,22 @@ public class RangeWeapon : BaseWeapon
 
     protected override void Start()
     {
-        lastAttackTime = -Mathf.Infinity; //Ã¹ °ø°İÀÌ Áï½Ã °¡´ÉÇÏµµ·Ï
+        lastAttackTime = -Mathf.Infinity; //ì²« ê³µê²©ì´ ì¦‰ì‹œ ê°€ëŠ¥í•˜ë„ë¡
         originalScale = transform.localScale;
     }
    
    
-    public override void Attack(Vector3 targetPosition) //À§Ä¡¸¦ ÆÄ¶ó¹ÌÅÍ·Î ¹Ş¾Æ¿Í¼­ °ø°İ
+    public override void Attack(Vector3 targetPosition) //ìœ„ì¹˜ë¥¼ íŒŒë¼ë¯¸í„°ë¡œ ë°›ì•„ì™€ì„œ ê³µê²©
     {
         if (!AttackCoolTime())
             return;
-        Debug.Log(totalatk_OwnerAndWeapon);
+        //Debug.Log(totalatk_OwnerAndWeapon);
         base.Attack(targetPosition);
 
-        //Å¸°ÙÀ» ÇâÇØ¼­ È¸Àü
+        //íƒ€ê²Ÿì„ í–¥í•´ì„œ íšŒì „
         FaceTarget(targetPosition);
 
-        //Åõ»çÃ¼ »ı¼º ¿äÃ» -> projectileManager
+        //íˆ¬ì‚¬ì²´ ìƒì„± ìš”ì²­ -> projectileManager
         SpawnProjectiles(targetPosition);
     }
     private bool AttackCoolTime()
@@ -100,8 +100,8 @@ public class RangeWeapon : BaseWeapon
     {
         if (data == null) return;
 
-        // ¹«±â À§Ä¡ ±âÁØÀ¸·Î attackRange ¿øÇü Ç¥½Ã
-        Gizmos.color = new Color(1f, 0.5f, 0f, 0.5f);  // ÁÖÈ² ¹İÅõ¸í
+        // ë¬´ê¸° ìœ„ì¹˜ ê¸°ì¤€ìœ¼ë¡œ attackRange ì›í˜• í‘œì‹œ
+        Gizmos.color = new Color(1f, 0.5f, 0f, 0.5f);  // ì£¼í™© ë°˜íˆ¬ëª…
         Gizmos.DrawWireSphere(transform.position, data.attackRange);
     }
 #endif

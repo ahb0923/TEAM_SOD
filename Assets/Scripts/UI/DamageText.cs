@@ -13,15 +13,16 @@ public class DamageText : MonoBehaviour
     private Vector3 startPos;
     private Vector3 endPos;
 
-    private float moveDistance = 20f;
-    private float moveSpeed = 10f;
+    private float moveDistance = 5f;
+    private float moveSpeed = 3f;
     private float duration = 1f;
     private float elapsed = 0f;
 
     private void Awake()
     {
         damageText = GetComponent<TextMeshProUGUI>();
-        //ÃÊ±âÈ­¿ë Ä®¶ó°ª ÀúÀå
+        if (damageText == null) Debug.Log("í…ìŠ¤íŠ¸ ì»´í¬ ì—†ìŒ");
+        //ì´ˆê¸°í™”ìš© ì¹¼ë¼ê°’ ì €ì¥
         damageColor = damageText.color;
 
         startPos = transform.localPosition;
@@ -56,15 +57,15 @@ public class DamageText : MonoBehaviour
 
     IEnumerator TextMoving()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         while (elapsed < duration)
         {
-            // ÁøÇàµµ °è»ê½ÄÀÔ´Ï´Ù
+            // ì§„í–‰ë„ ê³„ì‚°ì‹ì…ë‹ˆë‹¤
             float t = elapsed / duration;
             transform.localPosition = Vector3.Lerp(startPos, endPos, t)*moveSpeed;
 
-            // À§·Î ¿Ã¶ó°¥¼ö·Ï Åõ¸íÇØÁöµµ·Ï ¼³Á¤
+            // ìœ„ë¡œ ì˜¬ë¼ê°ˆìˆ˜ë¡ íˆ¬ëª…í•´ì§€ë„ë¡ ì„¤ì •
             Color tempColor = damageText.color;
             damageText.color = new Color(tempColor.r, tempColor.g, tempColor.b, 1 - t);
 
