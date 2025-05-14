@@ -22,11 +22,7 @@ public class Monster_Melee : Monster
 
     protected override void Update()
     {
-        base.Update();
-        if (delay > 2.0f)
-        {
-            Death();
-        }
+        base.Update();        
         //Move();
         //MonsterRotate();
     }
