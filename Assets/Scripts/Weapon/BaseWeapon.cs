@@ -6,11 +6,11 @@ public abstract class BaseWeapon : MonoBehaviour
 {
     public WeaponData data;  // 데이터 가져오기 : 인스펙터 창에서 연결
 
-    public string weaponId => data.id;
+    public string id => data.dataKey;
     public float Atk => data.attackPower;
-    public float Speed => data.attackSpeed + data.dungeon_AddSpeed;
+    public float Speed => data.attackSpeed;
     //public float Delay => data.attackDelay;
-    public float AttackRange => data.attackRange + data.dungeon_AddRange;
+    public float AttackRange => data.attackRange;
 
     public float WeaponSize => data.weaponSize; //근접무기 사이즈
     public LayerMask target => data.layer; //타겟 레이어 지정

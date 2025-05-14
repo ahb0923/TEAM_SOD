@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1cb5c46ca8d154ba4dcbf0793c1b9a, type: 3}
   m_Name: Cane_m
   m_EditorClassIdentifier: 
-  id: Cane
+  dataKey: 
+  code: 0
+  prefab: {fileID: 0}
+  initSize: 10
+  id: 
   attackPower: 10
   attackSpeed: 1
-  attackDelay: 1
   attackRange: 10
   weaponSize: 1
   layer:

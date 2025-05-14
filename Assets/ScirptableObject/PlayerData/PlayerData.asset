@@ -16,7 +16,7 @@ MonoBehaviour:
   code: 0
   prefab: {fileID: 0}
   initSize: 10
-  maxHp: 100
+  maxHp: 5000
   atk: 0
   def: 5
   moveSpeed: 5

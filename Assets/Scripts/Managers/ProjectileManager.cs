@@ -31,12 +31,19 @@ public class ProjectileManager : MonoBehaviour
     }
 
     //투사체 생성
-    public ProjectileController SpawnProjectile(ProjectileData data, Vector2 position, Vector2 direction, float atk)
+    public ProjectileController SpawnProjectile(ProjectileData data, Vector2 position, Vector2 direction, float atk,float crit_c, float crit_m)
     {
-        var go = Instantiate(data.prefab, position, Quaternion.identity);
+        // 풀에서 꺼내 쓰기
+        GameObject go = PoolManager.Instance.GetObject(data.dataKey, position);
+        
+        //초기화
         var ctrl = go.GetComponent<ProjectileController>();
-        ctrl.Initialize(data, direction, atk);
+        ctrl.Initialize(data, direction, atk,crit_c,crit_m);
         return ctrl;
+    }
+    public void DespawnProjectile(string key, GameObject obj)
+    {
+        PoolManager.Instance.ReturnObject(key, obj);
     }
 
     //파티클 함수(임시)

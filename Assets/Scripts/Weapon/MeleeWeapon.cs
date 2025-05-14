@@ -7,7 +7,7 @@ using static UnityEngine.GraphicsBuffer;
 public class MeleeWeapon : BaseWeapon
 {
 
-    [Header("±ÙÁ¢ °ø°İ ¹üÀ§ ¿ÀÇÁ¼Â")]
+    [Header("ê·¼ì ‘ ê³µê²© ë²”ìœ„ ì˜¤í”„ì…‹")]
     [SerializeField] private Vector2 hitboxSize = Vector2.one;
     [SerializeField] private Vector2 hitboxOffset = Vector2.zero;
 
@@ -15,7 +15,7 @@ public class MeleeWeapon : BaseWeapon
     public Transform Target;
     public StatController Owner;
 
-    //public GameObject Owner_Moster;
+    public GameObject Owner_Moster;
 
     private float lastAttackTime;
 
@@ -24,7 +24,7 @@ public class MeleeWeapon : BaseWeapon
         base.Awake();
         animator = GetComponentInChildren<Animator>();
         Owner = GetComponentInParent<StatController>();
-        //Owner_Moster = GetComponentInParent<GameObject>();
+        Owner_Moster = this.transform.parent.parent.gameObject;
     }
     protected override void Start()
     {
@@ -32,7 +32,7 @@ public class MeleeWeapon : BaseWeapon
         lastAttackTime = -Mathf.Infinity;
         _originalScale = transform.localScale;
 
-        //Target = Owner_Moster.GetComponent<Monster_Melee>().target.transform;      
+        Target = Owner_Moster.GetComponent<Monster_Melee>().target.transform;      
     }
 
     void Update()
@@ -83,15 +83,25 @@ public class MeleeWeapon : BaseWeapon
         return Total;
     }
 
+    public float GetCriChance()
+    {
+        return Owner.Crit_Chance;
+    }
+    public float GetCriMutiply()
+    {
+        return Owner.Crit_Multiply;
+    }
+
+
     public override void Attack(Vector3 v)
     {
         if (!AttackCoolTime())
             return;
 
         base.Attack(v);
-        Debug.Log("±ÙÁ¢°ø°İ");
+        Debug.Log("ê·¼ì ‘ê³µê²©");
 
-        // °ø°İ ¹æÇâ¿¡ µû¶ó È÷Æ®¹Ú½º È¸Àü
+        // ê³µê²© ë°©í–¥ì— ë”°ë¼ íˆíŠ¸ë°•ìŠ¤ íšŒì „
         Vector2 dir = ((Vector2)v - (Vector2)transform.position).normalized;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         Vector2 center = (Vector2)transform.position + hitboxOffset;
@@ -113,12 +123,12 @@ public class MeleeWeapon : BaseWeapon
     {
         if (data == null) return;
 
-        // È¸Àü ¹× ½ºÄÉÀÏ Àû¿ëµÈ »óÅÂ¿¡¼­ Offset, Size¿¡ µû¶ó ¹Ú½º Ç¥½Ã
+        // íšŒì „ ë° ìŠ¤ì¼€ì¼ ì ìš©ëœ ìƒíƒœì—ì„œ Offset, Sizeì— ë”°ë¼ ë°•ìŠ¤ í‘œì‹œ
         Vector3 center = transform.position + (Vector3)hitboxOffset;
         Quaternion rot = transform.rotation;
         Vector3 size = new Vector3(hitboxSize.x, hitboxSize.y, 1f);
 
-        Gizmos.color = new Color(0f, 1f, 0f, 0.5f);   // ÃÊ·Ï ¹İÅõ¸í
+        Gizmos.color = new Color(0f, 1f, 0f, 0.5f);   // ì´ˆë¡ ë°˜íˆ¬ëª…
         Matrix4x4 old = Gizmos.matrix;
         Gizmos.matrix = Matrix4x4.TRS(center, rot, Vector3.one);
         Gizmos.DrawWireCube(Vector3.zero, size);

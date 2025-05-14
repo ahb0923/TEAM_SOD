@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1cb5c46ca8d154ba4dcbf0793c1b9a, type: 3}
   m_Name: KnifeData
   m_EditorClassIdentifier: 
+  dataKey: 
+  code: 0
+  prefab: {fileID: 0}
+  initSize: 10
   id: Kinfe
   attackPower: 10
   attackSpeed: 2
-  attackDelay: 1
   attackRange: 2
   weaponSize: 1
   layer:
