@@ -34,11 +34,11 @@ public class DungeonManager : Singleton<DungeonManager>
         GameObject doorObj = GameObject.Find("Door");
         doorAnimator = doorObj.GetComponent<Animator>();
 
-        if (rewardButtons == null)
+        if (rewardUI == null)
             Debug.LogWarning("보상 버튼 못찾음!!!!");
-        if (rewardButtons != null)
+        if (rewardUI != null)
         {
-            rewardButtons.gameObject.SetActive(false);
+            rewardUI.gameObject.SetActive(false);
         }
 
     }
@@ -116,20 +116,20 @@ public class DungeonManager : Singleton<DungeonManager>
     // 임시 보상 ui화면 띄우기
 
     [SerializeField]
-    Transform rewardButtons;
+    Transform rewardUI;
     private int selectedRewardIndex = -1;
     public bool RewardSelected => selectedRewardIndex != -1;
 
     public void ViewReawardButton()
     {
         selectedRewardIndex = -1;
-        rewardButtons.gameObject.SetActive(true);
+        rewardUI.gameObject.SetActive(true);
     }
 
     public void SelectReward(int index)
     {
         selectedRewardIndex = index;
-        rewardButtons.gameObject.SetActive(false);
+        rewardUI.gameObject.SetActive(false);
         Debug.Log($"보상 선택됨: {index}");
     }
 

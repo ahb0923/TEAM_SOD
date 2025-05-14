@@ -137,8 +137,10 @@ public class MapHandler : MonoBehaviour
 
             //yield return new WaitUntil(() => IsRewardSelected());
 
-            yield return new WaitUntil(() => DungeonManager.Instance.RewardSelected);
-            
+            //yield return new WaitUntil(() => DungeonManager.Instance.RewardSelected);
+
+            yield return new WaitUntil(() => IsRewardSelected());
+
             // int rewardIndex = DungeonManager.Intance.GetSelectedReward();
 
 
@@ -162,9 +164,9 @@ public class MapHandler : MonoBehaviour
     }
     private bool IsRewardSelected()
     {
+        return DungeonManager.Instance.RewardSelected;
         // 실제 보상 선택 완료 여부 판단 코드 작성할 것
         // 뭐...DungeonUI의 Reward UI 오브젝트가 선택버튼을 눌러서 OnDisable이 될대 해당 함수를 호출한다던지..
-        return true;
     }
     // 정해전 컬라이더 박스 안에 몬스터 랜덤위치 생성
     public void CreateMonster(Transform spawnTrans, string monsterKey)
