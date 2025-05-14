@@ -36,6 +36,11 @@ public class Monster_Melee : Monster
 
     public override void Death()
     {
-        PoolManager.Instance.ReturnObject(MONSTER_KEY.Melee_Test.ToString(), this.gameObject);
+        float time = 0;
+        time += Time.deltaTime;
+        if (time > 2)
+        {
+            PoolManager.Instance.ReturnObject(MONSTER_KEY.Melee_Test.ToString(), this.gameObject);
+        }
     }
 }

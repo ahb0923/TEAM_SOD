@@ -105,18 +105,15 @@ public class Monster_Boss : Monster
         int ran = Random.Range(1, 4);
         switch (ran)
         {
-            case 1:
-                Debug.Log("���� 1");              
+            case 1:             
                 Pattern1();
                 attackCount++;             
                 break;
-            case 2:
-                Debug.Log("���� 2");              
+            case 2:             
                 Pattern2();               
                 attackCount++;              
                 break;
-            case 3:
-                Debug.Log("���� 3");              
+            case 3:       
                 Pattern3();
                 attackCount++;               
                 break;
@@ -125,7 +122,6 @@ public class Monster_Boss : Monster
 
     protected IEnumerator BossGroggy()
     {
-        Debug.Log("�׷α� �����Դϴ�.");
         attackCount = 0;
         isGroggy = true;
         anim.SetBool("IsGroggy", true);

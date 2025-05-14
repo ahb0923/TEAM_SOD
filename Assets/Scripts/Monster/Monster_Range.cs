@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Monster_Range : Monster
 {
-    // ������ �ӽ÷� ����
     public RangeWeapon weaponPrefab;
     protected RangeWeapon weapon;
     protected override void Awake()
@@ -24,10 +23,11 @@ public class Monster_Range : Monster
     // Update is called once per frame
     protected override void Update()
     {
+        if (isDie == true) return;
         Move();
         //MonsterRotate();
         Attack();
-        Debug.Log("���ݻ�Ÿ�" + weapon.AttackRange);
+        
     }
 
     protected override void Attack()
@@ -36,8 +36,6 @@ public class Monster_Range : Monster
         if (distance <= weapon.AttackRange)
         {
             weapon.Attack(target.transform.position);
-            Debug.Log("���Ÿ� ����");
-            //delay = 0;
         }
     }
     protected override void Move()
@@ -93,6 +91,11 @@ public class Monster_Range : Monster
 
     public override void Death()
     {
-        PoolManager.Instance.ReturnObject(MONSTER_KEY.Range_Test.ToString(), this.gameObject);
+        float time = 0;
+        time += Time.deltaTime;
+        if (time > 2)
+        {
+            PoolManager.Instance.ReturnObject(MONSTER_KEY.Range_Test.ToString(), this.gameObject);
+        }
     }
 }

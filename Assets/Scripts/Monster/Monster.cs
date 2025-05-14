@@ -30,6 +30,7 @@ public class Monster : MonoBehaviour
     protected Rigidbody2D rigid;
     protected Animator anim;
 
+    [SerializeField]protected bool isDie;
     protected virtual void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -52,10 +53,12 @@ public class Monster : MonoBehaviour
     protected virtual void Start() { }
     protected virtual void Update() 
     {
-        delay += Time.deltaTime;
-        Attack();
-        //MonsterRotate();
-        Move();
+        if (!isDie)
+        {
+            Attack();
+            //MonsterRotate();
+            Move();
+        }
     }
 
     protected virtual void Move()
@@ -113,6 +116,7 @@ public class Monster : MonoBehaviour
 
     protected void OnCollisionEnter2D(Collision2D collision)
     {
+        if (isDie) return;
         if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerProjectile")) //태그 예시 플레이어 총알과 충돌했을때
         {
             GameObject attackSource = collision.gameObject;
@@ -137,6 +141,7 @@ public class Monster : MonoBehaviour
                 }*/
                 if (monsterStat.Hp <= 0)// 체력 0이하 일시 Death() 함수 호출
                 {
+                    DieAnim();
                     Death();
                 }
             }
@@ -149,6 +154,14 @@ public class Monster : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         isDamage = false;
     }
+    protected virtual void DieAnim()
+    {
+        isDie = true;
+        rigid.velocity = Vector2.zero;
+        anim.SetTrigger("IsDie");
+    }
+
+    
     public virtual void Death()
     {
         
