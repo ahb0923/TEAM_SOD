@@ -596,6 +596,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 320684407}
   - {fileID: 644093736}
   - {fileID: 381993112}
   - {fileID: 375964121}
@@ -859,6 +860,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287103669}
   m_CullTransparentMesh: 1
+--- !u!4 &320684407 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7826931620499171026, guid: 31fb83892733d52408510fc019557280, type: 3}
+  m_PrefabInstance: {fileID: 532731023}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &320801438
 GameObject:
   m_ObjectHideFlags: 0
@@ -1399,6 +1405,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 244438975}
     m_Modifications:
+    - target: {fileID: 2914350229429745913, guid: 31fb83892733d52408510fc019557280, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -1014284699450979951, guid: 0fe56674f5bcec9428929ac6d1755792, type: 2}
     - target: {fileID: 3509382095691444815, guid: 31fb83892733d52408510fc019557280, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
