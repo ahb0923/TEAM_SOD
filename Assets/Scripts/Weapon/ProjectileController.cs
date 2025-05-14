@@ -75,12 +75,12 @@ public class ProjectileController : MonoBehaviour
     private void Update()
     {
         if (data == null) return;
-
+        string key = this.data.name;
         elapsedTime += Time.deltaTime;
         // 수명 경과 시 파괴, 수명은 화살 데이터에서
         if (elapsedTime >= data.lifetime)
         {
-            DestroyProjectile(transform.position);
+            PoolManager.Instance.ReturnObject(key,gameObject);
             return;
         }
 
@@ -91,11 +91,11 @@ public class ProjectileController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         int layer = other.gameObject.layer;
-
+        string key = this.data.name;
         // 레벨(벽 등) 충돌 체크
         if (((1 << layer) & data.layer.value) != 0)
         {
-            DestroyProjectile(other.ClosestPoint(transform.position));
+            PoolManager.Instance.ReturnObject(key, gameObject);
             return;
         }
 
@@ -119,7 +119,7 @@ public class ProjectileController : MonoBehaviour
 
         // PoolSetting에 등록된 key와 동일하게
         string key = this.data.name;
-        ProjectileManager.Instance.DespawnProjectile(key, gameObject);
+        PoolManager.Instance.ReturnObject(key, gameObject);
     }
 }
 

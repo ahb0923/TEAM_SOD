@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Monster_Range : Monster
 {
-    // ½ºÅÈÀº ÀÓ½Ã·Î Àû¿ë
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ó½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½
     public RangeWeapon weaponPrefab;
     protected RangeWeapon weapon;
     protected override void Awake()
@@ -27,7 +27,7 @@ public class Monster_Range : Monster
         Move();
         //MonsterRotate();
         Attack();
-        Debug.Log("°ø°Ý»ç°Å¸®" + weapon.AttackRange);
+        Debug.Log("ï¿½ï¿½ï¿½Ý»ï¿½Å¸ï¿½" + weapon.AttackRange);
     }
 
     protected override void Attack()
@@ -36,7 +36,7 @@ public class Monster_Range : Monster
         if (distance <= weapon.AttackRange)
         {
             weapon.Attack(target.transform.position);
-            Debug.Log("¿ø°Å¸® °ø°Ý");
+            Debug.Log("ï¿½ï¿½ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½");
             //delay = 0;
         }
     }
