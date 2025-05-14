@@ -24,7 +24,7 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 0
-  projectileData: {fileID: 0}
+  projectileData: {fileID: 11400000}
   multiShotCount: 1
   multiShotAngle: 1
   prefabs: {fileID: 7644571734608507409, guid: ad4cf094ce931f44fbaee9edbff7fca8, type: 3}

@@ -109,6 +109,17 @@ public class ProjectileController : MonoBehaviour
         //    DestroyProjectile(other.ClosestPoint(transform.position));
         //}
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        int layer = collision.gameObject.layer;
+        string key = this.data.name;
+        if (layer == LayerMask.NameToLayer("Background"))
+        {
+            // 화살만 비활성화
+            PoolManager.Instance.ReturnObject(data.name, gameObject);
+        }
+
+    }
 
     //임시 코드, 맞았을 경우 이펙트 효과
     public void DestroyProjectile(Vector3 hitPosition)
