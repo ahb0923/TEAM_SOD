@@ -226,9 +226,9 @@ public class BasePlayer : MonoBehaviour
 
     protected void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("충돌 인식함");
+        Debug.Log("콜리전에서 충돌 인식함");
         GameObject attackSource = collision.gameObject;
-        Debug.Log($"충돌 인식한 어택소스의 레이어 : {attackSource.layer}");
+        Debug.Log($"콜리전에서 충돌 인식한 어택소스의 레이어 : {attackSource.layer}");
         if (attackSource.layer == LayerMask.NameToLayer("Background")) return;
         // 백그라운드 충돌 시에는 리턴. 현재 설정에서 나머지 충돌할 레이어가 적투사체밖에 없음
         
@@ -251,10 +251,37 @@ public class BasePlayer : MonoBehaviour
             Debug.Log($"플레이어 체력 : {player_Stat.Hp}");
             StartCoroutine(ApplyInvincible()); // 무적 적용 코루틴 실행
         }
+       // if (attackSource.CompareTag("Monster_MeleeWeapon"))
+       // {
+       //     Debug.Log("콜리전에서 근접에 맞음");
+       //     MeleeWeapon meleeWeapon = attackSource.GetComponent<MeleeWeapon>();
+       //     if (player_Stat.Is_Invinsible) // 무적 중이면 데미지 처리 X
+       //     {
+       //         return;
+       //     }
+       //     float atk = meleeWeapon.GetAttackPower();
+       //     float crit_C = meleeWeapon.GetCriChance();
+       //     float crit_M = meleeWeapon.GetCriMutiply();
+       //     DamageResult result = player_Stat.FinalDamageCalculator(atk, crit_C, crit_M);
+       //     player_Stat.HpReductionApply(result); // 최종뎀 체력 적용
+       //     player_DamageText.SetDamage((int)result.final_Damage); // 데미지 출력
+       //     player_DamageText.gameObject.SetActive(true);
+       //     Debug.Log($"플레이어 체력 : {player_Stat.Hp}");
+       //     StartCoroutine(ApplyInvincible()); // 무적 적용 코루틴 실행
+       // }
+    }
+
+   protected void OnTriggerStay2D(Collider2D collision)
+   {
+       Debug.Log("트리거에서 충돌 인식함");
+       GameObject attackSource = collision.gameObject;
+       Debug.Log($"트리거에서 충돌 인식한 어택소스의 레이어 : {attackSource.layer}");
+       if (attackSource.layer == LayerMask.NameToLayer("Background")) return;
+        // 백그라운드 충돌 시에는 리턴. 현재 설정에서 나머지 충돌할 레이어가 적투사체밖에 없음
         if (attackSource.CompareTag("Monster_MeleeWeapon"))
         {
-            Debug.Log("근접에 맞음");
-            MeleeWeapon meleeWeapon = attackSource.GetComponent<MeleeWeapon>();
+            Debug.Log("트리거에서 근접에 맞음");
+            MeleeWeapon meleeWeapon = attackSource.GetComponentInParent<MeleeWeapon>();
             if (player_Stat.Is_Invinsible) // 무적 중이면 데미지 처리 X
             {
                 return;
@@ -269,9 +296,9 @@ public class BasePlayer : MonoBehaviour
             Debug.Log($"플레이어 체력 : {player_Stat.Hp}");
             StartCoroutine(ApplyInvincible()); // 무적 적용 코루틴 실행
         }
-
-
     }
+
+
 
     protected IEnumerator ApplyInvincible()
     {

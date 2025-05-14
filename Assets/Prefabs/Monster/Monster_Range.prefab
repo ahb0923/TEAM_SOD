@@ -274,10 +274,10 @@ MonoBehaviour:
   target: {fileID: 0}
   weaponPivot: {fileID: 5816524717388731149}
   monsterStat: {fileID: 6531059131513166524}
-  _checkRange: 10
+  _checkRange: 50
   _attackRange: 1
   _attackDelay: 0
-  dmgText: {fileID: 0}
+  dmgText: {fileID: 3996508655880218624}
   weaponPrefab: {fileID: 319964874850279267, guid: 0935ecb6c65bfed48b041231c3192454, type: 3}
 --- !u!50 &368735413294240460
 Rigidbody2D:
@@ -362,6 +362,7 @@ GameObject:
   - component: {fileID: 5294152889132846692}
   - component: {fileID: 949621351376042050}
   - component: {fileID: 8858635591968042806}
+  - component: {fileID: 3996508655880218624}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -485,3 +486,15 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3996508655880218624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7896206029865887953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f725d14eb4c1ff4c9e5a1719b626221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
