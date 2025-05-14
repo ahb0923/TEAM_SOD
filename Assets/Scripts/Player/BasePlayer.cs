@@ -270,7 +270,7 @@ public class BasePlayer : MonoBehaviour
         if (targetPosition.Count == 0)
         {
             // 웨이브 클리어
-            Debug.Log("몬스터를 찾을 수 없습니다.");
+            //Debug.Log("몬스터를 찾을 수 없습니다.");
         }
     }
 
