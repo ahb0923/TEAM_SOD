@@ -176,7 +176,7 @@ public class MapHandler : MonoBehaviour
 
         Vector3 spawnPos = new Vector3(randX, y, randZ);
 
-        GameObject monster = ProjectilePoolManager.Instance.GetObject(monsterKey, spawnPos);
+        GameObject monster = PoolManager.Instance.GetObject(monsterKey, spawnPos);
         if (monster == null)
         {
             Debug.LogWarning($"풀에서 '{monsterKey}'를 가져오지 못했습니다.");

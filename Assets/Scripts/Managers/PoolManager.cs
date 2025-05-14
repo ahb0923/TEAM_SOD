@@ -64,6 +64,7 @@ public class PoolManager : Singleton<PoolManager>
     public void ReturnObject(string key, GameObject obj)
     {
         obj.SetActive(false);
+        obj.transform.SetParent(this.transform, worldPositionStays: false);
         pools[key].Enqueue(obj);
     }
     
