@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d5b6532dc9f5ed41b57eeb5b7c86fae, type: 3}
   m_Name: ArrowData_m
   m_EditorClassIdentifier: 
-  id: BasicArrow_m
+  dataKey: ArrowData_m
+  code: 0
+  prefab: {fileID: 6080629557673122875, guid: f0b63762f1793804794de7ea8f284000, type: 3}
+  initSize: 5
+  id: ArrowData_m
   attackPower: 10
   attackSpeed: 0
   attackRange: 0
@@ -23,11 +27,7 @@ MonoBehaviour:
   projectileData: {fileID: 0}
   multiShotCount: 1
   multiShotAngle: 1
-  dungeon_AddPower: 0
-  dungeon_AddSpeed: 0
-  dungeon_AddRange: 0
-  dungeon_ShotCount: 0
-  prefab: {fileID: 6080629557673122875, guid: f0b63762f1793804794de7ea8f284000, type: 3}
+  prefabs: {fileID: 6080629557673122875, guid: f0b63762f1793804794de7ea8f284000, type: 3}
   moveSpeed: 5
   lifetime: 10
   Color: {r: 0.16346256, g: 0.91194963, b: 0.2977991, a: 1}

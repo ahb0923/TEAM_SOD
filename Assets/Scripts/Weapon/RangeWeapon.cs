@@ -11,16 +11,19 @@ public class RangeWeapon : BaseWeapon
     public ProjectileData ProjectileData => data.projectileData;
     public float ProjSpeed => ProjectileData.moveSpeed;
     public float Duration => ProjectileData.lifetime; 
-    public Color Color => data.projectileData.Color; //í™”ì‚´ ìƒ‰
+    public Color Color => data.projectileData.Color; //È­»ì »ö
 
     //public GameObject InpactEffect => ProjectileData.impactEffect;
 
-    public int MultiShotCount => data.multiShotCount + data.dungeon_ShotCount;        // í•œ ë²ˆì— ì˜ëŠ” í™”ì‚´ ìˆ˜
-    public float MultiShotAngle => data.multiShotAngle;        // í™”ì‚´ í¼ì§ ê°ë„
+    public int MultiShotCount => data.multiShotCount ;        // ÇÑ ¹ø¿¡ ½î´Â È­»ì ¼ö
+    public float MultiShotAngle => data.multiShotAngle;        // È­»ì ÆÛÁü °¢µµ
 
     private float lastAttackTime;
     public StatController owner;
-    public float totalatk_OwnerAndWeapon => data.attackPower + owner.Atk + data.dungeon_AddPower;
+    public float totalatk_OwnerAndWeapon => data.attackPower + owner.Atk;
+    public float crit_c => owner.Crit_Chance;
+    public float crit_m => owner.Crit_Multiply;
+
     private Vector3 originalScale;
 
     protected override void Awake()
@@ -30,22 +33,22 @@ public class RangeWeapon : BaseWeapon
 
     protected override void Start()
     {
-        lastAttackTime = -Mathf.Infinity; //ì²« ê³µê²©ì´ ì¦‰ì‹œ ê°€ëŠ¥í•˜ë„ë¡
+        lastAttackTime = -Mathf.Infinity; //Ã¹ °ø°İÀÌ Áï½Ã °¡´ÉÇÏµµ·Ï
         originalScale = transform.localScale;
     }
    
    
-    public override void Attack(Vector3 targetPosition) //ìœ„ì¹˜ë¥¼ íŒŒë¼ë¯¸í„°ë¡œ ë°›ì•„ì™€ì„œ ê³µê²©
+    public override void Attack(Vector3 targetPosition) //À§Ä¡¸¦ ÆÄ¶ó¹ÌÅÍ·Î ¹Ş¾Æ¿Í¼­ °ø°İ
     {
         if (!AttackCoolTime())
             return;
-        //Debug.Log(totalatk_OwnerAndWeapon);
+        Debug.Log(totalatk_OwnerAndWeapon);
         base.Attack(targetPosition);
 
-        //íƒ€ê²Ÿì„ í–¥í•´ì„œ íšŒì „
+        //Å¸°ÙÀ» ÇâÇØ¼­ È¸Àü
         FaceTarget(targetPosition);
 
-        //íˆ¬ì‚¬ì²´ ìƒì„± ìš”ì²­ -> projectileManager
+        //Åõ»çÃ¼ »ı¼º ¿äÃ» -> projectileManager
         SpawnProjectiles(targetPosition);
     }
     private bool AttackCoolTime()
@@ -90,7 +93,9 @@ public class RangeWeapon : BaseWeapon
                 ProjectileData,
                 spawnPos,
                 dir,
-                totalatk_OwnerAndWeapon
+                totalatk_OwnerAndWeapon,
+                crit_c,
+                crit_m
             );
         }
     }
@@ -100,8 +105,8 @@ public class RangeWeapon : BaseWeapon
     {
         if (data == null) return;
 
-        // ë¬´ê¸° ìœ„ì¹˜ ê¸°ì¤€ìœ¼ë¡œ attackRange ì›í˜• í‘œì‹œ
-        Gizmos.color = new Color(1f, 0.5f, 0f, 0.5f);  // ì£¼í™© ë°˜íˆ¬ëª…
+        // ¹«±â À§Ä¡ ±âÁØÀ¸·Î attackRange ¿øÇü Ç¥½Ã
+        Gizmos.color = new Color(1f, 0.5f, 0f, 0.5f);  // ÁÖÈ² ¹İÅõ¸í
         Gizmos.DrawWireSphere(transform.position, data.attackRange);
     }
 #endif
