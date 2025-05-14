@@ -95,7 +95,7 @@ public class Monster_Boss : Monster
 
     protected override void Move()
     {
-        return;
+        rigid.velocity = Vector2.zero;
     }
 
     private void Pattern()
