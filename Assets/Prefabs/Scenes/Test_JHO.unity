@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: d7d4f852e328abf459bb973ed7939866, type: 2}
   monsterData: {fileID: 0}
+  testkey: 
 --- !u!4 &4265866
 Transform:
   m_ObjectHideFlags: 0
@@ -386,6 +387,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: d7d4f852e328abf459bb973ed7939866, type: 2}
   monsterData: {fileID: 0}
+  testkey: 
 --- !u!1 &119187779
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,6 +596,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: d7d4f852e328abf459bb973ed7939866, type: 2}
   monsterData: {fileID: 0}
+  testkey: 
 --- !u!4 &275963512
 Transform:
   m_ObjectHideFlags: 0
@@ -685,6 +688,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: d7d4f852e328abf459bb973ed7939866, type: 2}
   monsterData: {fileID: 0}
+  testkey: 
 --- !u!4 &531680400
 Transform:
   m_ObjectHideFlags: 0
@@ -777,6 +781,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: d7d4f852e328abf459bb973ed7939866, type: 2}
   monsterData: {fileID: 0}
+  testkey: 
 --- !u!4 &817689243
 Transform:
   m_ObjectHideFlags: 0
@@ -840,6 +845,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: d7d4f852e328abf459bb973ed7939866, type: 2}
   monsterData: {fileID: 0}
+  testkey: 
 --- !u!1 &1148640280
 GameObject:
   m_ObjectHideFlags: 0
@@ -917,7 +923,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolSetting:
-  - {fileID: 11400000, guid: f10f1dfb8bd72b34eb7bbcf443f6df1a, type: 2}
   - {fileID: 11400000, guid: f10f1dfb8bd72b34eb7bbcf443f6df1a, type: 2}
 --- !u!4 &1283391154
 Transform:
