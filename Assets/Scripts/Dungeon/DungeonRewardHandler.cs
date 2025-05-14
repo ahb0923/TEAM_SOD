@@ -29,11 +29,11 @@ public class DungeonRewardHandler : Singleton<DungeonRewardHandler>
 
     public void SelectReward(int index)
     {
-        // Tag °ªÀ¸·Î ±¸ºÐÇÏ´ÂÁö Layer°ªÀ¸·Î ±¸ºÐÇÏ´ÂÁö Çò°¥¸®³×¿ä
+        // Tag ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ Layerï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ ï¿½ò°¥¸ï¿½ï¿½×¿ï¿½
         var player = GameObject.FindWithTag("Player").GetComponent<StatController>();
         if (player == null)
             return;
-        // ########## ÀÌ À§Ä¡¿¡´Ù°¡ ½ºÅÈ ÄÁÆ®·Ñ·¯ÀÇ ½ºÅÈº¯°æ ·ÎÁ÷ È£Ãâ ##########
+        // ########## ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Èºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ ##########
 
 
         var weapon = GameObject.FindWithTag("Player").GetComponentInChildren<RangeWeapon>();
@@ -42,7 +42,7 @@ public class DungeonRewardHandler : Singleton<DungeonRewardHandler>
 
         selectedRewardIndex = index;
         dungeonUI.HidePanel();
-        Debug.Log($"[º¸»ó ¼±ÅÃµÊ] {currentRewards[index].title}");
+        Debug.Log($"[ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½] {currentRewards[index].title}");
     }
 
     public int GetSelectedReward()

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class BaseWeapon : MonoBehaviour
 {
-    public WeaponData data;  // µ¥ÀÌÅÍ °¡Á®¿À±â : ÀÎ½ºÆåÅÍ Ã¢¿¡¼­ ¿¬°á
+    public WeaponData data;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : ï¿½Î½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¢ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public RewardData RewardData { get; set; }
 
     public string id => data.dataKey;
@@ -14,15 +14,15 @@ public abstract class BaseWeapon : MonoBehaviour
     //public float Delay => data.attackDelay;
     public float AttackRange => data.attackRange + p_weaponRange;
 
-    public float WeaponSize => data.weaponSize; //±ÙÁ¢¹«±â »çÀÌÁî
-    public LayerMask target => data.layer; //Å¸°Ù ·¹ÀÌ¾î ÁöÁ¤
+    public float WeaponSize => data.weaponSize; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public LayerMask target => data.layer; //Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 
     public Animator animator;
     private SpriteRenderer weaponRenderer; 
-    public AudioClip attackSoundClip; //¹ß»ç ¿Àµð¿À Å¬¸³
+    public AudioClip attackSoundClip; //ï¿½ß»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½
 
-    // [°øÅë]´©Àû »ó½Â ½ºÅÈ
+    // [ï¿½ï¿½ï¿½ï¿½]ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     protected float p_weaponPower;
     protected float p_weaponSpeed;
     protected float p_weaponRange;
@@ -33,9 +33,9 @@ public abstract class BaseWeapon : MonoBehaviour
 
     public virtual void Attack(Vector3 v)
     {
-        AttackAnimation(); //°ø°Ý ¾Ö´Ï¸ÞÀÌ¼Ç
+        AttackAnimation(); //ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½
 
-        if (attackSoundClip) { } //»ç¿îµå Å¬¸³
+        if (attackSoundClip) { } //ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½
                                  // SoundManager.PlayClip(attackSoundClip);
     }
 
