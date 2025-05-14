@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1cb5c46ca8d154ba4dcbf0793c1b9a, type: 3}
   m_Name: BowData_p
   m_EditorClassIdentifier: 
-  dataKey: 
+  dataKey: BasicBow_p
   code: 0
-  prefab: {fileID: 0}
+  prefab: {fileID: 4282570311816112828, guid: 09370fda49536dc4595dbcf8766ca42e, type: 3}
   initSize: 10
-  id: 
+  id: BasicBow_p
   attackPower: 2
   attackSpeed: 3
   attackRange: 10
