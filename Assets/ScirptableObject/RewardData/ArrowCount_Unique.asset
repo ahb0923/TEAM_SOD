@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ArrowCount_Unique
   m_EditorClassIdentifier: 
   code: 0
-  grade: 2
+  grade: 0
   title: "\uD654\uC0B4 \uC218 \uC99D\uAC00-\uC720\uB2C8\uD06C"
   text: "\uD654\uC0B4 \uC218 +3"
   image: {fileID: 0}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AttackSpeed_Rare
   m_EditorClassIdentifier: 
   code: 0
-  grade: 1
+  grade: 0
   title: "\uACF5\uACA9\uC18D\uB3C4-\uB808\uC5B4"
   text: "\uACF5\uACA9\uC18D\uB3C4 +50%"
   image: {fileID: 0}

@@ -8,47 +8,47 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class DungeonUI : BaseInterAction
 {
-  
+    [SerializeField] 
+    private Transform[] rewardPanels;
+    private DungeonRewardHandler rewardHandler;
 
     private RangeWeapon weapon; //플레이어 정보 
     private GameObject Player;
-
 
     //Awake로 해도...?(해야?)
     private void Start()
     {
         Player = GameObject.FindWithTag("Player");
         weapon = Player.GetComponentInChildren<RangeWeapon>();
+
+        rewardHandler = FindObjectOfType<DungeonRewardHandler>();
+        transform.gameObject.SetActive(false);
     }
-    public override void OpenPanel()
+    public void ShowRewards(RewardData[] rewards)
     {
-   
+        transform.gameObject.SetActive(true);
 
-        // 1) PanelModel 준비
-        var model = new PanelModel
+        for (int i = 0; i < rewardPanels.Length; i++)
         {
-            Panel = selectPanel,
-            Sprites = new Dictionary<string, Sprite>(sprites),
-            TextPro = new Dictionary<string, TextMeshProUGUI>(texts),
-            ButtonActions = new Dictionary<string, UnityAction>()
-        };
+            var reward = rewards[i];
+            var panel = rewardPanels[i];
+            Debug.Log($" title : {reward.title} / image : {reward.image} / text : {reward.text}");
 
-        // 2) 동적 텍스트 갱신
-        //model.TextPro["AttackValueText"].text = player.Attack.ToString();
-        
+            panel.Find("Title").GetComponent<TextMeshProUGUI>().text = reward.title;
+            panel.Find("Icon_Bg").GetComponent<Image>().sprite = reward.image;
+            panel.Find("Text").GetComponent<TextMeshProUGUI>().text = reward.text;
 
-        // 3) 버튼 콜백 설정
-        
-        //model.ButtonActions["Button_AtkPower"] = () => { weapon.data.dungeon_AddPower++; selectPanel.SetActive(false); };  // MapManager.Instance.NextMap();
-        //model.ButtonActions["Button_AtkSpeed"] = () => { weapon.data.dungeon_AddSpeed++; selectPanel.SetActive(false); };
-        //model.ButtonActions["Button_ShotCount"] = () => { weapon.data.dungeon_ShotCount++; selectPanel.SetActive(false); };
-
-
-
-
-
-        // 4) UI 표시
-        UIManager.Instance.ShowPanel(model);
+            var btn = panel.Find("Button").GetComponent<Button>();
+            int index = i;
+            btn.onClick.RemoveAllListeners();
+            btn.onClick.AddListener(() => {
+                rewardHandler.SelectReward(index);
+                transform.gameObject.SetActive(false);
+            });
+        }
     }
-
+    public void HidePanel()
+    {
+        transform.gameObject.SetActive(false);
+    }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Defense_Rare
   m_EditorClassIdentifier: 
   code: 0
-  grade: 1
+  grade: 0
   title: "\uBC29\uC5B4\uB825\uC99D\uAC00-\uB808\uC5B4"
   text: "\uBC29\uC5B4\uB825\uC99D\uAC00+2"
   image: {fileID: 0}

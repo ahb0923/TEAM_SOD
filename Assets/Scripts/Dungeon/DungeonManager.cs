@@ -24,6 +24,12 @@ public class DungeonManager : Singleton<DungeonManager>
     private List<Transform> tilePositions = new List<Transform>();
     private List<MapHandler> mapHandlers = new();
 
+    [SerializeField] private DungeonRewardHandler rewardHandler;
+
+    public void OnWaveClear()
+    {
+        rewardHandler.ShowRewardOptions();
+    }
 
     protected override void Awake()
     {
@@ -33,14 +39,6 @@ public class DungeonManager : Singleton<DungeonManager>
         CreateMap();
         GameObject doorObj = GameObject.Find("Door");
         doorAnimator = doorObj.GetComponent<Animator>();
-
-        if (rewardUI == null)
-            Debug.LogWarning("���� ��ư ��ã��!!!!");
-        if (rewardUI != null)
-        {
-            rewardUI.gameObject.SetActive(false);
-        }
-
     }
 
 
@@ -106,38 +104,10 @@ public class DungeonManager : Singleton<DungeonManager>
         CurrentDungeonCode = nextCode;
     }
 
-
     public Transform GetMapSpawnTransform(int mapCode)
     {
         return mapHandlers[mapCode].transform;
     }
-
-
-    // �ӽ� ���� uiȭ�� ����
-
-    [SerializeField]
-    Transform rewardUI;
-    private int selectedRewardIndex = -1;
-    public bool RewardSelected => selectedRewardIndex != -1;
-
-    public void ViewReawardButton()
-    {
-        selectedRewardIndex = -1;
-        rewardUI.gameObject.SetActive(true);
-    }
-
-    public void SelectReward(int index)
-    {
-        selectedRewardIndex = index;
-        rewardUI.gameObject.SetActive(false);
-        Debug.Log($"���� ���õ�: {index}");
-    }
-
-    public int GetSelectedReward()
-    {
-        return selectedRewardIndex;
-    }
-
 }
         //[Header("���� Ŭ���� �� ��� UI �г�")]
         //[SerializeField] private GameObject clearUIPanel;

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: InvisibleTime_Rare
   m_EditorClassIdentifier: 
   code: 0
-  grade: 1
+  grade: 0
   title: "\uBB34\uC801\uC2DC\uAC04 \uC99D\uAC00-\uB808\uC5B4"
   text: "\uBB34\uC801\uC2DC\uAC04+0.6\uCD08"
   image: {fileID: 0}

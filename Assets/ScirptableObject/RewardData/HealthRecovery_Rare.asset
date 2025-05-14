@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HealthRecovery_Rare
   m_EditorClassIdentifier: 
   code: 0
-  grade: 1
+  grade: 0
   title: "\uCCB4\uB825\uD68C\uBCF5-\uB808\uC5B4"
   text: "\uCCB4\uB825\uD68C\uBCF5+20"
   image: {fileID: 0}
