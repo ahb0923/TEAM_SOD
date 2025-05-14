@@ -25,27 +25,66 @@ public class Monster_Range : Monster
     protected override void Update()
     {
         Move();
+        //MonsterRotate();
         Attack();
+        Debug.Log("공격사거리" + weapon.AttackRange);
     }
 
     protected override void Attack()
     {
         float distance = Mathf.Abs(Vector2.Distance(target.transform.position, transform.position));
-        if (distance <= _attackRange)
+        if (distance <= weapon.AttackRange)
         {
             weapon.Attack(target.transform.position);
             Debug.Log("원거리 공격");
             //delay = 0;
         }
+    }
+    protected override void Move()
+    {
+        if (Mathf.Abs(Vector2.Distance(transform.position, target.transform.position)) > _checkRange)
+        {
+            anim.SetBool("IsRun", false);
+            rigid.velocity = Vector2.zero;
+            return;
+        }
+        if (Mathf.Abs(Vector2.Distance(transform.position, target.transform.position)) <= weapon.AttackRange)
+        {
+            anim.SetBool("IsRun", false);
+            rigid.velocity = Vector2.zero;
+            return;
+        }
         else
         {
-            weapon.animator.SetBool("IsAttack", false);
+            Vector2 direction = (target.transform.position - transform.position).normalized;
+            if (direction.x > 0)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+                //weaponPivot.transform.rotation = Quaternion.Euler(0, 0, -90); 
+            }
+            else if (direction.x < 0)
+            {
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+                //weaponPivot.transform.rotation = Quaternion.Euler(0, 0, 90);
+            }
+            rigid.velocity = direction * monsterStat.MoveSpeed * Time.deltaTime;
+            anim.SetBool("IsRun", true);
         }
+    }
 
-    }
-    private void CreateProjectile()
+    protected override void MonsterRotate()
     {
-        //탄쪽 머지 후 수정     
         Vector2 direction = (target.transform.position - transform.position).normalized;
+        if (direction.x > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            weapon.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if (direction.x < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+            weapon.transform.localRotation = Quaternion.Euler(0, 180, 0);
+        }
     }
+
 }

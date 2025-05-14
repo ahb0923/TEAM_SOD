@@ -1,24 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 //발사체 충돌과 파괴 처리
 public class ProjectileController : MonoBehaviour
 {
     [SerializeField] private ProjectileData data;
+    [SerializeField] private Transform pivot;
+
     private Vector2 direction;
     private float elapsedTime;
 
     private Rigidbody2D rb;
     private SpriteRenderer sr;
-
-    public float TotalAtk;
+    
+    public float totalAtk;
+    public float Critical_Chance;
+    public float Critical_Mutiply;
     
     /// <summary>
     /// 발사체를 초기화합니다.
     /// </summary>
     /// <param name="data">ScriptableObject로 정의된 발사체 데이터</param>
     /// <param name="direction">발사 방향 (정규화된 벡터)</param>
-    public void Initialize(ProjectileData data, Vector2 direction, float totalatk)
+    public void Initialize(ProjectileData data, Vector2 direction, float totalatk, float crit_C, float crti_m)
     {
         this.data = data;
         this.direction = direction.normalized;
@@ -27,24 +32,44 @@ public class ProjectileController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponentInChildren<SpriteRenderer>();
 
-        //final_Attack += 무기공격력 + 부모의 공격력
-        TotalAtk = totalatk;
-
-        // 발사체 색상 설정
+        
+        totalAtk = totalatk;
+        Critical_Chance = crit_C;  
+        Critical_Mutiply = crti_m;
+        Debug.Log(totalAtk);
+        Debug.Log(totalAtk + data.attackPower);
+        ApplyVisualSettings();
+    }
+    private void ApplyVisualSettings()
+    {
         if (sr != null)
+        {
             sr.color = data.Color;
+        }
 
-        // 회전을 통해 방향 맞추기
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
-        transform.localScale = Vector3.one;
-       
-        sr.flipY = direction.y > 0f;
+   
+        if (pivot != null)
+        {
+            pivot.localRotation = direction.x < 0
+                ? Quaternion.Euler(180f, 0f, 0f)
+                : Quaternion.identity;
+        }
     }
 
     public float GetAttackPower()
     {
-        return TotalAtk + data.attackPower;
+        //final_Attack += 무기공격력 + 부모의 공격력
+        return totalAtk + data.attackPower;
+    }
+    public float GetCriChance()
+    {
+        return Critical_Chance;
+    }
+    public float GetCriMutiply()
+    {
+        return Critical_Mutiply;
     }
 
     private void Update()
@@ -75,6 +100,7 @@ public class ProjectileController : MonoBehaviour
         }
 
         //// 대상(플레이어/몬스터) 충돌 체크
+        //// 플레이어/몬스터 측에서 처리
         //if (((1 << layer) & data.targetLayerMask.value) != 0)
         //{
         //    if (other.TryGetComponent<IDamageable>(out var dmg))
@@ -91,6 +117,9 @@ public class ProjectileController : MonoBehaviour
         if (data.impactEffect != null)
             Instantiate(data.impactEffect, hitPosition, Quaternion.identity);
 
-        Destroy(gameObject);
+        // PoolSetting에 등록된 key와 동일하게
+        string key = this.data.name;
+        ProjectileManager.Instance.DespawnProjectile(key, gameObject);
     }
 }
+

@@ -19,6 +19,13 @@ public class Monster_Melee : Monster
             weapon = Instantiate(weaponPrefab, weaponPivot.transform);
         }
     }
+
+    protected override void Update()
+    {
+        base.Update();
+        //Move();
+        //MonsterRotate();
+    }
     protected override void Attack()
     {
         float distance = Mathf.Abs(Vector2.Distance(target.transform.position, transform.position));

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -10,38 +11,20 @@ using UnityEngine.UIElements;
 enum MONSTER_KEY
 {
     Melee_Test,
-    Range_Test
+    Range_Test,
 }
 public class Monster : MonoBehaviour
 {
-    //[SerializeField] MonsterData_ho data;
-
-    // ½ºÅÈÀº ÀÓ½Ã·Î Àû¿ë
-    protected float _hp = 10;
-    protected float _maxHp = 10;
-    protected float _atk = 10;
-    protected float _def = 10;
-    protected float _moveSpeed = 100f;
-    protected int _gold = 100;
-    protected float _crit_Chance = 0;
-    protected float _crit_Multiply = 0;
-    protected bool _is_invinsible;
-    protected float _invinsible_duration = 0;
-
-
     public GameObject target;
     [SerializeField] protected GameObject weaponPivot;
-    //public BaseWeapon weaponPrefab;
-    //protected BaseWeapon weapon;
-
-
-    protected StatController monsterStat;
-    [SerializeField] protected float _checkRange;  // Å¸°Ù Å½»ö ¹üÀ§
-    [SerializeField] protected float _attackRange; // °ø°İ »ç°Å¸®
-    [SerializeField] protected float _attackDelay; // °ø°İ ÁÖ±â
-    protected float delay; // °ø°İ µô·¹ÀÌ °è»ê¿ë º¯¼ö
-    protected float knockPower; // ³Ë¹é ¼öÄ¡
-    protected bool isDamage; // ÇÇ°İ
+    [SerializeField] protected StatController monsterStat;
+    [SerializeField] protected float _checkRange;  // íƒ€ê²Ÿ íƒìƒ‰ ë²”ìœ„
+    [SerializeField] protected float _attackRange; // ê³µê²© ì‚¬ê±°ë¦¬
+    [SerializeField] protected float _attackDelay; // ê³µê²© ì£¼ê¸°
+    [SerializeField] protected DamageText dmgText;
+    protected float delay; // ê³µê²© ë”œë ˆì´ ê³„ì‚°ìš© ë³€ìˆ˜
+    protected float knockPower; // ë„‰ë°± ìˆ˜ì¹˜
+    protected bool isDamage; // í”¼ê²©
     protected Rigidbody2D rigid;
     protected Animator anim;
 
@@ -49,23 +32,21 @@ public class Monster : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        monsterStat.InitStat_Monster();
         if (target == null)
         {
             target = GameObject.Find("Player");
         }
-        //monsterStat.InitStat(_hp, _maxHp, _atk, _def, _moveSpeed, _gold, _crit_Chance, _crit_Multiply, _invinsible_duration, _is_invinsible);
-        /*if (weapon == null)
-        {
-            weapon = Instantiate(weaponPrefab, weaponPivot.transform);
-        }*/
+        
     }
 
     protected virtual void Start() { }
     protected virtual void Update() 
     {
         delay += Time.deltaTime;
-        Move();
         Attack();
+        MonsterRotate();
+        Move();
     }
 
     protected virtual void Move()
@@ -85,45 +66,59 @@ public class Monster : MonoBehaviour
         else
         {
             Vector2 direction = (target.transform.position - transform.position).normalized;
-            if (direction.x > 0)
-            {
-                transform.rotation = Quaternion.Euler(0, 0, 0);
-                weaponPivot.transform.rotation = Quaternion.Euler(0, 0, -90);              
-            }
-            else if (direction.x < 0)
-            {
-                transform.rotation = Quaternion.Euler(0, 180, 0);
-                weaponPivot.transform.rotation = Quaternion.Euler(0, 0, 90);
-            }
-            rigid.velocity = direction * _moveSpeed * Time.deltaTime;
+            rigid.velocity = direction * monsterStat.MoveSpeed* Time.deltaTime;
+            Debug.Log(monsterStat.MoveSpeed + "ì…ë‹ˆë‹¤");
+            Debug.Log(_attackRange + "ì…ë‹ˆë‹¤");
             anim.SetBool("IsRun", true);
+        }
+    }
+
+    protected virtual void MonsterRotate()
+    {
+        Vector2 direction = (target.transform.position - transform.position).normalized;
+        if (direction.x > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            weaponPivot.transform.rotation = Quaternion.Euler(0, 0, -90);
+        }
+        else if (direction.x < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+            weaponPivot.transform.rotation = Quaternion.Euler(0, 0, 90);
         }
     }
 
     protected virtual void Attack() { }
 
-    /*protected virtual void OnCollisionEnter2D(Collision2D collision)
+    protected void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerProjectile")) //ÅÂ±× ¿¹½Ã ÇÃ·¹ÀÌ¾î ÃÑ¾Ë°ú Ãæµ¹ÇßÀ»¶§
+        if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerProjectile")) //íƒœê·¸ ì˜ˆì‹œ í”Œë ˆì´ì–´ ì´ì•Œê³¼ ì¶©ëŒí–ˆì„ë•Œ
         {
             GameObject attackSource = collision.gameObject;
-            if (attackSource.TryGetComponent(out ProjectileController projectileControl))
+            if (attackSource.TryGetComponent<ProjectileController>(out ProjectileController proj))
             {
-                StatController.DamageResult result = monsterStat.FinalDamageCalculator(projectileControl.totalatk);
+                float atk = proj.GetAttackPower(); // ìµœì¢… ê³µê²©ë ¥ì„ ë¦¬í„´í•´ì£¼ëŠ” ë©”ì„œë“œ í•˜ë‚˜ ìˆìœ¼ë©´ ë  ë“¯?
+                float crit_C = proj.GetCriChance();
+                float crit_M = proj.GetCriMutiply();
+                DamageResult result = monsterStat.FinalDamageCalculator(atk, crit_C, crit_M);
                 monsterStat.HpReductionApply(result);
+                dmgText.SetDamage((int)result.final_Damage);
+                dmgText.gameObject.SetActive(true);
+                proj.DestroyProjectile(proj.transform.position);
+                // ìµœì¢…ë€ ê³„ì‚°
                 if (!isDamage)
                 {
                     KnockBack(collision.transform.position);
                     StartCoroutine("DamageCheck");
                 }
-                if (monsterStat.Hp <= 0)// Ã¼·Â 0ÀÌÇÏ ÀÏ½Ã Death() ÇÔ¼ö È£Ãâ
+                if (monsterStat.Hp <= 0)// ì²´ë ¥ 0ì´í•˜ ì¼ì‹œ Death() í•¨ìˆ˜ í˜¸ì¶œ
                 {
                     Death();
                 }
             }
         }
-    }*/
-    protected virtual IEnumerator DamageCheck() // ¸ó½ºÅÍ µ¥¹ÌÁö ¾Ö´Ï¸ŞÀÌ¼Ç ¹× (µ¥¹ÌÁö ¿¬»ê Áß ¹«Àû Àû¿ë½Ã »ç¿ë) < ¼±ÅÃ
+    }
+    protected virtual IEnumerator DamageCheck() // ëª¬ìŠ¤í„° ë°ë¯¸ì§€ ì• ë‹ˆë©”ì´ì…˜ ë° (ë°ë¯¸ì§€ ì—°ì‚° ì¤‘ ë¬´ì  ì ìš©ì‹œ ì‚¬ìš©) < ì„ íƒ
     {
         isDamage = true;
         anim.SetTrigger("IsDamage");
@@ -132,7 +127,7 @@ public class Monster : MonoBehaviour
     }
     public virtual void Death()
     {
-        Destroy(gameObject);
+        PoolManager.Instance.ReturnObject("Melee_Test", this.gameObject);
     }
 
     public virtual void KnockBack(Vector2 collision)
@@ -141,7 +136,7 @@ public class Monster : MonoBehaviour
         rigid.AddForce(dir * knockPower, ForceMode2D.Impulse);
     }
 
-    public virtual void CheckPlayer() // ÇÃ·¹ÀÌ¾î¸¦ Å¸°ÙÀ¸·Î Ã£À» ¶§ ÇÊ¿äÇÏ¸é »ç¿ë
+    public virtual void CheckPlayer() // í”Œë ˆì´ì–´ë¥¼ íƒ€ê²Ÿìœ¼ë¡œ ì°¾ì„ ë•Œ í•„ìš”í•˜ë©´ ì‚¬ìš©
     {
         Collider2D hit = Physics2D.OverlapCircle(transform.position, _checkRange, LayerMask.GetMask("Player"));
         if(hit != null)
