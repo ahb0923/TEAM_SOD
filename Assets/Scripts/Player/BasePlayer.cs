@@ -40,7 +40,7 @@ public class BasePlayer : MonoBehaviour
     // 스탯변화 및 애니매이션을 넣어야 할 때 필요한 외부 인스턴스들
     protected StatController player_Stat;
     protected Animator player_Animator;
-    
+    [SerializeField] protected DamageText player_DamageText;
     // 유저 상태값 초기화
     [SerializeField]
     private PLAYER_STATE currState = PLAYER_STATE.WAIT; // 별도 설정 없으면 WAIT 상태
@@ -64,7 +64,6 @@ public class BasePlayer : MonoBehaviour
         player_Animator = GetComponentInChildren<Animator>();
         player_Stat = GetComponent<StatController>();
         myPosition = GetComponent<Transform>();
-       
         targetPosition = new List<Transform>();
         
         // 『효빈』 추후 던전 매니저에서 관리하도록 수정[던전매니저 내부에 Enemy 리스트가 존재] 인스턴스를 통해서 받아와 사용하면 될거 같습니다.
@@ -134,7 +133,7 @@ public class BasePlayer : MonoBehaviour
 
     protected void Update()
     {
-        if (currState != PLAYER_STATE.WAIT)
+        if (currState != PLAYER_STATE.WAIT || currState != PLAYER_STATE.DIE)
         // 위랑 마찬가지로 대기상태 중에는 아래의 행위들을 할 필요가 없지 않나요?
         {
             ClearDeadEnemyOnArray();
@@ -228,17 +227,26 @@ public class BasePlayer : MonoBehaviour
     protected void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject attackSource = collision.gameObject;
-        if (attackSource.layer == 6) return; // 6번이 배경(Environments)라는 가정. 이따 머지작업 끝나면 한번에 레이어 추가해서 수정하죠?
-        if (player_Stat.Is_Invinsible) return; // 이미 데미지 중이면 무시
+        Debug.Log(attackSource.layer);
+        if (attackSource.layer == LayerMask.NameToLayer("Background")) return;
+        // 백그라운드 충돌 시에는 리턴. 현재 설정에서 나머지 충돌할 레이어가 적투사체밖에 없음
 
+        
+        Debug.Log("플레이어 맞음");
         if (attackSource.TryGetComponent<ProjectileController>(out ProjectileController proj))
         {
+            if (player_Stat.Is_Invinsible) // 무적 중이면 데미지 처리 X
+            {
+                proj.DestroyProjectile(attackSource.transform.position);
+                return;
+            }
             float atk = proj.GetAttackPower(); // 최종 공격력을 리턴해주는 메서드 하나 있으면 될 듯?
             DamageResult result = player_Stat.FinalDamageCalculator(atk); // 최종뎀 계산
             player_Stat.HpReductionApply(result); // 최종뎀 체력 적용
             proj.DestroyProjectile(attackSource.transform.position); // 퍼블릭으로 열어주세요
-
-            //UIManager.ShowDamageUI(result.final_Damage, result.is_Critical); 데미지를 띄우는 UI 메서드
+            player_DamageText.SetDamage((int)result.final_Damage); // 데미지 출력
+            player_DamageText.gameObject.SetActive(true);
+            Debug.Log($"플레이어 체력 : {player_Stat.Hp}");
             StartCoroutine(ApplyInvincible()); // 무적 적용 코루틴 실행
         }
     }
