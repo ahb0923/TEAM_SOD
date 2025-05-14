@@ -45,7 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b8b1c91108e44444a6a099de8421e56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapCode: 0
   mapData: {fileID: 11400000, guid: 766563fa3bcf4b64e9fac63e14a854cd, type: 2}
+  isRunning: 0
   isClear: 0
   currWave: 0
 --- !u!1 &305800754025224924
@@ -1209,7 +1211,6 @@ GameObject:
   - component: {fileID: 2185634229236985907}
   - component: {fileID: 3587185305449224309}
   - component: {fileID: 3158859532306276387}
-  - component: {fileID: 7976118950423838398}
   - component: {fileID: 702364603931151374}
   m_Layer: 0
   m_Name: Spawn
@@ -2468,21 +2469,6 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &7976118950423838398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1195814709867494941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b8b1c91108e44444a6a099de8421e56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mapData: {fileID: 0}
-  isClear: 0
-  currWave: 0
 --- !u!61 &702364603931151374
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2515,7 +2501,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -4.971842, y: 4.0587926}
+  m_Offset: {x: -0.02656436, y: 9.055583}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2526,7 +2512,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.0563164, y: 14.117581}
+  m_Size: {x: 5.498689, y: 4.1240005}
   m_EdgeRadius: 0
 --- !u!1 &1451213111797851990
 GameObject:
@@ -18340,7 +18326,7 @@ GameObject:
   - component: {fileID: 2482541694145276967}
   - component: {fileID: 8722366888907886706}
   m_Layer: 0
-  m_Name: Grid_boss
+  m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

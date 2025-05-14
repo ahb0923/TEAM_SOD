@@ -63,5 +63,4 @@ public class PoolManager : Singleton<PoolManager>
         obj.SetActive(false);
         pools[key].Enqueue(obj);
     }
-
 }

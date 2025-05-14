@@ -36,18 +36,24 @@ public class MapHandler : MonoBehaviour
     [Header("현재 던전 클리어 판독 여부")]
     [SerializeField]
     private bool isClear;
+    public bool IsClear { get; set; }
 
     [Header("현재 웨이브")]
     [SerializeField]
     private int currWave;
 
     private Transform spawnTransform;
+    private bool isInitialized = false;
 
-    private void Awake()
+    public void Init()
     {
         currWave = 1;
         isClear = false;
         spawnTransform = transform.Find("Grid/Spawn");
+        if (spawnTransform == null)
+        {
+            Debug.LogError($"{name} - SpawnTransform 찾지 못함! Grid/Spawn 경로를 확인하세요.");
+        }
         monsterContainer = new();
         MONSTER_KEY[] monsterKeys = (MONSTER_KEY[])Enum.GetValues(typeof(MONSTER_KEY));
 
@@ -70,14 +76,25 @@ public class MapHandler : MonoBehaviour
         Debug.Log($"몬스터 컨테이너사이즈 {monsterContainer.Count}");
     }
 
+    private void Start()
+    {
+
+    }
     private void Update()
     {
         //Debug.Log($"몬스터 리스트 갯수 : {monsterList.Count}");
     }
+    /*
     private void OnEnable()
     {
-        StartWaveFlow(); 
-    }
+        if (!isInitialized)
+        {
+            Init();  // 여기에 옮김
+            isInitialized = true;
+        }
+
+        StartWaveFlow();
+    }*/
     public void StartWaveFlow()
     {
         if (isRunning) 
@@ -112,7 +129,7 @@ public class MapHandler : MonoBehaviour
             }
             
             // 몬스터 일괄 소환  => 지연 소환 방식이랑 섞어도 되고..
-            StartSpawnBatch(spawnTransform, currWave - 1);
+            StartSpawnBatch(spawnTransform, currWave-1);
 
             yield return new WaitUntil(() => IsAllMonstersDead());
 
@@ -126,7 +143,7 @@ public class MapHandler : MonoBehaviour
         yield return new WaitUntil(() => IsRewardSelected());
 
         //자동으로 맵이 이동된다면 여기서, 만약 문 컬라이더에 부딫혀서 이동한다면 DungeonManager에서 핸들링
-        MoveToNextMap(); 
+        //DungeonManager.Instance.NextMap();
 
         yield break;
     }
@@ -141,17 +158,6 @@ public class MapHandler : MonoBehaviour
         // 뭐...DungeonUI의 Reward UI 오브젝트가 선택버튼을 눌러서 OnDisable이 될대 해당 함수를 호출한다던지..
         return true;
     }
-
-    // 다음맵 이동
-    private void MoveToNextMap()
-    {
-        mapCode++;
-        DungeonManager.Instance.CurrentDungeonCode = mapCode;
-
-        Transform nextMap = DungeonManager.Instance.GetMapSpawnTransform(mapCode);
-        transform.position = nextMap.position;
-    }
-
     // 정해전 컬라이더 박스 안에 몬스터 랜덤위치 생성
     public void CreateMonster(Transform spawnTrans, string monsterKey)
     {

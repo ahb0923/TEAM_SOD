@@ -6507,7 +6507,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b8b1c91108e44444a6a099de8421e56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapCode: 0
   mapData: {fileID: 11400000, guid: ab21f235fd85c4a449d66b1b78bc6cfe, type: 2}
+  isRunning: 0
   isClear: 0
   currWave: 0
 --- !u!1 &5369918683607159140
@@ -13867,7 +13869,6 @@ GameObject:
   - component: {fileID: 6647348945152738073}
   - component: {fileID: 1269515283667008696}
   - component: {fileID: 4827545343414652132}
-  - component: {fileID: 8315706201581957907}
   - component: {fileID: 7787422398410010467}
   m_Layer: 0
   m_Name: Spawn
@@ -15126,21 +15127,6 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &8315706201581957907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8016542490632835334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b8b1c91108e44444a6a099de8421e56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mapData: {fileID: 0}
-  isClear: 0
-  currWave: 0
 --- !u!61 &7787422398410010467
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ using UnityEngine.UIElements;
 enum MONSTER_KEY
 {
     Melee_Test,
-    Range_Test
+    Range_Test,
 }
 public class Monster : MonoBehaviour
 {
