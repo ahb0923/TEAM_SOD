@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.Experimental.GraphView.GraphView;
 //발사체 충돌과 파괴 처리
 public class ProjectileController : MonoBehaviour
 {
@@ -88,26 +89,37 @@ public class ProjectileController : MonoBehaviour
         rb.velocity = direction * data.moveSpeed;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    //private void OnTriggerEnter2D(Collider2D other)
+    //{
+    //    int layer = other.gameObject.layer;
+    //    string key = this.data.name;
+    //    // 레벨(벽 등) 충돌 체크
+    //    if (((1 << layer) & data.layer.value) != 0)
+    //    {
+    //        PoolManager.Instance.ReturnObject(key, gameObject);
+    //        return;
+    //    }
+
+    //    //// 대상(플레이어/몬스터) 충돌 체크
+    //    //// 플레이어/몬스터 측에서 처리
+    //    //if (((1 << layer) & data.targetLayerMask.value) != 0)
+    //    //{
+    //    //    if (other.TryGetComponent<IDamageable>(out var dmg))
+    //    //        dmg.TakeDamage(data.attackPower);
+
+    //    //    DestroyProjectile(other.ClosestPoint(transform.position));
+    //    //}
+    //}
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        int layer = other.gameObject.layer;
+        int layer = collision.gameObject.layer;
         string key = this.data.name;
-        // 레벨(벽 등) 충돌 체크
-        if (((1 << layer) & data.layer.value) != 0)
+        if (layer == LayerMask.NameToLayer("Background"))
         {
             PoolManager.Instance.ReturnObject(key, gameObject);
             return;
         }
-
-        //// 대상(플레이어/몬스터) 충돌 체크
-        //// 플레이어/몬스터 측에서 처리
-        //if (((1 << layer) & data.targetLayerMask.value) != 0)
-        //{
-        //    if (other.TryGetComponent<IDamageable>(out var dmg))
-        //        dmg.TakeDamage(data.attackPower);
-
-        //    DestroyProjectile(other.ClosestPoint(transform.position));
-        //}
     }
 
     //임시 코드, 맞았을 경우 이펙트 효과
@@ -119,7 +131,7 @@ public class ProjectileController : MonoBehaviour
 
         // PoolSetting에 등록된 key와 동일하게
         string key = this.data.name;
-        PoolManager.Instance.ReturnObject(key, gameObject);
+        PoolManager.Instance.ReturnObject(key, PoolManager.Instance.gameObject);
     }
 }
 
