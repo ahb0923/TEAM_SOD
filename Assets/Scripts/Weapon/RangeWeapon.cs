@@ -21,6 +21,9 @@ public class RangeWeapon : BaseWeapon
     private float lastAttackTime;
     public StatController owner;
     public float totalatk_OwnerAndWeapon => data.attackPower + owner.Atk;
+    public float crit_c => owner.Crit_Chance;
+    public float crit_m => owner.Crit_Multiply;
+
     private Vector3 originalScale;
 
     protected override void Awake()
@@ -90,7 +93,9 @@ public class RangeWeapon : BaseWeapon
                 ProjectileData,
                 spawnPos,
                 dir,
-                totalatk_OwnerAndWeapon
+                totalatk_OwnerAndWeapon,
+                crit_c,
+                crit_m
             );
         }
     }

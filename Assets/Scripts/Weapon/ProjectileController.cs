@@ -15,13 +15,15 @@ public class ProjectileController : MonoBehaviour
     private SpriteRenderer sr;
     
     public float totalAtk;
+    public float Critical_Chance;
+    public float Critical_Mutiply;
     
     /// <summary>
     /// 발사체를 초기화합니다.
     /// </summary>
     /// <param name="data">ScriptableObject로 정의된 발사체 데이터</param>
     /// <param name="direction">발사 방향 (정규화된 벡터)</param>
-    public void Initialize(ProjectileData data, Vector2 direction, float totalatk)
+    public void Initialize(ProjectileData data, Vector2 direction, float totalatk, float crit_C, float crti_m)
     {
         this.data = data;
         this.direction = direction.normalized;
@@ -32,6 +34,8 @@ public class ProjectileController : MonoBehaviour
 
         
         totalAtk = totalatk;
+        Critical_Chance = crit_C;  
+        Critical_Mutiply = crti_m;
         Debug.Log(totalAtk);
         Debug.Log(totalAtk + data.attackPower);
         ApplyVisualSettings();
@@ -58,6 +62,14 @@ public class ProjectileController : MonoBehaviour
     {
         //final_Attack += 무기공격력 + 부모의 공격력
         return totalAtk + data.attackPower;
+    }
+    public float GetCriChance()
+    {
+        return Critical_Chance;
+    }
+    public float GetCriMutiply()
+    {
+        return Critical_Mutiply;
     }
 
     private void Update()
