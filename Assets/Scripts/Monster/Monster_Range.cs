@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.EditorTools;
 using UnityEngine;
 
 public class Monster_Range : Monster
@@ -7,7 +8,6 @@ public class Monster_Range : Monster
     // 스탯은 임시로 적용
     public RangeWeapon weaponPrefab;
     protected RangeWeapon weapon;
-
     protected override void Awake()
     {
         base.Awake();
@@ -89,6 +89,12 @@ public class Monster_Range : Monster
             transform.rotation = Quaternion.Euler(0, 180, 0);
             weapon.transform.localRotation = Quaternion.Euler(0, 180, 0);
         }
+    }
+
+    public override void Death()
+    {
+        string keyName = MONSTER_KEY.Range_Test.ToString();
+        PoolManager.Instance.ReturnObject(keyName, this.gameObject);
     }
 
 }

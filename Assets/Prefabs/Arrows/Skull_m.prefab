@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 804113177786087330}
   - component: {fileID: 8723860060089811217}
   - component: {fileID: -3078739039901873317}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Skull_m
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: a05c6b8a79926cd45bfaafebdb890833, type: 2}
   pivot: {fileID: 2517880005001811008}
-  TotalAtk: 0
+  totalAtk: 0
+  Critical_Chance: 0
+  Critical_Mutiply: 0
 --- !u!61 &-3078739039901873317
 BoxCollider2D:
   m_ObjectHideFlags: 0
