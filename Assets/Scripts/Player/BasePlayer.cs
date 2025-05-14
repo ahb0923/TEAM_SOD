@@ -133,11 +133,13 @@ public class BasePlayer : MonoBehaviour
 
     protected void Update()
     {
+        FindClosestEmemy();
+        player_CurrentWeapon.FaceTarget(lookDirection);
+
         if (currState != PLAYER_STATE.WAIT || currState != PLAYER_STATE.DIE)
         // 위랑 마찬가지로 대기상태 중에는 아래의 행위들을 할 필요가 없지 않나요?
         {
             ClearDeadEnemyOnArray();
-            FindClosestEmemy();
             AttackOrNot();
         }
     }
