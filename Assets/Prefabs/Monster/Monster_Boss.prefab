@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4575955795198800141
 RectTransform:
   m_ObjectHideFlags: 0
@@ -275,12 +275,11 @@ MonoBehaviour:
   weaponPivot: {fileID: 2725534677044696763}
   monsterStat: {fileID: 7513957620458264337}
   _checkRange: 0
-  _attackRange: 5
+  _attackRange: 10
   _attackDelay: 2
   dmgText: {fileID: 118152540439040953}
   sprite: {fileID: 8362964637499560805}
   weaponPrefab: {fileID: 4292447336826878635, guid: 09adefd65717d5d4ca6bfb7d2d9e7f42, type: 3}
-  sprite: {fileID: 8362964637499560805}
 --- !u!50 &990355810670250034
 Rigidbody2D:
   serializedVersion: 4
@@ -307,7 +306,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 7
 --- !u!61 &5733092397658515726
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -366,7 +365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
-  monsterData: {fileID: 11400000, guid: 4677504801cd62546aa4ac12f547d311, type: 2}
+  monsterData: {fileID: 11400000, guid: 18573dbb0b8eca6438cefb1bd76e7b93, type: 2}
 --- !u!1 &2725534677044696763
 GameObject:
   m_ObjectHideFlags: 0

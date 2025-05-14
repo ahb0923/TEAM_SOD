@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 9124604671522266416}
   - component: {fileID: 7686014666947229734}
   - component: {fileID: 8982268090349576187}
-  - component: {fileID: 4118465965793782749}
   m_Layer: 9
   m_Name: Monster_Melee
   m_TagString: Untagged
@@ -220,18 +219,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
   monsterData: {fileID: 11400000, guid: e3c5aeaf8479dbf42a1975af442aa87b, type: 2}
---- !u!114 &4118465965793782749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 665892623660428071}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f725d14eb4c1ff4c9e5a1719b626221, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4026869030938657411
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,8 +422,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0fe56674f5bcec9428929ac6d1755792, type: 2}
+  m_sharedMaterial: {fileID: 8968985322459181707, guid: 0fe56674f5bcec9428929ac6d1755792, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -514,3 +501,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f725d14eb4c1ff4c9e5a1719b626221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageText: {fileID: 0}
+  damageColor: {r: 0, g: 0, b: 0, a: 0}

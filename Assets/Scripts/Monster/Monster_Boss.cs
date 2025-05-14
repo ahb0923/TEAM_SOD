@@ -7,7 +7,6 @@ public class Monster_Boss : Monster
     private int attackCount = 0; // 일정 횟수이상 공격 시 그로기
     public RangeWeapon weaponPrefab;
     protected RangeWeapon weapon;
-    public SpriteRenderer sprite;
     protected bool isPattern = false;
     protected bool isGroggy = false;
 
@@ -35,6 +34,7 @@ public class Monster_Boss : Monster
             StartCoroutine("BossGroggy");
         }
         MonsterRotate();
+        Move();
     }
     protected override void Attack()
     {
@@ -128,8 +128,9 @@ public class Monster_Boss : Monster
         Debug.Log("그로기 상태입니다.");
         attackCount = 0;
         isGroggy = true;
-        anim.SetTrigger("IsGroggy");
+        anim.SetBool("IsGroggy", true);
         yield return new WaitForSeconds(5.0f);
+        anim.SetBool("IsGroggy", false);
         isGroggy = false;
     }
 
