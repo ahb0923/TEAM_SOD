@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WeaponAttack_Unique
   m_EditorClassIdentifier: 
   code: 0
-  grade: 2
+  grade: 0
   title: "\uBB34\uAE30\uACF5\uACA9\uB825\uC99D\uAC00-\uC720\uB2C8\uD06C"
   text: "\uBB34\uAE30\uACF5\uACA9\uB825\uC99D\uAC00+4"
   image: {fileID: 0}

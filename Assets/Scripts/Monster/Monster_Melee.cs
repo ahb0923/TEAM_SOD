@@ -10,7 +10,7 @@ public class Monster_Melee : Monster
 {
     public MeleeWeapon weaponPrefab;
     protected BaseWeapon weapon;
-
+    private MONSTER_KEY key;
     protected override void Awake()
     {
         base.Awake();
@@ -22,7 +22,7 @@ public class Monster_Melee : Monster
 
     protected override void Update()
     {
-        base.Update();
+        base.Update();        
         //Move();
         //MonsterRotate();
     }
@@ -36,7 +36,6 @@ public class Monster_Melee : Monster
 
     public override void Death()
     {
-        string keyName = MONSTER_KEY.Melee_Test.ToString();
-        PoolManager.Instance.ReturnObject(keyName, this.gameObject);
+        PoolManager.Instance.ReturnObject(MONSTER_KEY.Melee_Test.ToString(), this.gameObject);
     }
 }

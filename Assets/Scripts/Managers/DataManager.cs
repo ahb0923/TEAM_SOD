@@ -1,29 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DataManager : Singleton<DataManager>
 {
-    [Header("¿¡µğÅÍ ÇÒ´ç: ¸ğµç ¹«±â µ¥ÀÌÅÍ ¸®½ºÆ®")]
+    [Header("ì—ë””í„° í• ë‹¹: ëª¨ë“  ë¬´ê¸° ë°ì´í„° ë¦¬ìŠ¤íŠ¸")]
     [SerializeField] private List<WeaponData> weaponDataList;
 
     /*
-    [Header("¿¡µğÅÍ ÇÒ´ç : ¸ğµç ¸ó½ºÅÍ µ¥ÀÌÅÍ ¸®½ºÆ®")]
+    [Header("ì—ë””í„° í• ë‹¹ : ëª¨ë“  ëª¬ìŠ¤í„° ë°ì´í„° ë¦¬ìŠ¤íŠ¸")]
     [SerializeField] private List<MonsterData> MonsterDataList;*/
 
-    [Header("¿¡µğÅÍ ÇÒ´ç : ¸ğµç ¹ß»çÃ¼ µ¥ÀÌÅÍ ¸®½ºÆ®")]
+    [Header("ì—ë””í„° í• ë‹¹ : ëª¨ë“  ë°œì‚¬ì²´ ë°ì´í„° ë¦¬ìŠ¤íŠ¸")]
     [SerializeField] private List<ProjectileData> ProjectileDataList;
 
-    private Dictionary<string, WeaponData> weaponDataMap;
+    private Dictionary<string, WeaponData> weaponDataMap = new();
 
-
-    //¹«±â µ¥ÀÌÅÍ¸¦ ¹İÈ¯ÇÏ´Â ¸Ş¼Òµå
+    
+    public void WriteWeaponDataMap()
+    {
+        Debug.Log(weaponDataList[0].id);
+        foreach (WeaponData weapon in weaponDataList)
+        {
+          if(!weaponDataMap.ContainsKey(weapon.id))
+                weaponDataMap.Add(weapon.id, weapon);
+        }
+    }
+  
+    
+    //ë¬´ê¸° ë°ì´í„°ë¥¼ ë°˜í™˜í•˜ëŠ” ë©”ì†Œë“œ
     public WeaponData GetWeaponData(string weaponId)
     {
-        //if (weaponDataMap.TryGetValue(weaponId, out var data))
-        //    return data;
+        if (weaponDataMap.TryGetValue(weaponId, out var data))
+            return data;
 
-        //Debug.LogError($"WeaponData not found: {weaponId}");
+        Debug.LogError($"WeaponData not found: {weaponId}");
         return null;
     }
 }

@@ -8,8 +8,8 @@ public class DungeonManager : Singleton<DungeonManager>
 {
 
 
-    //ºó°ø°£¿¡ ¸ÊÀ» ¸¸µå´Â ·ÎÁ÷
-    //¾Ö´Ï¸ÅÀÌ¼Ç¿ë
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    //ï¿½Ö´Ï¸ï¿½ï¿½Ì¼Ç¿ï¿½
     [SerializeField] public bool checkClear = false;
     [SerializeField] private Animator doorAnimator;
 
@@ -24,28 +24,26 @@ public class DungeonManager : Singleton<DungeonManager>
     private List<Transform> tilePositions = new List<Transform>();
     private List<MapHandler> mapHandlers = new();
 
+    [SerializeField] private DungeonRewardHandler rewardHandler;
+
+    public void OnWaveClear()
+    {
+        rewardHandler.ShowRewardOptions();
+    }
 
     protected override void Awake()
     {
-        // 1) ¾ÀÀÌ ·ÎµåµÉ ¶§¸¶´Ù ¸ÊÀ» »ý¼º
+        // 1) ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         base.Awake();
         //CreateMonster();
         CreateMap();
         GameObject doorObj = GameObject.Find("Door");
         doorAnimator = doorObj.GetComponent<Animator>();
-
-        if (rewardUI == null)
-            Debug.LogWarning("º¸»ó ¹öÆ° ¸øÃ£À½!!!!");
-        if (rewardUI != null)
-        {
-            rewardUI.gameObject.SetActive(false);
-        }
-
     }
 
 
 
-    // ¾Ö´Ï¸ÅÀÌ¼Ç¿ë 
+    // ï¿½Ö´Ï¸ï¿½ï¿½Ì¼Ç¿ï¿½ 
     private void Update()
     {
         if (checkClear == true)
@@ -64,11 +62,11 @@ public class DungeonManager : Singleton<DungeonManager>
             Vector3 posA = new Vector3(i * 40, 0f, 0f);
 
             GameObject map = Instantiate(MapPrefab[i], posA, Quaternion.identity);
-            Debug.LogWarning($"i°ª Ã¼Å© : {i}");
+            Debug.LogWarning($"iï¿½ï¿½ Ã¼Å© : {i}");
 
             if (this.transform.Find("DungeonMaps") != null)
             {
-                Debug.Log("À§Ä¡");
+                Debug.Log("ï¿½ï¿½Ä¡");
                 map.transform.SetParent(this.transform.Find("DungeonMaps").transform);
             }
 
@@ -91,110 +89,23 @@ public class DungeonManager : Singleton<DungeonManager>
 
         if (nextCode >= mapHandlers.Count)
         {
-            Debug.Log("5¿þÀÌºê ±îÁö Å¬¸®¾î");
+            Debug.Log("5ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½");
             mapHandlers[currentDungeonCode].IsClear = true;
             return;
         }
 
-        // ÇöÀç ¸Ê ºñÈ°¼ºÈ­
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
         mapHandlers[CurrentDungeonCode].gameObject.SetActive(false);
 
-        // ´ÙÀ½ ¸Ê È°¼ºÈ­ + ¿þÀÌºê ½ÃÀÛ
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ È°ï¿½ï¿½È­ + ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½
         mapHandlers[nextCode].gameObject.SetActive(true);
         mapHandlers[nextCode].StartWaveFlow();
 
         CurrentDungeonCode = nextCode;
     }
 
-
     public Transform GetMapSpawnTransform(int mapCode)
     {
         return mapHandlers[mapCode].transform;
     }
-
-
-    // ÀÓ½Ã º¸»ó uiÈ­¸é ¶ç¿ì±â
-
-    [SerializeField]
-    Transform rewardUI;
-    private int selectedRewardIndex = -1;
-    public bool RewardSelected => selectedRewardIndex != -1;
-
-    public void ViewReawardButton()
-    {
-        selectedRewardIndex = -1;
-        rewardUI.gameObject.SetActive(true);
-    }
-
-    public void SelectReward(int index)
-    {
-        selectedRewardIndex = index;
-        rewardUI.gameObject.SetActive(false);
-        Debug.Log($"º¸»ó ¼±ÅÃµÊ: {index}");
-    }
-
-    public int GetSelectedReward()
-    {
-        return selectedRewardIndex;
-    }
-
 }
-        //[Header("´øÀü Å¬¸®¾î ½Ã ¶ç¿ï UI ÆÐ³Î")]
-        //[SerializeField] private GameObject clearUIPanel;
-
-
-        //[Header("ÇÃ·¹ÀÌ¾î ÄÁÆ®·Ñ·¯ (Inspector¿¡ ÇÒ´ç)")]
-        //[SerializeField] private MonoBehaviour playerController;
-        //private int remainingMonsters = 0;
-
-
-
-        //private void Awake()
-        //{
-
-
-
-        //    // UI´Â ½ÃÀÛÇÒ ¶§ ¼û°Ü ³õ±â
-        //    if (clearUIPanel != null)
-        //        clearUIPanel.SetActive(false);
-        //}
-
-        ///// <summary>¸Ê Å¸ÀÏÀÌ ¸ó½ºÅÍ¸¦ ÇÏ³ª ½ºÆùÇÒ ¶§¸¶´Ù È£Ãâ</summary>
-        //public void RegisterMonster()
-        //{
-        //    remainingMonsters++;
-        //}
-
-        ///// <summary>¸ó½ºÅÍ°¡ Á×À» ¶§¸¶´Ù È£Ãâ</summary>
-        //public void UnregisterMonster()
-        //{
-        //    remainingMonsters--;
-        //    if (remainingMonsters <= 0)
-        //    {
-        //        ShowClearUI();
-        //    }
-        //}
-
-        //private void ShowClearUI()
-        //{
-
-        //    clearUIPanel.SetActive(true);
-
-        //}
-
-        //public void Continue()
-        //{
-        //    // 1) UI ¼û±â±â
-        //    clearUIPanel.SetActive(false);
-        //    // 2) ÇÃ·¹ÀÌ¾î ÄÁÆ®·Ñ º¹¿ø
-        //    playerController.enabled = true;
-        //    // 3) ´ÙÀ½ ¾À(¶Ç´Â ·Îºñ)À¸·Î ÀÌµ¿
-        //    SceneHandleManager.Instance.LoadScene("LobbyScene");
-        //}
-
-        //============================
-        //[Header("=== UI ¿¬°á ===")]
-        //[SerializeField] private DungeonUI dungeonUI;
-        //[SerializeField] private BossDungeonUI bossDungeonUI;
-        //[SerializeField] private FailedDungeonUI failedDungeonUI;
-        //[SerializeField] private StatController playerStat;

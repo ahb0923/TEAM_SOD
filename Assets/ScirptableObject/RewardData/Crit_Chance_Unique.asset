@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Crit_Chance_Unique
   m_EditorClassIdentifier: 
   code: 0
-  grade: 2
+  grade: 0
   title: "\uD06C\uB9AC\uD655\uB960-\uB178\uB9D0"
   text: "\uD06C\uB9AC\uD655\uB960+50%"
   image: {fileID: 0}

@@ -15,7 +15,7 @@ public class InterActionZone : BaseInterAction
     {
         if (other.CompareTag("Player"))
         {
-            eWard.SetActive(true);
+            //eWard.SetActive(true);
             _playerInRange = true;
         }
     }
@@ -24,7 +24,7 @@ public class InterActionZone : BaseInterAction
     {
         if (other.CompareTag("Player"))
         {
-            eWard.SetActive(false);
+            //eWard.SetActive(false);
             _playerInRange = false;
         }
     }

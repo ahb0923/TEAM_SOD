@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MoveSpeed_Unique
   m_EditorClassIdentifier: 
   code: 0
-  grade: 2
+  grade: 0
   title: "\uC774\uB3D9\uC18D\uB3C4 \uC99D\uAC00-\uC720\uB2C8\uD06C"
   text: "\uC774\uB3D9\uC18D\uB3C4+3"
   image: {fileID: 0}

@@ -16,7 +16,7 @@ MonoBehaviour:
   code: 0
   prefab: {fileID: 8194795533287649001, guid: f10b6982ba0b1764eaf50f67d359d4ad, type: 3}
   initSize: 10
-  maxHp: 500
+  maxHp: 50
   atk: 3
   def: 10
   moveSpeed: 50

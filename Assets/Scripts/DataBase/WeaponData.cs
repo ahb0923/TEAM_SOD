@@ -4,19 +4,19 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Data/WeaponData")]
 public class WeaponData : BaseData
 {
-    [Header("°øÅë")]
+    [Header("ï¿½ï¿½ï¿½ï¿½")]
     public string id;
-    public float attackPower;     // ±ÙÁ¢¡¤Åõ»çÃ¼ µ¥¹ÌÁö °øÅë
-    public float attackSpeed;     // ÃÊ´ç °ø°Ý È½¼ö
-    public float attackRange;     // Å¸°Ý ¶Ç´Â »ç°Å¸®
+    public float attackPower;     // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public float attackSpeed;     // ï¿½Ê´ï¿½ ï¿½ï¿½ï¿½ï¿½ È½ï¿½ï¿½
+    public float attackRange;     // Å¸ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½Å¸ï¿½
     public float weaponSize;
     public LayerMask layer;
 
-    [Header("Åõ»çÃ¼ ¿É¼Ç (±ÙÁ¢¹«±â´Â null)")]
+    [Header("ï¿½ï¿½ï¿½ï¿½Ã¼ ï¿½É¼ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ null)")]
     public ProjectileData projectileData;
    
-   // public int continuousShotCount;   // ¿¬»ç ¼ö (1ÀÌ¸é ´Ü¹ß)
-    public int multiShotCount;        // ÇÑ ¹ø¿¡ ½î´Â È­»ì ¼ö
-    public float multiShotAngle;        // È­»ì ÆÛÁü °¢µµ
+   // public int continuousShotCount;   // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ (1ï¿½Ì¸ï¿½ ï¿½Ü¹ï¿½)
+    public int multiShotCount;        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ È­ï¿½ï¿½ ï¿½ï¿½
+    public float multiShotAngle;        // È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 }
