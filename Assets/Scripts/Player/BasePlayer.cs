@@ -391,8 +391,8 @@ public class BasePlayer : MonoBehaviour
 
         distance_Between_Two = closestDistance;
         lookDirection = closestEnemy.position;
-        Debug.Log($"가장 가까운 적의 위치 : {lookDirection}");
-        Debug.Log($"가장 가까운 적과의 거리 : {distance_Between_Two}");
+        //Debug.Log($"가장 가까운 적의 위치 : {lookDirection}");
+        //Debug.Log($"가장 가까운 적과의 거리 : {distance_Between_Two}");
     }
 
 }

@@ -131,7 +131,7 @@ public class ProjectileController : MonoBehaviour
 
         // PoolSetting에 등록된 key와 동일하게
         string key = this.data.name;
-        PoolManager.Instance.ReturnObject(key, PoolManager.Instance.gameObject);
+        PoolManager.Instance.ReturnObject(key, gameObject);
     }
 }
 

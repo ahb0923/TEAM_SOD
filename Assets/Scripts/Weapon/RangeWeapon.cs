@@ -34,7 +34,7 @@ public class RangeWeapon : BaseWeapon
     protected override void Start()
     {
         lastAttackTime = -Mathf.Infinity; //첫 공격이 즉시 가능하도록
-        originalScale = transform.localScale;
+        originalScale = new Vector3(1, 1, 1);
     }
    
    
