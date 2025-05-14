@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 654a54eeeb8f6eb4d96417dadca3d4b9, type: 3}
   m_Name: Melee_Test
   m_EditorClassIdentifier: 
-  dataKey: melee
+  dataKey: Monster_Melee
   code: 0
   prefab: {fileID: 665892623660428071, guid: f10b6982ba0b1764eaf50f67d359d4ad, type: 3}
   initSize: 10

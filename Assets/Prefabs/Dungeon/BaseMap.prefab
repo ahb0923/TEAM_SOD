@@ -6471,7 +6471,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3621544669046417766}
-  - component: {fileID: 7058579759584333880}
+  - component: {fileID: 9118824339269218397}
   m_Layer: 0
   m_Name: BaseMap
   m_TagString: Untagged
@@ -6495,7 +6495,7 @@ Transform:
   - {fileID: 5254540048994218464}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7058579759584333880
+--- !u!114 &9118824339269218397
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6504,9 +6504,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2766041223392649691}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97237bb7c162f274ca7fe60e243524d5, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b8b1c91108e44444a6a099de8421e56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapCode: 0
+  mapData: {fileID: 11400000, guid: ab21f235fd85c4a449d66b1b78bc6cfe, type: 2}
+  isRunning: 0
+  isClear: 0
+  currWave: 0
 --- !u!1 &5369918683607159140
 GameObject:
   m_ObjectHideFlags: 0
@@ -13864,7 +13869,6 @@ GameObject:
   - component: {fileID: 6647348945152738073}
   - component: {fileID: 1269515283667008696}
   - component: {fileID: 4827545343414652132}
-  - component: {fileID: 8315706201581957907}
   - component: {fileID: 7787422398410010467}
   m_Layer: 0
   m_Name: Spawn
@@ -15123,24 +15127,6 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &8315706201581957907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8016542490632835334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b8b1c91108e44444a6a099de8421e56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  monsterPrefabs:
-  - {fileID: 6807630710420715974, guid: 2de9290e97da42241b35c7b426268246, type: 3}
-  - {fileID: 8470633888526312632, guid: 5d79647753be9124480e8f0e5a784588, type: 3}
-  - {fileID: 4033693985026727794, guid: 91cc0a2db98fe2c428af273782999355, type: 3}
-  - {fileID: 8641339310265606038, guid: 59555da919b74e4439b81364280d15d0, type: 3}
-  monstersPerTile: 2
 --- !u!61 &7787422398410010467
 BoxCollider2D:
   m_ObjectHideFlags: 0

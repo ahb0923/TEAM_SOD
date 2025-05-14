@@ -214,7 +214,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
-  monsterData: {fileID: 0}
+  monsterData: {fileID: 11400000, guid: 4677504801cd62546aa4ac12f547d311, type: 2}
+  testkey: Range_Test
 --- !u!1 &5816524717388731149
 GameObject:
   m_ObjectHideFlags: 0
