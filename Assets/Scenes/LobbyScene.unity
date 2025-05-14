@@ -2263,10 +2263,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b562fdd05e885c5438a8fbddc7e01ef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectPanel: {fileID: 0}
+  selectPanel: {fileID: 2074749124}
   spriteEntries: []
   textEntries: []
-  targetObject: {fileID: 2099903914}
 --- !u!1 &761006677
 GameObject:
   m_ObjectHideFlags: 0
@@ -9990,7 +9989,6 @@ MonoBehaviour:
   selectPanel: {fileID: 1692883315}
   spriteEntries: []
   textEntries: []
-  targetObject: {fileID: 0}
   buttonAnimator: {fileID: 1124473163}
   buttonAnimator_blue: {fileID: 1076319433}
 --- !u!1 &9177106748209076397
