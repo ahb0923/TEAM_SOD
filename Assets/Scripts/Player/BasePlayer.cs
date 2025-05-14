@@ -226,22 +226,24 @@ public class BasePlayer : MonoBehaviour
 
     protected void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("충돌 인식함");
         GameObject attackSource = collision.gameObject;
-        Debug.Log(attackSource.layer);
+        Debug.Log($"충돌 인식한 어택소스의 레이어 : {attackSource.layer}");
         if (attackSource.layer == LayerMask.NameToLayer("Background")) return;
         // 백그라운드 충돌 시에는 리턴. 현재 설정에서 나머지 충돌할 레이어가 적투사체밖에 없음
-
         
-        Debug.Log("플레이어 맞음");
         if (attackSource.TryGetComponent<ProjectileController>(out ProjectileController proj))
         {
+            Debug.Log("원거리에 맞음");
             if (player_Stat.Is_Invinsible) // 무적 중이면 데미지 처리 X
             {
                 proj.DestroyProjectile(attackSource.transform.position);
                 return;
             }
-            float atk = proj.GetAttackPower(); // 최종 공격력을 리턴해주는 메서드 하나 있으면 될 듯?
-            DamageResult result = player_Stat.FinalDamageCalculator(atk); // 최종뎀 계산
+            float atk = proj.GetAttackPower();
+            float crit_C = proj.GetCriChance();
+            float crit_M = proj.GetCriMutiply();
+            DamageResult result = player_Stat.FinalDamageCalculator(atk, crit_C, crit_M);
             player_Stat.HpReductionApply(result); // 최종뎀 체력 적용
             proj.DestroyProjectile(attackSource.transform.position); // 퍼블릭으로 열어주세요
             player_DamageText.SetDamage((int)result.final_Damage); // 데미지 출력
@@ -249,6 +251,26 @@ public class BasePlayer : MonoBehaviour
             Debug.Log($"플레이어 체력 : {player_Stat.Hp}");
             StartCoroutine(ApplyInvincible()); // 무적 적용 코루틴 실행
         }
+        if (attackSource.CompareTag("Monster_MeleeWeapon"))
+        {
+            Debug.Log("근접에 맞음");
+            MeleeWeapon meleeWeapon = attackSource.GetComponent<MeleeWeapon>();
+            if (player_Stat.Is_Invinsible) // 무적 중이면 데미지 처리 X
+            {
+                return;
+            }
+            float atk = meleeWeapon.GetAttackPower();
+            float crit_C = meleeWeapon.GetCriChance();
+            float crit_M = meleeWeapon.GetCriMutiply();
+            DamageResult result = player_Stat.FinalDamageCalculator(atk, crit_C, crit_M);
+            player_Stat.HpReductionApply(result); // 최종뎀 체력 적용
+            player_DamageText.SetDamage((int)result.final_Damage); // 데미지 출력
+            player_DamageText.gameObject.SetActive(true);
+            Debug.Log($"플레이어 체력 : {player_Stat.Hp}");
+            StartCoroutine(ApplyInvincible()); // 무적 적용 코루틴 실행
+        }
+
+
     }
 
     protected IEnumerator ApplyInvincible()
