@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad2f24cbc3786fe4c9ab1f6c2bd31d50, type: 3}
+  m_Name: AttackSpeed_Normal
+  m_EditorClassIdentifier: 
+  code: 0
+  grade: 0
+  title: "\uACF5\uACA9\uC18D\uB3C4-\uB178\uBA40"
+  text: "\uACF5\uACA9\uC18D\uB3C4 +30%"
+  image: {fileID: 0}
+  hp: 0
+  maxHp: 0
+  atk: 0
+  def: 0
+  playerMoveSpeed: 0
+  playerCriChance: 0
+  playerCriMulti: 0
+  playerInvisible: 0
+  weaponPower: 0
+  weaponSpeed: 0.3
+  weaponRange: 0
+  weaponShotCount: 0

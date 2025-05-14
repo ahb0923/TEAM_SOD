@@ -14,11 +14,17 @@ public class Monster_Melee : Monster
     protected override void Awake()
     {
         base.Awake();
-        Move();
         if (weapon == null)
         {
             weapon = Instantiate(weaponPrefab, weaponPivot.transform);
         }
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        //Move();
+        //MonsterRotate();
     }
     protected override void Attack()
     {
@@ -26,5 +32,11 @@ public class Monster_Melee : Monster
         if (distance <= _attackRange && delay >= _attackDelay)
         {
         }
+    }
+
+    public override void Death()
+    {
+        string keyName = MONSTER_KEY.Melee_Test.ToString();
+        PoolManager.Instance.ReturnObject(keyName, this.gameObject);
     }
 }

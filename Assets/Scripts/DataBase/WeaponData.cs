@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(menuName = "Data/WeaponData")]
-public class WeaponData : ScriptableObject
+public class WeaponData : BaseData
 {
     [Header("����")]
     public string id;
@@ -19,9 +19,4 @@ public class WeaponData : ScriptableObject
     public int multiShotCount;        // �� ���� ��� ȭ�� ��
     public float multiShotAngle;        // ȭ�� ���� ����
 
-    [Header("���� �� �߰� �ɷ�ġ (�⺻���� 0)")]
-    public float dungeon_AddPower;
-    public float dungeon_AddSpeed;
-    public float dungeon_AddRange;
-    public int dungeon_ShotCount;
 }

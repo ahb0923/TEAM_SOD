@@ -15,7 +15,7 @@ public class MeleeWeapon : BaseWeapon
     public Transform Target;
     public StatController Owner;
 
-    //public GameObject Owner_Moster;
+    public GameObject Owner_Moster;
 
     private float lastAttackTime;
 
@@ -24,7 +24,7 @@ public class MeleeWeapon : BaseWeapon
         base.Awake();
         animator = GetComponentInChildren<Animator>();
         Owner = GetComponentInParent<StatController>();
-        //Owner_Moster = GetComponentInParent<GameObject>();
+        Owner_Moster = this.transform.parent.parent.gameObject;
     }
     protected override void Start()
     {
@@ -32,18 +32,7 @@ public class MeleeWeapon : BaseWeapon
         lastAttackTime = -Mathf.Infinity;
         _originalScale = transform.localScale;
 
-        Owner = GetComponentInParent<StatController>();
-
-        //Owner_Moster = GetComponentInParent<GameObject>();
-        Target = Owner.GetComponent<Monster_Melee>().target.transform;
-
-        // ② AnimatorController 할당 확인
-        if (animator == null)
-            Debug.LogError("Animator를 찾을 수 없습니다.");
-        else if (animator.runtimeAnimatorController == null)
-            Debug.LogError("AnimatorController가 할당되지 않았습니다.");
-
-       
+        Target = Owner_Moster.GetComponent<Monster_Melee>().target.transform;      
     }
 
     void Update()
@@ -94,6 +83,16 @@ public class MeleeWeapon : BaseWeapon
         return Total;
     }
 
+    public float GetCriChance()
+    {
+        return Owner.Crit_Chance;
+    }
+    public float GetCriMutiply()
+    {
+        return Owner.Crit_Multiply;
+    }
+
+
     public override void Attack(Vector3 v)
     {
         if (!AttackCoolTime())
@@ -101,31 +100,13 @@ public class MeleeWeapon : BaseWeapon
 
         base.Attack(v);
         Debug.Log("근접공격");
+
         // 공격 방향에 따라 히트박스 회전
         Vector2 dir = ((Vector2)v - (Vector2)transform.position).normalized;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         Vector2 center = (Vector2)transform.position + hitboxOffset;
         Quaternion rotation = Quaternion.Euler(0, 0, angle);
 
-        // BoxCast로 충돌 검사, 또는 OverlapBox 사용
-        RaycastHit2D[] hits = Physics2D.BoxCastAll(
-            center,
-            hitboxSize * WeaponSize,
-            angle,
-            Vector2.zero,
-            0f,
-            data.layer
-        );
-
-        //foreach (var hit in hits)
-        //{
-        //    //if (hit.collider != null && hit.collider.TryGetComponent<IDamageable>(out var dmg))
-        //    //{
-        //    //    dmg.TakeDamage(AtkPower);
-        //    //}
-        //}
-
-        // (선택) 데미지 이펙트나 사운드 재생 가능
     }
     private bool AttackCoolTime()
     {
@@ -142,12 +123,12 @@ public class MeleeWeapon : BaseWeapon
     {
         if (data == null) return;
 
-        // ȸ�� �� ������ ����� ���¿��� Offset, Size�� ���� �ڽ� ǥ��
+        // 회전 및 스케일 적용된 상태에서 Offset, Size에 따라 박스 표시
         Vector3 center = transform.position + (Vector3)hitboxOffset;
         Quaternion rot = transform.rotation;
         Vector3 size = new Vector3(hitboxSize.x, hitboxSize.y, 1f);
 
-        Gizmos.color = new Color(0f, 1f, 0f, 0.5f);   // �ʷ� ������
+        Gizmos.color = new Color(0f, 1f, 0f, 0.5f);   // 초록 반투명
         Matrix4x4 old = Gizmos.matrix;
         Gizmos.matrix = Matrix4x4.TRS(center, rot, Vector3.one);
         Gizmos.DrawWireCube(Vector3.zero, size);

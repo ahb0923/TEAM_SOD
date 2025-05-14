@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1cb5c46ca8d154ba4dcbf0793c1b9a, type: 3}
   m_Name: RedBowData_p
   m_EditorClassIdentifier: 
-  id: RedBow_p
+  dataKey: 
+  code: 0
+  prefab: {fileID: 0}
+  initSize: 10
+  id: 
   attackPower: 5
   attackSpeed: 3.5
   attackRange: 10
@@ -23,7 +27,3 @@ MonoBehaviour:
   projectileData: {fileID: 11400000, guid: a6dbad8b2d003874c9275237736f3c40, type: 2}
   multiShotCount: 1
   multiShotAngle: 3
-  dungeon_AddPower: 0
-  dungeon_AddSpeed: 0
-  dungeon_AddRange: 0
-  dungeon_ShotCount: 0

@@ -10,11 +10,11 @@ public class DungeonUI : BaseInterAction
 {
   
 
-    private RangeWeapon weapon; //ÇÃ·¹ÀÌ¾î Á¤º¸ 
+    private RangeWeapon weapon; //í”Œë ˆì´ì–´ ì •ë³´ 
     private GameObject Player;
 
 
-    //Awake·Î ÇØµµ...?(ÇØ¾ß?)
+    //Awakeë¡œ í•´ë„...?(í•´ì•¼?)
     private void Start()
     {
         Player = GameObject.FindWithTag("Player");
@@ -24,7 +24,7 @@ public class DungeonUI : BaseInterAction
     {
    
 
-        // 1) PanelModel ÁØºñ
+        // 1) PanelModel ì¤€ë¹„
         var model = new PanelModel
         {
             Panel = selectPanel,
@@ -33,21 +33,21 @@ public class DungeonUI : BaseInterAction
             ButtonActions = new Dictionary<string, UnityAction>()
         };
 
-        // 2) µ¿Àû ÅØ½ºÆ® °»½Å
+        // 2) ë™ì  í…ìŠ¤íŠ¸ ê°±ì‹ 
         //model.TextPro["AttackValueText"].text = player.Attack.ToString();
         
 
-        // 3) ¹öÆ° Äİ¹é ¼³Á¤
+        // 3) ë²„íŠ¼ ì½œë°± ì„¤ì •
         
-        model.ButtonActions["Button_AtkPower"] = () => { weapon.data.dungeon_AddPower++; selectPanel.SetActive(false); };  // MapManager.Instance.NextMap();
-        model.ButtonActions["Button_AtkSpeed"] = () => { weapon.data.dungeon_AddSpeed++; selectPanel.SetActive(false); };
-        model.ButtonActions["Button_ShotCount"] = () => { weapon.data.dungeon_ShotCount++; selectPanel.SetActive(false); };
+        //model.ButtonActions["Button_AtkPower"] = () => { weapon.data.dungeon_AddPower++; selectPanel.SetActive(false); };  // MapManager.Instance.NextMap();
+        //model.ButtonActions["Button_AtkSpeed"] = () => { weapon.data.dungeon_AddSpeed++; selectPanel.SetActive(false); };
+        //model.ButtonActions["Button_ShotCount"] = () => { weapon.data.dungeon_ShotCount++; selectPanel.SetActive(false); };
 
 
 
 
 
-        // 4) UI Ç¥½Ã
+        // 4) UI í‘œì‹œ
         UIManager.Instance.ShowPanel(model);
     }
 

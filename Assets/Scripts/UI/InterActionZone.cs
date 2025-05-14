@@ -10,12 +10,29 @@ public class InterActionZone : BaseInterAction
     [SerializeField] private Animator buttonAnimator;
     [SerializeField] private Animator buttonAnimator_blue;
 
+    [SerializeField] private GameObject eWard;
+    protected override void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            eWard.SetActive(true);
+            _playerInRange = true;
+        }
+    }
+
+    protected override void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            eWard.SetActive(false);
+            _playerInRange = false;
+        }
+    }
 
 
 
 
 
-    
     public override void OpenPanel()
     {
         var model = new PanelModel

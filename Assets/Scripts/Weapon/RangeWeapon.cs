@@ -15,12 +15,15 @@ public class RangeWeapon : BaseWeapon
 
     //public GameObject InpactEffect => ProjectileData.impactEffect;
 
-    public int MultiShotCount => data.multiShotCount;        // 한 번에 쏘는 화살 수
+    public int MultiShotCount => data.multiShotCount ;        // 한 번에 쏘는 화살 수
     public float MultiShotAngle => data.multiShotAngle;        // 화살 퍼짐 각도
 
     private float lastAttackTime;
     public StatController owner;
-    public float totalatk_OwnerAndWeapon => data.attackPower + owner.Atk + data.dungeon_AddPower;
+    public float totalatk_OwnerAndWeapon => data.attackPower + owner.Atk;
+    public float crit_c => owner.Crit_Chance;
+    public float crit_m => owner.Crit_Multiply;
+
     private Vector3 originalScale;
 
     protected override void Awake()
@@ -30,15 +33,8 @@ public class RangeWeapon : BaseWeapon
 
     protected override void Start()
     {
-        base.Start();
-        //projectileManager = ProjectileManager.Instance;
-    
         lastAttackTime = -Mathf.Infinity; //첫 공격이 즉시 가능하도록
-        Owner = GetComponentInParent<StatController>();
-
-        totalatk_OwnerAndWeapon = Atk + Owner.Atk;
-        _originalScale = transform.localScale;
-        
+        originalScale = transform.localScale;
     }
    
    
@@ -46,31 +42,14 @@ public class RangeWeapon : BaseWeapon
     {
         if (!AttackCoolTime())
             return;
-        lastAttackTime = Time.time;
-
-        // 활 회전: 타겟을 정확히 바라보도록 transform 회전
-        Vector2 toTarget = (Vector2)targetPosition - (Vector2)transform.position;
-        float baseAngle = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg;
-
-        bool shouldFlip = baseAngle > 90f || baseAngle < -90f;
-
-        float appliedAngle = shouldFlip ? baseAngle + 180f : baseAngle;
-        transform.localEulerAngles = new Vector3(0f, 0f, appliedAngle);
-
-        Vector3 scale = _originalScale;
-        scale.x = shouldFlip
-            ? -Mathf.Abs(_originalScale.x)
-            : Mathf.Abs(_originalScale.x);
-        transform.localScale = scale;
-
-
+        Debug.Log(totalatk_OwnerAndWeapon);
         base.Attack(targetPosition);
 
-        //Ÿ���� ���ؼ� ȸ��
+        //타겟을 향해서 회전
         FaceTarget(targetPosition);
 
-        //����ü ���� ��û -> projectileManager
-        SpawnProjectiles(targetPosition);
+        //투사체 생성 요청 -> projectileManager
+        //SpawnProjectiles(targetPosition);
     }
     private bool AttackCoolTime()
     {
@@ -82,7 +61,7 @@ public class RangeWeapon : BaseWeapon
         return true;
     }
 
-    private void FaceTarget(Vector3 targetPosition)
+    public void FaceTarget(Vector3 targetPosition)
     {
         Vector2 toTarget = ((Vector2)targetPosition - (Vector2)transform.position).normalized;
         float angle = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg;
@@ -106,19 +85,18 @@ public class RangeWeapon : BaseWeapon
 
         for (int i = 0; i < MultiShotCount; i++)
         {
+            float offset = -(MultiShotCount - 1) * 0.5f * MultiShotAngle + i * MultiShotAngle;
+            float shotAngle = baseAngle + offset;
+            Vector2 dir = Quaternion.Euler(0f, 0f, shotAngle) * Vector2.right;
 
-            float localAngle = startAngle + angleStep * i;
-            float zAngle = baseZ + localAngle;
-
-            // 최종 발사 방향 계산
-            Vector2 dir = Quaternion.Euler(0f, 0f, zAngle) * Vector2.right;
-
-         // ProjectileManager.Instance.SpawnProjectile(
-         //     ProjectileData,
-         //     spawnPos,
-         //     dir,
-         //     totalatk_OwnerAndWeapon
-         // );
+            ProjectileManager.Instance.SpawnProjectile(
+                ProjectileData,
+                spawnPos,
+                dir,
+                totalatk_OwnerAndWeapon,
+                crit_c,
+                crit_m
+            );
         }
     }
 
@@ -127,8 +105,8 @@ public class RangeWeapon : BaseWeapon
     {
         if (data == null) return;
 
-        // ���� ��ġ �������� attackRange ���� ǥ��
-        Gizmos.color = new Color(1f, 0.5f, 0f, 0.5f);  // ��Ȳ ������
+        // 무기 위치 기준으로 attackRange 원형 표시
+        Gizmos.color = new Color(1f, 0.5f, 0f, 0.5f);  // 주황 반투명
         Gizmos.DrawWireSphere(transform.position, data.attackRange);
     }
 #endif
