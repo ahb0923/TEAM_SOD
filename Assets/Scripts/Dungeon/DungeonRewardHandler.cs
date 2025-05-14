@@ -34,6 +34,9 @@ public class DungeonRewardHandler : Singleton<DungeonRewardHandler>
 
         // ########## 이 위치에다가 스탯 컨트롤러의 스탯변경 로직 호출 ##########
 
+        var weapon = GameObject.FindWithTag("Player").GetComponentInChildren<RangeWeapon>();
+        weapon.rewardData = currentRewards[index];
+
         selectedRewardIndex = index;
         dungeonUI.HidePanel();
         Debug.Log($"[보상 선택됨] {currentRewards[index].title}");

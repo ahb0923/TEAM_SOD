@@ -15,7 +15,21 @@ public class RangeWeapon : BaseWeapon
 
     //public GameObject InpactEffect => ProjectileData.impactEffect;
 
-    public int MultiShotCount => data.multiShotCount ;        // 한 번에 쏘는 화살 수
+    public int MultiShotCount
+    {
+        get
+        {
+            if (rewardData == null)
+            {
+                return data.multiShotCount;
+            }
+            else
+            {
+                return data.multiShotCount + rewardData.weaponShotCount;
+            }
+
+        }
+    }
     public float MultiShotAngle => data.multiShotAngle;        // 화살 퍼짐 각도
 
     private float lastAttackTime;
@@ -34,7 +48,7 @@ public class RangeWeapon : BaseWeapon
     protected override void Start()
     {
         lastAttackTime = -Mathf.Infinity; //첫 공격이 즉시 가능하도록
-        originalScale = transform.localScale;
+        originalScale = new Vector3(1, 1, 1);
     }
    
    
