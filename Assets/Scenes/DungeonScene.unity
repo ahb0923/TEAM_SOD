@@ -3457,7 +3457,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1520208699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4712,6 +4712,7 @@ MonoBehaviour:
   - {fileID: 275358796186350052, guid: 469f92bf70325d24c95b3677a0b69cd5, type: 3}
   selectPanel: []
   currentDungeonCode: 0
+  rewardUI: {fileID: 0}
 --- !u!4 &2065281271
 Transform:
   m_ObjectHideFlags: 0
