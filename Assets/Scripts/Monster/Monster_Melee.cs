@@ -11,7 +11,6 @@ public class Monster_Melee : Monster
     public MeleeWeapon weaponPrefab;
     protected BaseWeapon weapon;
     private MONSTER_KEY key;
-    private float genTime;
     protected override void Awake()
     {
         base.Awake();
