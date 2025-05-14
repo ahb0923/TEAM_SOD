@@ -15,12 +15,12 @@ public class RangeWeapon : BaseWeapon
 
     //public GameObject InpactEffect => ProjectileData.impactEffect;
 
-    public int MultiShotCount => data.multiShotCount + data.dungeon_ShotCount;        // 한 번에 쏘는 화살 수
+    public int MultiShotCount => data.multiShotCount ;        // 한 번에 쏘는 화살 수
     public float MultiShotAngle => data.multiShotAngle;        // 화살 퍼짐 각도
 
     private float lastAttackTime;
     public StatController owner;
-    public float totalatk_OwnerAndWeapon => data.attackPower + owner.Atk + data.dungeon_AddPower;
+    public float totalatk_OwnerAndWeapon => data.attackPower + owner.Atk;
     private Vector3 originalScale;
 
     protected override void Awake()

@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1cb5c46ca8d154ba4dcbf0793c1b9a, type: 3}
   m_Name: BowData_p
   m_EditorClassIdentifier: 
-  id: BasicBow
+  dataKey: 
+  code: 0
+  prefab: {fileID: 0}
+  initSize: 10
+  id: 
   attackPower: 2
   attackSpeed: 3
   attackRange: 10
@@ -23,7 +27,3 @@ MonoBehaviour:
   projectileData: {fileID: 11400000, guid: 177831c905140684298a171c2ae2b9a7, type: 2}
   multiShotCount: 1
   multiShotAngle: 3
-  dungeon_AddPower: 0
-  dungeon_AddSpeed: 0
-  dungeon_AddRange: 0
-  dungeon_ShotCount: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 //발사체 충돌과 파괴 처리
 public class ProjectileController : MonoBehaviour
 {
@@ -104,6 +105,9 @@ public class ProjectileController : MonoBehaviour
         if (data.impactEffect != null)
             Instantiate(data.impactEffect, hitPosition, Quaternion.identity);
 
-        Destroy(gameObject);
+        // PoolSetting에 등록된 key와 동일하게
+        string key = this.data.name;
+        ProjectileManager.Instance.DespawnProjectile(key, gameObject);
     }
 }
+
