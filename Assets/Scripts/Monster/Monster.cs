@@ -23,6 +23,7 @@ public class Monster : MonoBehaviour
     [SerializeField] protected float _attackDelay; // 공격 주기
     [SerializeField] public DamageText[] dmgText;
     [SerializeField] protected SpriteRenderer sprite;
+    [SerializeField] protected ParticleSystem particle;
     protected float delay; // 공격 딜레이 계산용 변수
     protected float knockPower; // 넉백 수치
     protected bool isDamage; // 피격
@@ -40,6 +41,14 @@ public class Monster : MonoBehaviour
         }
     }
 
+    protected void OnEnable()
+    {
+        if(particle == null)
+        {
+            return;
+        }
+        particle.Play();
+    }
     protected virtual void Start() { }
     protected virtual void Update() 
     {
