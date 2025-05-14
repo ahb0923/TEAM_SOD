@@ -21,6 +21,7 @@ public class PoolManager : Singleton<PoolManager>
     {
         for (int j = 0; j < poolSetting.Length; j++)
         {
+            Debug.LogWarning($"Ǯ üũ : {poolSetting[j].name}");
             foreach (var data in poolSetting[j].datas)
             {
                 if (data.prefab == null)

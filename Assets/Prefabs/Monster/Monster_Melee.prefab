@@ -224,6 +224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
   monsterData: {fileID: 11400000, guid: e3c5aeaf8479dbf42a1975af442aa87b, type: 2}
+  testkey: Melee_Test
 --- !u!1 &2139032566576476736
 GameObject:
   m_ObjectHideFlags: 0

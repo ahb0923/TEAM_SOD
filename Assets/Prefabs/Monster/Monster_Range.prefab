@@ -477,6 +477,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
   monsterData: {fileID: 11400000, guid: 4677504801cd62546aa4ac12f547d311, type: 2}
+  testkey: Range_Test
 --- !u!1 &5048516494023487853
 GameObject:
   m_ObjectHideFlags: 0
