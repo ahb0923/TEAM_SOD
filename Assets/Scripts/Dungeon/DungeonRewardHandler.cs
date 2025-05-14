@@ -31,8 +31,14 @@ public class DungeonRewardHandler : Singleton<DungeonRewardHandler>
     {
         // Tag 값으로 구분하는지 Layer값으로 구분하는지 헷갈리네요
         var player = GameObject.FindWithTag("Player").GetComponent<StatController>();
-
+        if (player == null)
+            return;
         // ########## 이 위치에다가 스탯 컨트롤러의 스탯변경 로직 호출 ##########
+
+
+        var weapon = GameObject.FindWithTag("Player").GetComponentInChildren<RangeWeapon>();
+        weapon.RewardData = currentRewards[index];
+        weapon.SettingStat();
 
         selectedRewardIndex = index;
         dungeonUI.HidePanel();

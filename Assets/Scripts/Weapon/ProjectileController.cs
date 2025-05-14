@@ -37,8 +37,8 @@ public class ProjectileController : MonoBehaviour
         totalAtk = totalatk;
         Critical_Chance = crit_C;  
         Critical_Mutiply = crti_m;
-        Debug.Log(totalAtk);
-        Debug.Log(totalAtk + data.attackPower);
+        //Debug.Log(totalAtk);
+        //Debug.Log(totalAtk + data.attackPower);
         ApplyVisualSettings();
     }
     private void ApplyVisualSettings()
@@ -61,6 +61,7 @@ public class ProjectileController : MonoBehaviour
 
     public float GetAttackPower()
     {
+        Debug.LogWarning($"최종공격력(투사체 포함) : {totalAtk + data.attackPower}");
         //final_Attack += 무기공격력 + 부모의 공격력
         return totalAtk + data.attackPower;
     }

@@ -15,20 +15,29 @@ public class RangeWeapon : BaseWeapon
 
     //public GameObject InpactEffect => ProjectileData.impactEffect;
 
-    public int MultiShotCount => data.multiShotCount ;        // 한 번에 쏘는 화살 수
+    [SerializeField]
+    public int MultiShotCount => data.multiShotCount + p_shotCount ;        // 한 번에 쏘는 화살 수
     public float MultiShotAngle => data.multiShotAngle;        // 화살 퍼짐 각도
 
     private float lastAttackTime;
     public StatController owner;
-    public float totalatk_OwnerAndWeapon => data.attackPower + owner.Atk;
+    public float totalatk_OwnerAndWeapon => Atk + owner.Atk;
     public float crit_c => owner.Crit_Chance;
     public float crit_m => owner.Crit_Multiply;
 
     private Vector3 originalScale;
 
+
+    // 추가능려치
+    private int p_shotCount;
+
     protected override void Awake()
     {     
         owner = GetComponentInParent<StatController>();
+        p_weaponPower = 0; 
+        p_weaponSpeed = 0;
+        p_weaponRange = 0;
+        p_shotCount = 0;
     }
 
     protected override void Start()
@@ -36,8 +45,16 @@ public class RangeWeapon : BaseWeapon
         lastAttackTime = -Mathf.Infinity; //첫 공격이 즉시 가능하도록
         originalScale = new Vector3(1, 1, 1);
     }
+
    
-   
+    public override void SettingStat()
+    {
+        p_weaponPower += RewardData.weaponPower;
+        p_weaponSpeed += RewardData.weaponSpeed;
+        p_weaponRange += RewardData.weaponRange;
+        p_shotCount += RewardData.weaponShotCount;
+    }
+
     public override void Attack(Vector3 targetPosition) //위치를 파라미터로 받아와서 공격
     {
         if (!AttackCoolTime())
@@ -89,6 +106,7 @@ public class RangeWeapon : BaseWeapon
             float shotAngle = baseAngle + offset;
             Vector2 dir = Quaternion.Euler(0f, 0f, shotAngle) * Vector2.right;
 
+            Debug.LogWarning($"최종공격력(투사체 제외) : {totalatk_OwnerAndWeapon}");
             ProjectileManager.Instance.SpawnProjectile(
                 ProjectileData,
                 spawnPos,
