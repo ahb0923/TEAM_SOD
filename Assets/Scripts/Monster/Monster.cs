@@ -21,7 +21,7 @@ public class Monster : MonoBehaviour
     [SerializeField] protected float _checkRange;  // 타겟 탐색 범위
     [SerializeField] protected float _attackRange; // 공격 사거리
     [SerializeField] protected float _attackDelay; // 공격 주기
-    [SerializeField] public DamageText dmgText;
+    [SerializeField] public DamageText[] dmgText;
     [SerializeField] protected SpriteRenderer sprite;
     protected float delay; // 공격 딜레이 계산용 변수
     protected float knockPower; // 넉백 수치
@@ -45,7 +45,7 @@ public class Monster : MonoBehaviour
     {
         delay += Time.deltaTime;
         Attack();
-        MonsterRotate();
+        //MonsterRotate();
         Move();
     }
 
@@ -115,15 +115,17 @@ public class Monster : MonoBehaviour
                 DamageResult result = monsterStat.FinalDamageCalculator(atk, crit_C, crit_M);
                 monsterStat.HpReductionApply(result);
                 Debug.Log(monsterStat.Hp);
-                dmgText.SetDamage((int)result.final_Damage);
-                dmgText.gameObject.SetActive(true);
+                //dmgText.gameObject.SetActive(true);
+                //dmgText.SetDamage((int)result.final_Damage);
+                ShowDamageText(result.final_Damage);
                 proj.DestroyProjectile(proj.transform.position);
+                anim.SetTrigger("IsDamage");
                 // 최종뎀 계산
-                if (!isDamage)
+               /* if (!isDamage)
                 {
                     KnockBack(collision.transform.position);
                     StartCoroutine("DamageCheck");
-                }
+                }*/
                 if (monsterStat.Hp <= 0)// 체력 0이하 일시 Death() 함수 호출
                 {
                     Death();
@@ -140,6 +142,7 @@ public class Monster : MonoBehaviour
     }
     public virtual void Death()
     {
+        
     }
 
     public virtual void KnockBack(Vector2 collision)
@@ -154,6 +157,19 @@ public class Monster : MonoBehaviour
         if(hit != null)
         {
             target = hit.gameObject;
+        }
+    }
+
+    public virtual void ShowDamageText(float damage)
+    {
+        for(int i = 0; i < dmgText.Length; i++)
+        {
+            if (!dmgText[i].gameObject.activeSelf)
+            {
+                dmgText[i].gameObject.SetActive(true);
+                dmgText[i].SetDamage((int)damage);
+                return;
+            }
         }
     }
 
