@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1cb5c46ca8d154ba4dcbf0793c1b9a, type: 3}
   m_Name: RedBowData_p
   m_EditorClassIdentifier: 
-  dataKey: 
+  dataKey: RedBowData_p
   code: 0
-  prefab: {fileID: 0}
+  prefab: {fileID: 4282570311816112828, guid: 9c88613381f57f344b37c818af810491, type: 3}
   initSize: 10
-  id: 
+  id: RedBowData_p
   attackPower: 5
   attackSpeed: 3.5
   attackRange: 10
