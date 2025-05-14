@@ -24,9 +24,10 @@ public class Monster_Range : Monster
     // Update is called once per frame
     protected override void Update()
     {
-        //Move();
+        Move();
         //MonsterRotate();
         Attack();
+        Debug.Log("공격사거리" + weapon.AttackRange);
     }
 
     protected override void Attack()

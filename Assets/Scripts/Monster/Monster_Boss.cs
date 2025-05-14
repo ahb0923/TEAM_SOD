@@ -95,7 +95,7 @@ public class Monster_Boss : Monster
 
     protected override void Move()
     {
-        return;
+        rigid.velocity = Vector2.zero;
     }
 
     private void Pattern()
@@ -126,6 +126,7 @@ public class Monster_Boss : Monster
         Debug.Log("그로기 상태입니다.");
         attackCount = 0;
         isGroggy = true;
+        anim.SetTrigger("IsGroggy");
         yield return new WaitForSeconds(5.0f);
         isGroggy = false;
     }
