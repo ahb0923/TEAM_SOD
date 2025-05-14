@@ -9,20 +9,6 @@ using UnityEngine.UIElements;
 
 public class Monster : MonoBehaviour
 {
-    //[SerializeField] MonsterData_ho data;
-
-    // 스탯은 임시로 적용
-    protected float _hp = 10;
-    protected float _maxHp = 10;
-    protected float _atk = 10;
-    protected float _def = 10;
-    protected float _moveSpeed = 100f;
-    protected int _gold = 100;
-    protected float _crit_Chance = 0;
-    protected float _crit_Multiply = 0;
-    protected bool _is_invinsible;
-    protected float _invinsible_duration = 0;
-
     public GameObject target;
     [SerializeField] protected GameObject weaponPivot;
     [SerializeField] protected StatController monsterStat;
@@ -52,6 +38,8 @@ public class Monster : MonoBehaviour
     {
         delay += Time.deltaTime;
         Attack();
+        MonsterRotate();
+        Move();
     }
 
     protected virtual void Move()
@@ -71,12 +59,12 @@ public class Monster : MonoBehaviour
         else
         {
             Vector2 direction = (target.transform.position - transform.position).normalized;
-            rigid.velocity = direction * _moveSpeed * Time.deltaTime;
+            rigid.velocity = direction * monsterStat.MoveSpeed* Time.deltaTime;
             anim.SetBool("IsRun", true);
         }
     }
 
-    protected virtual void MonsteRotate()
+    protected virtual void MonsterRotate()
     {
         Vector2 direction = (target.transform.position - transform.position).normalized;
         if (direction.x > 0)
@@ -97,7 +85,6 @@ public class Monster : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerProjectile")) //태그 예시 플레이어 총알과 충돌했을때
         {
-            Debug.Log("맞음");
             GameObject attackSource = collision.gameObject;
             if (attackSource.TryGetComponent<ProjectileController>(out ProjectileController proj))
             {
@@ -128,7 +115,7 @@ public class Monster : MonoBehaviour
     }
     public virtual void Death()
     {
-        Destroy(gameObject);
+        PoolManager.Instance.ReturnObject("Melee_Test", this.gameObject);
     }
 
     public virtual void KnockBack(Vector2 collision)

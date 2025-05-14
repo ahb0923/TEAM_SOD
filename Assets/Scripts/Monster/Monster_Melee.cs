@@ -23,8 +23,8 @@ public class Monster_Melee : Monster
     protected override void Update()
     {
         base.Update();
-        Move();
-        MonsteRotate();
+        //Move();
+        //MonsterRotate();
     }
     protected override void Attack()
     {

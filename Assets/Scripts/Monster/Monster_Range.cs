@@ -24,8 +24,8 @@ public class Monster_Range : Monster
     // Update is called once per frame
     protected override void Update()
     {
-        Move();
-        MonsteRotate();
+        //Move();
+        //MonsterRotate();
         Attack();
     }
 
@@ -66,12 +66,12 @@ public class Monster_Range : Monster
                 transform.rotation = Quaternion.Euler(0, 180, 0);
                 //weaponPivot.transform.rotation = Quaternion.Euler(0, 0, 90);
             }
-            rigid.velocity = direction * _moveSpeed * Time.deltaTime;
+            rigid.velocity = direction * monsterStat.MoveSpeed * Time.deltaTime;
             anim.SetBool("IsRun", true);
         }
     }
 
-    protected override void MonsteRotate()
+    protected override void MonsterRotate()
     {
         Vector2 direction = (target.transform.position - transform.position).normalized;
         if (direction.x > 0)
