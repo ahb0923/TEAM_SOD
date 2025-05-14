@@ -779,71 +779,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpSlider: {fileID: 236684349}
---- !u!1001 &270890171
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2914350229429745913, guid: 31fb83892733d52408510fc019557280, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -1014284699450979951, guid: 0fe56674f5bcec9428929ac6d1755792, type: 2}
-    - target: {fileID: 3509382095691444815, guid: 31fb83892733d52408510fc019557280, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3509382095691444815, guid: 31fb83892733d52408510fc019557280, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3509382095691444815, guid: 31fb83892733d52408510fc019557280, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3509382095691444815, guid: 31fb83892733d52408510fc019557280, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3509382095691444815, guid: 31fb83892733d52408510fc019557280, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3509382095691444815, guid: 31fb83892733d52408510fc019557280, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3509382095691444815, guid: 31fb83892733d52408510fc019557280, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3509382095691444815, guid: 31fb83892733d52408510fc019557280, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3509382095691444815, guid: 31fb83892733d52408510fc019557280, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3509382095691444815, guid: 31fb83892733d52408510fc019557280, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4625916830976427236, guid: 31fb83892733d52408510fc019557280, type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4625916830976427236, guid: 31fb83892733d52408510fc019557280, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 31fb83892733d52408510fc019557280, type: 3}
 --- !u!1 &282148300
 GameObject:
   m_ObjectHideFlags: 0
@@ -2706,7 +2641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688a3d6fab25b59488bd42b57dac4eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1518234139}
+  target: {fileID: 0}
   offset: {x: 0, y: 0, z: -10}
   smoothSpeed: 0.195
 --- !u!1 &949450785
@@ -4990,11 +4925,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1504052757}
   m_CullTransparentMesh: 1
---- !u!4 &1518234139 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7826931620499171026, guid: 31fb83892733d52408510fc019557280, type: 3}
-  m_PrefabInstance: {fileID: 270890171}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1520208698
 GameObject:
   m_ObjectHideFlags: 0
@@ -7160,4 +7090,3 @@ SceneRoots:
   - {fileID: 2121813527}
   - {fileID: 2035680233}
   - {fileID: 2065281271}
-  - {fileID: 270890171}
