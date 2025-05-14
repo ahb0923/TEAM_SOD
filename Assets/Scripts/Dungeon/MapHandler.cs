@@ -133,7 +133,14 @@ public class MapHandler : MonoBehaviour
 
             yield return new WaitUntil(() => IsAllMonstersDead());
 
-            yield return new WaitUntil(() => IsRewardSelected());
+            DungeonManager.Instance.ViewReawardButton();
+
+            //yield return new WaitUntil(() => IsRewardSelected());
+
+            yield return new WaitUntil(() => DungeonManager.Instance.RewardSelected);
+            
+            // int rewardIndex = DungeonManager.Intance.GetSelectedReward();
+
 
             // 2초 대기 => 시간 변경은 실제 게임 흐름 체크해보고 변경 ㄱㄱ
             yield return new WaitForSeconds(2f);
@@ -150,6 +157,7 @@ public class MapHandler : MonoBehaviour
     private bool IsAllMonstersDead()
     {
         monsterList.RemoveAll(m => m == null);  // 제거된 오브젝트 정리
+        Debug.LogWarning(monsterList.Count);
         return monsterList.Count == 0;
     }
     private bool IsRewardSelected()
@@ -226,6 +234,15 @@ public class MapHandler : MonoBehaviour
             {
                 CreateMonster(spawnTrans, key.ToString());
             }
+        }
+    }
+
+    // 임시 몬스터 제거 메소드
+    public void RemoveMonster(GameObject monster)
+    {
+        if (monsterList.Contains(monster))
+        {
+            monsterList.Remove(monster);
         }
     }
 

@@ -60,6 +60,7 @@ public class PoolManager : Singleton<PoolManager>
 
     public void ReturnObject(string key, GameObject obj)
     {
+        obj.transform.SetParent(transform);
         obj.SetActive(false);
         pools[key].Enqueue(obj);
     }
