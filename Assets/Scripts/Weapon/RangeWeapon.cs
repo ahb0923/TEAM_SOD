@@ -49,7 +49,7 @@ public class RangeWeapon : BaseWeapon
         FaceTarget(targetPosition);
 
         //투사체 생성 요청 -> projectileManager
-        SpawnProjectiles(targetPosition);
+        //SpawnProjectiles(targetPosition);
     }
     private bool AttackCoolTime()
     {
