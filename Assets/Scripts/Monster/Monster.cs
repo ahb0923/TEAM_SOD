@@ -21,7 +21,8 @@ public class Monster : MonoBehaviour
     [SerializeField] protected float _checkRange;  // 타겟 탐색 범위
     [SerializeField] protected float _attackRange; // 공격 사거리
     [SerializeField] protected float _attackDelay; // 공격 주기
-    //[SerializeField] protected DamageText dmgText;
+    [SerializeField] protected DamageText dmgText;
+    [SerializeField] protected SpriteRenderer sprite;
     protected float delay; // 공격 딜레이 계산용 변수
     protected float knockPower; // 넉백 수치
     protected bool isDamage; // 피격
@@ -100,8 +101,8 @@ public class Monster : MonoBehaviour
                 float atk = proj.GetAttackPower(); // 최종 공격력을 리턴해주는 메서드 하나 있으면 될 듯?
                 DamageResult result = monsterStat.FinalDamageCalculator(atk);
                 monsterStat.HpReductionApply(result);
-                //dmgText.SetDamage((int)result.final_Damage);
-               // dmgText.gameObject.SetActive(true);
+                dmgText.SetDamage((int)result.final_Damage);
+                dmgText.gameObject.SetActive(true);
                 proj.DestroyProjectile(proj.transform.position);
                 // 최종뎀 계산
                 if (!isDamage)

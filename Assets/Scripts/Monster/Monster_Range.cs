@@ -59,12 +59,16 @@ public class Monster_Range : Monster
             Vector2 direction = (target.transform.position - transform.position).normalized;
             if (direction.x > 0)
             {
-                transform.rotation = Quaternion.Euler(0, 0, 0);
+                sprite.flipX = false;
+                //transform.rotation = Quaternion.Euler(0, 0, 0);
+                weaponPivot.transform.localPosition = new Vector2(0.5f, 0);
                 //weaponPivot.transform.rotation = Quaternion.Euler(0, 0, -90); 
             }
             else if (direction.x < 0)
             {
-                transform.rotation = Quaternion.Euler(0, 180, 0);
+                sprite.flipX = true;
+                //transform.rotation = Quaternion.Euler(0, 180, 0);
+                weaponPivot.transform.localPosition = new Vector2(-0.5f, 0);
                 //weaponPivot.transform.rotation = Quaternion.Euler(0, 0, 90);
             }
             rigid.velocity = direction * monsterStat.MoveSpeed * Time.deltaTime;
