@@ -90,4 +90,9 @@ public class Monster_Range : Monster
             weapon.transform.localRotation = Quaternion.Euler(0, 180, 0);
         }
     }
+
+    public override void Death()
+    {
+        PoolManager.Instance.ReturnObject(MONSTER_KEY.Range_Test.ToString(), this.gameObject);
+    }
 }
