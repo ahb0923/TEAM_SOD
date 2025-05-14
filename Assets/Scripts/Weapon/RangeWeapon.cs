@@ -11,12 +11,12 @@ public class RangeWeapon : BaseWeapon
     public ProjectileData ProjectileData => data.projectileData;
     public float ProjSpeed => ProjectileData.moveSpeed;
     public float Duration => ProjectileData.lifetime; 
-    public Color Color => data.projectileData.Color; //È­»ì »ö
+    public Color Color => data.projectileData.Color; //í™”ì‚´ ìƒ‰
 
     //public GameObject InpactEffect => ProjectileData.impactEffect;
 
-    public int MultiShotCount => data.multiShotCount + data.dungeon_ShotCount;        // ÇÑ ¹ø¿¡ ½î´Â È­»ì ¼ö
-    public float MultiShotAngle => data.multiShotAngle;        // È­»ì ÆÛÁü °¢µµ
+    public int MultiShotCount => data.multiShotCount;        // í•œ ë²ˆì— ì˜ëŠ” í™”ì‚´ ìˆ˜
+    public float MultiShotAngle => data.multiShotAngle;        // í™”ì‚´ í¼ì§ ê°ë„
 
     private float lastAttackTime;
     public StatController owner;
@@ -30,22 +30,46 @@ public class RangeWeapon : BaseWeapon
 
     protected override void Start()
     {
-        lastAttackTime = -Mathf.Infinity; //Ã¹ °ø°İÀÌ Áï½Ã °¡´ÉÇÏµµ·Ï
-        originalScale = transform.localScale;
+        base.Start();
+        //projectileManager = ProjectileManager.Instance;
+    
+        lastAttackTime = -Mathf.Infinity; //ì²« ê³µê²©ì´ ì¦‰ì‹œ ê°€ëŠ¥í•˜ë„ë¡
+        Owner = GetComponentInParent<StatController>();
+
+        totalatk_OwnerAndWeapon = Atk + Owner.Atk;
+        _originalScale = transform.localScale;
+        
     }
    
    
-    public override void Attack(Vector3 targetPosition) //À§Ä¡¸¦ ÆÄ¶ó¹ÌÅÍ·Î ¹Ş¾Æ¿Í¼­ °ø°İ
+    public override void Attack(Vector3 targetPosition) //ìœ„ì¹˜ë¥¼ íŒŒë¼ë¯¸í„°ë¡œ ë°›ì•„ì™€ì„œ ê³µê²©
     {
         if (!AttackCoolTime())
             return;
-        Debug.Log(totalatk_OwnerAndWeapon);
+        lastAttackTime = Time.time;
+
+        // í™œ íšŒì „: íƒ€ê²Ÿì„ ì •í™•íˆ ë°”ë¼ë³´ë„ë¡ transform íšŒì „
+        Vector2 toTarget = (Vector2)targetPosition - (Vector2)transform.position;
+        float baseAngle = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg;
+
+        bool shouldFlip = baseAngle > 90f || baseAngle < -90f;
+
+        float appliedAngle = shouldFlip ? baseAngle + 180f : baseAngle;
+        transform.localEulerAngles = new Vector3(0f, 0f, appliedAngle);
+
+        Vector3 scale = _originalScale;
+        scale.x = shouldFlip
+            ? -Mathf.Abs(_originalScale.x)
+            : Mathf.Abs(_originalScale.x);
+        transform.localScale = scale;
+
+
         base.Attack(targetPosition);
 
-        //Å¸°ÙÀ» ÇâÇØ¼­ È¸Àü
+        //Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ È¸ï¿½ï¿½
         FaceTarget(targetPosition);
 
-        //Åõ»çÃ¼ »ı¼º ¿äÃ» -> projectileManager
+        //ï¿½ï¿½ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã» -> projectileManager
         SpawnProjectiles(targetPosition);
     }
     private bool AttackCoolTime()
@@ -82,16 +106,19 @@ public class RangeWeapon : BaseWeapon
 
         for (int i = 0; i < MultiShotCount; i++)
         {
-            float offset = -(MultiShotCount - 1) * 0.5f * MultiShotAngle + i * MultiShotAngle;
-            float shotAngle = baseAngle + offset;
-            Vector2 dir = Quaternion.Euler(0f, 0f, shotAngle) * Vector2.right;
 
-            ProjectileManager.Instance.SpawnProjectile(
-                ProjectileData,
-                spawnPos,
-                dir,
-                totalatk_OwnerAndWeapon
-            );
+            float localAngle = startAngle + angleStep * i;
+            float zAngle = baseZ + localAngle;
+
+            // ìµœì¢… ë°œì‚¬ ë°©í–¥ ê³„ì‚°
+            Vector2 dir = Quaternion.Euler(0f, 0f, zAngle) * Vector2.right;
+
+         // ProjectileManager.Instance.SpawnProjectile(
+         //     ProjectileData,
+         //     spawnPos,
+         //     dir,
+         //     totalatk_OwnerAndWeapon
+         // );
         }
     }
 
@@ -100,8 +127,8 @@ public class RangeWeapon : BaseWeapon
     {
         if (data == null) return;
 
-        // ¹«±â À§Ä¡ ±âÁØÀ¸·Î attackRange ¿øÇü Ç¥½Ã
-        Gizmos.color = new Color(1f, 0.5f, 0f, 0.5f);  // ÁÖÈ² ¹İÅõ¸í
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ attackRange ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
+        Gizmos.color = new Color(1f, 0.5f, 0f, 0.5f);  // ï¿½ï¿½È² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         Gizmos.DrawWireSphere(transform.position, data.attackRange);
     }
 #endif

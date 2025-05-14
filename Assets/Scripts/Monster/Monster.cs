@@ -7,6 +7,11 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 
+enum MONSTER_KEY
+{
+    Melee_Test,
+    Range_Test,
+}
 public class Monster : MonoBehaviour
 {
     //[SerializeField] MonsterData_ho data;
