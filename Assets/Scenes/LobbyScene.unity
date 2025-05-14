@@ -2111,7 +2111,7 @@ GameObject:
   - component: {fileID: 738702332}
   - component: {fileID: 738702333}
   - component: {fileID: 738702334}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: dwarf_f_idle_anim_f0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6338,7 +6338,7 @@ GameObject:
   - component: {fileID: 5157402102310277282}
   - component: {fileID: 6408900300726618498}
   - component: {fileID: 611929411636014413}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Dungeon_collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9811,7 +9811,7 @@ GameObject:
   - component: {fileID: 2836286723605295298}
   - component: {fileID: 5551102139697310223}
   - component: {fileID: 8993956072787504846}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}

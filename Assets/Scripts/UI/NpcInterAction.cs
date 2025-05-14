@@ -18,7 +18,10 @@ public class NpcInterAction : BaseInterAction
 
         };
 
-       
+        model.ButtonActions["Button_Enter"] = () =>
+        {
+
+        };
 
         UIManager.Instance.ShowPanel(model);
 
