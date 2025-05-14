@@ -20,7 +20,7 @@ public class NpcInterAction : BaseInterAction
 
         model.ButtonActions["Button_BasicBow"] = () =>
         {
-            StartCoroutine(SetPlayerWeapon(model, "BasicBow_p"));
+            StartCoroutine(SetPlayerWeapon(model, "BasicBowData_p"));
         };
 
         model.ButtonActions["Button_BlueBow"] = () =>
