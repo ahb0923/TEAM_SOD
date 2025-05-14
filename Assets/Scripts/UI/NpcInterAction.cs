@@ -36,9 +36,10 @@ public class NpcInterAction : BaseInterAction
 
         };
 
-        model.ButtonActions["B"] = () =>
+        model.ButtonActions["Button_Bow"] = () =>
         {
-
+            UIManager.Instance.ClosePanel(model);
+       
         };
 
         UIManager.Instance.ShowPanel(model);
