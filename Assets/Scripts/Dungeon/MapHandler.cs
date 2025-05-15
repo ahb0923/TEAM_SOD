@@ -5,7 +5,7 @@ using System.Reflection.Emit;
 using System.Threading;
 using UnityEngine;
 
-public class MapHandler : MonoBehaviour
+public class MapHandler : Singleton<MapHandler>
 {
     private const int WaveNum = 5;
     private const int InitCount = 2;

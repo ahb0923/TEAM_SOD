@@ -7,9 +7,6 @@ using UnityEngine;
 public class DungeonManager : Singleton<DungeonManager>
 {
 
-
-    //������� ���� ����� ����
-    //�ִϸ��̼ǿ�
     [SerializeField] public bool checkClear = false;
     [SerializeField] private Animator doorAnimator;
 
@@ -33,7 +30,6 @@ public class DungeonManager : Singleton<DungeonManager>
 
     protected override void Awake()
     {
-        // 1) ���� �ε�� ������ ���� ����
         base.Awake();
         //CreateMonster();
         CreateMap();
@@ -41,9 +37,6 @@ public class DungeonManager : Singleton<DungeonManager>
         doorAnimator = doorObj.GetComponent<Animator>();
     }
 
-
-
-    // �ִϸ��̼ǿ� 
     private void Update()
     {
         if (checkClear == true)
@@ -62,11 +55,9 @@ public class DungeonManager : Singleton<DungeonManager>
             Vector3 posA = new Vector3(i * 40, 0f, 0f);
 
             GameObject map = Instantiate(MapPrefab[i], posA, Quaternion.identity);
-            Debug.LogWarning($"i�� üũ : {i}");
 
             if (this.transform.Find("DungeonMaps") != null)
             {
-                Debug.Log("��ġ");
                 map.transform.SetParent(this.transform.Find("DungeonMaps").transform);
             }
 
@@ -94,10 +85,8 @@ public class DungeonManager : Singleton<DungeonManager>
             return;
         }
 
-        // ���� �� ��Ȱ��ȭ
         mapHandlers[CurrentDungeonCode].gameObject.SetActive(false);
 
-        // ���� �� Ȱ��ȭ + ���̺� ����
         mapHandlers[nextCode].gameObject.SetActive(true);
         mapHandlers[nextCode].StartWaveFlow();
 

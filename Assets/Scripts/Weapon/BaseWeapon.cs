@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,55 +6,13 @@ using UnityEngine;
 public abstract class BaseWeapon : MonoBehaviour
 {
     public WeaponData data;  // 데이터 가져오기 : 인스펙터 창에서 연결
-    public RewardData rewardData;
+    public RewardData RewardData { get; set; }
+
     public string id => data.dataKey;
-    public float Atk { 
-        get
-        {
-            if(rewardData == null)
-            {
-                return data.attackPower;
-            }
-            else
-            {
-                Debug.Log(data.attackPower + rewardData.weaponPower);
-                return data.attackPower+rewardData.weaponPower;
-            }
-
-        }
-         
-    }
-    public float Speed
-    {
-        get
-        {
-            if (rewardData == null)
-            {
-                return data.attackSpeed;
-            }
-            else
-            {
-                return data.attackSpeed + rewardData.weaponSpeed;
-            }
-
-        }
-    }
+    public float Atk => data.attackPower + p_weaponPower;
+    public float Speed => data.attackSpeed + p_weaponSpeed;
     //public float Delay => data.attackDelay;
-    public float AttackRange
-    {
-        get
-        {
-            if (rewardData == null)
-            {
-                return data.attackSpeed;
-            }
-            else
-            {
-                return data.attackSpeed + rewardData.weaponSpeed;
-            }
-
-        }
-    }
+    public float AttackRange => data.attackRange + p_weaponRange;
 
     public float WeaponSize => data.weaponSize; //근접무기 사이즈
     public LayerMask target => data.layer; //타겟 레이어 지정
@@ -63,11 +22,15 @@ public abstract class BaseWeapon : MonoBehaviour
     private SpriteRenderer weaponRenderer; 
     public AudioClip attackSoundClip; //발사 오디오 클립
 
+    // [공통]누적 상승 스탯
+    protected float p_weaponPower;
+    protected float p_weaponSpeed;
+    protected float p_weaponRange;
 
     protected virtual void Awake() {}
     protected virtual void Start() {}
 
- 
+
     public virtual void Attack(Vector3 v)
     {
         AttackAnimation(); //공격 애니메이션
@@ -81,5 +44,11 @@ public abstract class BaseWeapon : MonoBehaviour
         animator.SetFloat("AttackSpeed", Speed);
         animator.SetTrigger("IsAttack");
     }
+
+    public virtual void SettingStat()
+    {
+
+    }
+
 }
  
