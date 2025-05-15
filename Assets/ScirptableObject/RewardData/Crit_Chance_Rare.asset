@@ -16,7 +16,7 @@ MonoBehaviour:
   grade: 0
   title: "\uD06C\uB9AC\uD655\uB960-\uB808\uC5B4"
   text: "\uD06C\uB9AC\uD655\uB960+30%"
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 6f5912c9062fe66418d23ed125648bf5, type: 3}
   hp: 0
   maxHp: 0
   atk: 0
