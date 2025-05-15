@@ -14,6 +14,11 @@ public class CameraFollow : MonoBehaviour
     [Range(0.01f, 1f)]
     public float smoothSpeed = 0.125f;
 
+    private void Awake()
+    {
+        target = GameObject.FindWithTag("Player").transform;
+    }
+
     private void LateUpdate()
     {
         if (target == null) return;

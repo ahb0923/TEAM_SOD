@@ -13732,7 +13732,7 @@ GameObject:
   - component: {fileID: 2484051091668209467}
   - component: {fileID: 2786305235185159401}
   - component: {fileID: 4137729059815775593}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Dungeon_collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26609,7 +26609,7 @@ GameObject:
   - component: {fileID: 4320458170750539224}
   - component: {fileID: 1498318687453962623}
   - component: {fileID: 8588100291359604574}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
