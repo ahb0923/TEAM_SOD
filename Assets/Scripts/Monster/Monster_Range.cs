@@ -91,6 +91,7 @@ public class Monster_Range : Monster
 
     public override void Death()
     {
+        weapon.gameObject.SetActive(false);
         float time = 0;
         time += Time.deltaTime;
         if (time > 2)
